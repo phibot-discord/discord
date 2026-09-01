@@ -1,0 +1,32 @@
+# Copy to config/local.yaml and set token.
+discord:
+  token: ""
+  clientId: ""
+  # Slash commands: "global" or a guild id for faster iteration
+  guildId: ""
+  # Gateway shards: auto (Discord's recommendation) or an integer
+  shards: auto
+  # true = one process per shard (ShardingManager). false = all shards in this process
+  shardProcesses: true
+
+# Discord user ids that can use /bot admin commands and /phi admin …
+admins:
+  - ""
+
+# Account + namespace can live here; put the API token in CLOUDFLARE_API_TOKEN.
+kv:
+  accountId: ""
+  namespaceId: ""
+  apiToken: ""
+
+paths:
+  data: "./data"
+  plugins: "./plugins"
+  # Vendored card HTML/fonts in phi-assets/; /phi admin downill clones jackets into original_ill
+  phiResources: "./phi-assets"
+
+render:
+  format: jpeg
+  quality: 90
+  width: 1200
+  scale: 1

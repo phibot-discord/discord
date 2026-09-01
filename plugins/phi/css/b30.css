@@ -1,0 +1,171 @@
+.song, .ill-box, .b19, .b19 .L, .b19 .M, .b19 .R { overflow: visible !important; }
+.song { height: 100px !important; }
+.ill-box { position: relative !important; z-index: 1 !important; }
+
+.num, .num.clip-box {
+  position: absolute !important;
+  top: var(--b30-num-top) !important;
+  left: var(--b30-num-left) !important;
+  width: var(--b30-num-width) !important;
+  height: var(--b30-num-height) !important;
+  margin: 0 !important;
+  z-index: 4 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: #ffffff !important;
+  overflow: visible !important;
+  clip-path: polygon(100% 0, var(--b30-num-clip-out) 100%, 0 100%, var(--b30-num-clip-in) 0) !important;
+  box-sizing: border-box !important;
+}
+.num p {
+  font-size: var(--b30-num-font-size) !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  color: #111 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+.ill, .ill.clip-box {
+  height: 95px !important;
+  overflow: hidden !important;
+  clip-path: polygon(100% 0, var(--b30-ill-clip-out) 100%, 0 100%, var(--b30-ill-clip-in) 0) !important;
+  z-index: 1 !important;
+}
+
+.rank-AT, .rank-IN, .rank-HD, .rank-EZ,
+.rank-AT.clip-box, .rank-IN.clip-box, .rank-HD.clip-box, .rank-EZ.clip-box {
+  height: 31px !important;
+  overflow: hidden !important;
+  z-index: 2 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  margin-left: 0 !important;
+  padding: 2px 8px 2px 12px !important;
+  box-sizing: border-box !important;
+  clip-path: polygon(100% 0, var(--b30-rank-clip-out) 100%, 0 100%, var(--b30-rank-clip-in) 0) !important;
+}
+.org, .rel {
+  height: auto !important;
+  margin: 0 !important;
+  width: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: none !important;
+}
+.org p, .rel p {
+  font-size: 10px !important;
+  line-height: 1.25 !important;
+  color: #fff !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+}
+
+.info-AT, .info-IN, .info-HD, .info-EZ {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 90px !important;
+  top: 5px !important;
+
+  width: var(--b30-info-width) !important;
+  margin-left: 0 !important;
+  padding: 0 12px 0 var(--b30-info-pad-left) !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+.info-mid {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: auto !important;
+  gap: 2px !important;
+  margin: 0 !important;
+}
+.songname {
+  margin: 0 !important;
+  padding-top: var(--b30-songname-pad-top) !important;
+  height: var(--b30-songname-height) !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: none !important;
+}
+.songname p {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  line-height: 1.15 !important;
+  max-width: 100% !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+.songinfo {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  width: 100% !important;
+  height: auto !important;
+  flex: none !important;
+}
+.chengji {
+  margin-left: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.score-line {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  gap: 4px !important;
+}
+.Rating {
+  position: relative !important;
+  top: auto !important;
+  width: var(--b30-rating-size) !important;
+  height: auto !important;
+  flex: none !important;
+}
+.Rating img {
+  width: var(--b30-rating-size) !important;
+  height: auto !important;
+  display: block !important;
+}
+.score { width: auto !important; flex: none !important; }
+.score p { margin: 0 !important; text-align: center !important; }
+.acc-box {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  gap: 8px !important;
+  height: auto !important;
+}
+.acc, .suggest {
+  width: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.acc p, .suggest p { margin: 0 !important; text-align: center !important; }
+.songinfo .line { display: none !important; }

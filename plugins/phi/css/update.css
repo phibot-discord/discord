@@ -1,0 +1,224 @@
+.title {
+  height: var(--update-title-height) !important;
+  width: var(--update-title-width) !important;
+  margin-top: var(--update-title-margin-top) !important;
+  margin-bottom: var(--update-title-margin-bottom) !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  justify-content: space-around !important;
+}
+.title .r {
+  width: var(--update-panel-width) !important;
+  height: var(--update-panel-height) !important;
+  padding: 8px 12px !important;
+  box-sizing: border-box !important;
+  justify-content: center !important;
+}
+.title .r p { font-size: 13px !important; line-height: 1.35 !important; }
+.rks_line {
+  width: var(--update-chart-width) !important;
+  height: var(--update-chart-height) !important;
+  flex: none !important;
+}
+.svg-box {
+  width: var(--update-chart-width) !important;
+  height: var(--update-chart-height) !important;
+  padding: 6px 8px !important;
+  box-sizing: border-box !important;
+}
+.value_box {
+  width: 52px !important;
+  height: 102px !important;
+  margin: 0 !important;
+  flex: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: flex-end !important;
+}
+.value_box p { font-size: 10px !important; margin: 0 !important; color: #fff !important; }
+.line-box { width: 330px !important; height: 128px !important; padding: 0 4px !important; flex: none !important; }
+.rks_line .line, .title .line { height: 100px !important; width: 100% !important; filter: none !important; transform: none !important; }
+.rks_line .line svg, .title .line svg, .svg-box svg { transform: none !important; }
+.date_box {
+  height: 20px !important;
+  overflow: visible !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+.date_box p { font-size: 8px !important; margin: 0 !important; white-space: nowrap !important; color: #fff !important; }
+.record_box {
+  width: 800px !important;
+  padding: 8px 10px 0 !important;
+  box-sizing: border-box !important;
+  align-items: flex-start !important;
+}
+.title_box {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-end !important;
+  justify-content: flex-start !important;
+  width: 780px !important;
+  overflow: visible !important;
+}
+.box_title {
+  height: 32px !important;
+  flex: 0 0 auto !important;
+  overflow: visible !important;
+  margin: 0 var(--update-tile-gap) !important;
+  filter: none !important;
+  clip-path: none !important;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+}
+.box_title-left {
+  width: auto !important;
+  min-width: 148px !important;
+  height: 22px !important;
+  padding: 0 8px !important;
+  overflow: visible !important;
+  border-radius: 4px !important;
+  clip-path: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 1 !important;
+}
+.box_title-left p { font-size: 10px !important; white-space: nowrap !important; color: #fff !important; margin: 0 !important; }
+.box_title-right {
+  position: absolute !important;
+  right: 4px !important;
+  top: 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+  height: 22px !important;
+  display: flex !important;
+  align-items: center !important;
+  z-index: 1 !important;
+}
+.box_title-right p { font-size: 10px !important; white-space: nowrap !important; color: #fff !important; margin: 0 !important; }
+.box_title-right-down {
+  height: 4px !important;
+  min-height: 4px !important;
+  border-radius: 2px !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+.song_box {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: flex-start !important;
+  flex-wrap: nowrap !important;
+  overflow: visible !important;
+  padding: 6px 0 12px !important;
+  width: 780px !important;
+}
+.abox {
+  position: relative !important;
+  width: var(--update-tile-width) !important;
+  height: var(--update-tile-height) !important;
+  flex: none !important;
+  margin: 0 var(--update-tile-gap) !important;
+  overflow: hidden !important;
+  border-radius: 5px !important;
+  filter: none !important;
+  background: rgba(0,0,0,0.45) !important;
+}
+.imgbox {
+  position: relative !important;
+  width: var(--update-tile-width) !important;
+  height: var(--update-img-height) !important;
+  overflow: hidden !important;
+}
+.imgbox img {
+  width: var(--update-tile-width) !important;
+  height: var(--update-img-height) !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+.infobox {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: var(--update-tile-width) !important;
+  height: var(--update-tile-height) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+.namebox, .namebox_ed, .namebox_un {
+  height: 20px !important;
+  width: var(--update-tile-width) !important;
+  flex: none !important;
+  align-self: flex-start !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+}
+.namebox { background: rgba(0,0,0,0.62) !important; }
+.namebox_ed { background: rgba(255,217,0,0.72) !important; }
+.namebox_un { background: rgba(255,0,0,0.72) !important; }
+.new-box { width: 18px !important; height: 18px !important; flex: none !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+.new-box img { height: 16px !important; width: auto !important; }
+.songsname {
+  position: relative !important;
+  right: auto !important;
+  width: auto !important;
+  height: 18px !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.songsname p { filter: none !important; white-space: nowrap !important; overflow: hidden !important; text-shadow: none !important; margin: 0 !important; text-align: center !important; color: #fff !important; }
+.songsinfo, .songsinfo_ed, .songsinfo_un {
+  height: 32px !important;
+  width: var(--update-tile-width) !important;
+  flex: none !important;
+  margin-top: auto !important;
+  position: relative !important;
+  align-self: flex-end !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  padding: 2px 4px !important;
+  box-sizing: border-box !important;
+}
+.songsinfo { background: rgba(0,0,0,0.78) !important; }
+.songsinfo_ed { background: rgba(255,217,0,0.78) !important; }
+.songsinfo_un { background: rgba(255,0,0,0.78) !important; }
+.record_box .rank { position: static !important; left: auto !important; bottom: auto !important; transform: none !important; flex: none !important; margin-right: 4px !important; }
+.record_box .rank p { font-size: 11px !important; color: rgba(255,255,255,0.85) !important; margin: 0 !important; line-height: 1.1 !important; }
+.record_box .score { position: static !important; left: auto !important; top: auto !important; width: auto !important; flex: none !important; }
+.record_box .score p { font-size: 11px !important; margin: 0 !important; color: #fff !important; line-height: 1.1 !important; }
+.record_box .acc { position: static !important; right: auto !important; bottom: auto !important; margin-left: auto !important; display: flex !important; flex-direction: row !important; align-items: flex-end !important; }
+.record_box .rks {
+  position: static !important;
+  right: auto !important;
+  top: auto !important;
+  left: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  width: auto !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  flex: none !important;
+  margin-left: 6px !important;
+}
+.record_box .acc_1 p { font-size: 11px !important; }
+.record_box .acc_2 p { font-size: 8px !important; }
+.record_box .rks p { font-size: 9px !important; margin: 0 !important; color: #fff !important; line-height: 1.1 !important; }
+body { padding-bottom: 8px !important; }

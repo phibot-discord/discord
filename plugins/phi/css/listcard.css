@@ -1,0 +1,9 @@
+.line { position: relative !important; }
+.song_name {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 14px !important;
+  background: rgba(0, 10, 18, 0.72) !important;
+}
+.song_name .num, .song_name .song, .song_name .dif { height: 14px !important; }

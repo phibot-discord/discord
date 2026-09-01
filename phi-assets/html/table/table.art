@@ -1,0 +1,157 @@
+{{extend defaultLayout}}
+
+{{block 'css'}}
+<link rel="stylesheet" href="{{_res_path}}html/table/table.css">
+{{/block}}
+
+{{block 'main'}}
+  <div class="row titleRow">
+    <div class="title">
+      <div class="phigrosTitle">
+        <p class="phigros-title-font">Phigros</p>
+      </div>
+      <div class="title-line">
+        <div class="titleDesc">
+          <p>Constant Table</p>
+        </div>
+        <div class="phigrosVersion clip-box">
+          <p>{{title.version}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="queryDifficulty">
+      <div class="qdBox">
+        <div class="query">
+          <p>Difficulty</p>
+        </div>
+        <div class="total">
+          <p>Total: {{title.total}}</p>
+        </div>
+        <div class="index clip-box">
+          <div class="query">
+            <p>Difficulty</p>
+          </div>
+          <p>{{title.difficulty}}</p>
+          <div class="total">
+            <p>Total: {{title.total}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{if gameuser}}
+  <div class="row playerInfoRow">
+    <div class="playerInfo">
+        <div class="blackBlock clip-box"></div>
+        <div class="avatar clip-box">
+            <img src="{{_res_path}}html/avatar/{{gameuser.avatar}}.png" alt="{{gameuser.avatar}}">
+        </div>
+        <div class="playerId">
+            <p name="pvis">{{#gameuser.PlayerId}}</p>
+        </div>
+        <div class="rks clip-box">
+            <p>{{gameuser.rks.toFixed(4)}}</p>
+        </div>
+        <div class="clgBox">
+            <div class="Challenge">
+            <img src="{{_res_path}}html/otherimg/{{gameuser.ChallengeMode}}.png" alt="Challenge">
+            <p>{{gameuser.ChallengeModeRank}}</p>
+            </div>
+        </div>
+        <div class="date">
+            <p>{{gameuser.date}}</p>
+        </div>
+        <div class="dataBox clip-box">
+            <img src="{{_res_path}}html/otherimg/data.png" alt="data">
+            <p>{{gameuser.data}}</p>
+        </div>
+        {{if spInfo}}
+        <div class="spInfoBox">
+            {{each spInfo v}}
+            <div class="spInfo colorful-background clip-box">
+                <p>{{v}}</p>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+    </div>
+  </div>
+  {{/if}}
+  <div class="tableBox">
+    {{each table dif}}
+    <div class="label">
+      <div class="labelHead">
+        <div class="heng">
+          <div class="line clip-box"></div>
+        </div>
+        <div class="shu leftSlopeAbsolute">
+          <div class="line clip-box"></div>
+        </div>
+      </div>
+      <div class="labelContentBox">
+        <div class="labelContent clip-box">
+          <p>{{dif.difficulty}}</p>
+        </div>
+        {{if gameuser}}
+        <div class="labelContent clip-box">
+          <img src="{{_imgPath}}{{dif.rating}}.png" alt="score" />
+        </div>
+        {{/if}}
+      </div>
+    </div>
+    <div class="content">
+      {{each dif.songs song}}
+      <div class="song table-{{song.rank}}">
+        <div class="ill clip-box">
+          <img src="{{song.illustration}}" alt="{{song.illustration}}" />
+          {{if gameuser}}
+          <div class="score">
+            {{if song.score == 100}}
+            <img src="{{_imgPath}}phi.png" alt="phi" />
+            {{else if song.score == 0}}
+            <img src="{{_imgPath}}NEW.png" alt="NEW" />
+            {{else}}
+            <p>{{song.score.toFixed(2)}}</p>
+            {{/if}}
+          </div>
+          {{/if}}
+        </div>
+        <div class="rank-box">
+          <div class="rank clip-box">
+            <div class="rankBlock clip-box"></div>
+            <p>{{song.rank}}</p>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{/each}}
+  </div>
+  <div class="createdbox">
+    <div class="phi-brand">
+      <p>{{_plugin}}</p>
+    </div>
+    <div class="ver">
+      <p>{{Version.ver}}</p>
+    </div>
+  </div>
+  
+{{if theme == "snow"}}
+<div class="snow-box"> </div>
+<script>
+  themeSnow();
+</script>
+{{else if theme == "topText" || theme == "foolsDay"}}
+<div class="topTextBox" id="topTextBox"></div>
+<script>
+  themeTopText();
+</script>
+{{else if theme == "star"}}
+<canvas id="stars"></canvas>
+<script>
+  themeStar();
+</script>
+{{/if}}
+
+
+{{/block}}

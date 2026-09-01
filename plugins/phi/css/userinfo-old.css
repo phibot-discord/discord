@@ -1,0 +1,12 @@
+body, .full-box { width: 2400px !important; height: 1080px !important; min-height: 1080px !important; position: relative !important; }
+.demo { display: none !important; }
+.left, .left-up, .right { transform: none !important; }
+.left { position: absolute !important; top: 62px !important; left: 298px !important; width: 394px !important; height: 957px !important; z-index: 2 !important; }
+.left-up { position: absolute !important; top: 54px !important; left: 304px !important; width: 399px !important; height: 976px !important; z-index: 3 !important; }
+.right { position: absolute !important; top: 70px !important; left: 708px !important; width: 1390px !important; height: 939px !important; z-index: 2 !important; }
+.file-content { height: 36px !important; }
+.file-content-left, .player_rks, .user_info_right { clip-path: none !important; }
+.left-top { height: 235px !important; }
+.left-mid { height: 470px !important; }
+.right_title { height: 140px !important; }
+.right_content { height: 36px !important; }

@@ -1,0 +1,37 @@
+{
+  "name": "phi-discord",
+  "version": "0.1.0",
+  "license": "GPL-3.0-only",
+  "private": true,
+  "type": "module",
+  "description": "Lightweight Discord host with a file-based plugin API and Takumi image rendering",
+  "engines": {
+    "node": ">=22.11"
+  },
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts",
+    "check": "tsx scripts/self-check.ts",
+    "typecheck": "tsc --noEmit",
+    "sync-assets": "node scripts/sync-phi-assets.mjs"
+  },
+  "dependencies": {
+    "art-template": "^4.13.4",
+    "discord.js": "^14.22.1",
+    "jszip": "^3.10.1",
+    "qrcode": "^1.5.4",
+    "sharp": "^0.34.5",
+    "takumi-js": "^2.12.0",
+    "yaml": "^2.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.18.12",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp"
+    ]
+  }
+}

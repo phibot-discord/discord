@@ -1,0 +1,10 @@
+node_modules
+dist
+data
+logs
+config/local.yaml
+*.sqlite
+.DS_Store
+resources
+phi-assets/original_ill/
+phi-assets/otherill/

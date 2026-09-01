@@ -1,0 +1,21 @@
+.bar {
+  align-items: flex-start !important;
+  display: flex !important;
+}
+.player { top: 28px !important; height: 46px !important; }
+.count { top: 100px !important; height: 52px !important; }
+.song-box {
+  margin-top: 190px !important;
+  min-height: 760px !important;
+  height: 760px !important;
+}
+
+.rank.EZ, .info .EZ { background: rgba(146, 208, 80, 0.55) !important; background-image: none !important; }
+.rank.HD, .info .HD { background: rgba(0, 176, 240, 0.55) !important; background-image: none !important; }
+.rank.IN, .info .IN { background: rgba(255, 0, 0, 0.5) !important; background-image: none !important; }
+.rank.AT, .info .AT { background: rgba(110, 110, 110, 0.6) !important; background-image: none !important; }
+.progress-bar {
+  background: rgba(0, 191, 255, 0.5) !important;
+  background-image: none !important;
+}
+.progress p { width: auto !important; white-space: nowrap !important; }

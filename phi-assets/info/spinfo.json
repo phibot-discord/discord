@@ -1,0 +1,362 @@
+{
+    "OblivionPHIN.Daily天利vsEndCat终猫ftAiSSw夜輪": {
+        "song": "Oblivion:PHIN",
+        "chapter": "SP",
+        "bpm": "185",
+        "composer": "Daily天利 vs EndCat终猫 ft. AiSS w/ 夜輪",
+        "length": "3:07",
+        "illustrator": "永続·末来∅(ƆǝʇʇolɹɐɥƆ ʌᴉoƨმᴉϝ);;",
+        "spinfo": "3.19.0 版本4月1日限定\n打开游戏后章节选择页面点击左下角“测测你的PHI人格”进入问答\n回答完毕后会闪退，重新进入点击相同位置交互后即可进入谱面",
+        "chart": {
+            "测测你的": {
+                "rgba": "247,228,63,1",
+                "level": "?",
+                "difficulty": "🖊",
+                "tap": "512",
+                "hold": "147",
+                "flick": "205",
+                "drag": "1162",
+                "combo": "2026",
+                "charter": "没想好一会再改先这么写吧"
+            }
+        }
+    },
+    "Dlyrotz -SUPER ULTIMATE AMAZING AWESOME PRO MAX EXTRA REMIX-": {
+        "song": "Dlyrotz -SUPER ULTIMATE AMAZING AWESOME PRO MAX EXTRA REMIX-",
+        "chapter": "SP",
+        "bpm": "210",
+        "composer": "lIKEY",
+        "length": "2:29",
+        "illustrator": "Who could it be? So artistic...\nCouldn't possibly be the composer himself...?",
+        "spinfo": "3.12.0 版本4月1日限定\n打开“WOW虫眼”游玩 Dlyrotz 谱面并只打中间的文字押note（不含flick）\n其余段落放置，结算结束后进入SP谱面",
+        "chart": {
+            "听采样吧": {
+                "rgba": "57,65,106,1",
+                "level": "?",
+                "difficulty": "采样",
+                "tap": "940",
+                "hold": "187",
+                "flick": "306",
+                "drag": "567",
+                "combo": "2000",
+                "charter": "XwX"
+            }
+        },
+        "isOriginal": true
+    },
+    "The Chariot ~REVIIVAL~(2024 April Fools' Day)": {
+        "song": "The Chariot ~REVIIVAL~(2024 April Fools' Day)",
+        "chapter": "SP",
+        "spinfo": "3.5.2~3.6.0 版本4月1日限定\n打开（双击）正常为“重演”的开关会变成“WOW虫眼”模式\n该模式下 The Chariot ~REVIIVAL~ 曲绘变为该曲绘"
+    },
+    "Revisit(2024 April Fools' Day)": {
+        "song": "Revisit(2024 April Fools' Day)",
+        "chapter": "SP",
+        "spinfo": "3.5.2~3.6.0 版本4月1日限定\n打开（长按）正常为“重演”的开关会变成“WOW虫眼”模式\n该模式下 Retribution 曲绘变为该曲绘"
+    },
+    "Retribution(2024 April Fools' Day)": {
+        "song": "Retribution(2024 April Fools' Day)",
+        "chapter": "SP",
+        "spinfo": "3.5.2~3.6.0 版本4月1日限定\n打开（双击）正常为“重演”的开关会变成“WOW虫眼”模式\n该模式下 Retribution 曲绘变为该曲绘"
+    },
+    "Luminescence(2024 April Fools' Day)": {
+        "song": "Luminescence(2024 April Fools' Day)",
+        "chapter": "SP",
+        "spinfo": "3.5.2~3.6.0 版本4月1日限定\n打开（双击）正常为“重演”的开关会变成“WOW虫眼”模式\n该模式下 Luminescence 曲绘变为该曲绘"
+    },
+    "Distorted Fate(2024 April Fools' Day)": {
+        "song": "Distorted Fate(2024 April Fools' Day)",
+        "chapter": "SP",
+        "spinfo": "3.5.2~3.6.0 版本4月1日限定\n打开（双击）正常为“重演”的开关会变成“WOW虫眼”模式\n该模式下 Distorted Fate 曲绘变为该曲绘"
+    },
+    "DESTRUCTION 3,2,1(2024 April Fools' Day)": {
+        "song": "DESTRUCTION 3,2,1(2024 April Fools' Day)",
+        "chapter": "SP",
+        "spinfo": "3.5.2~3.6.0 版本4月1日限定\n打开（双击）正常为“重演”的开关会变成“WOW虫眼”模式\n该模式下 DESTRUCTION 3,2,1 曲绘变为该曲绘"
+    },
+    "Crave Wave(2024 April Fools' Day)": {
+        "song": "Crave Wave(2024 April Fools' Day)",
+        "chapter": "SP",
+        "spinfo": "3.5.2~3.6.0 版本4月1日限定\n打开（双击）正常为“重演”的开关会变成“WOW虫眼”模式\n该模式下 Crave Wave 曲绘变为该曲绘"
+    },
+    "今年も「雪降り、メリクリ」目指して頑張ります！！": {
+        "song": "今年も「雪降り、メリクリ」目指して頑張ります！！",
+        "uisong": "今年も「雪降り、メリクリ」目指して頑張ります！！",
+        "chapter": "SP",
+        "bpm": "156~234",
+        "bpmList": [156, 234],
+        "composer": "AiSS vs. 华牧狸 w/ 夜轮 ft.結月ゆかり",
+        "length": "3:45",
+        "illustrator": "Vios.NoFurry.git",
+        "spinfo": "本曲目已于 v2.5.1 版本后移除\n愚人节在 雪降り、メリクリ 谱面中难度会变为 26℃\n点击难度后出现空调控制器，切换制冷模式后调整为0℃进入SP谱面\n（在制热模式下调整为40℃将强制退出谱面）",
+        "chart": {
+            "IN": {
+                "level": "?",
+                "difficulty": "|2",
+                "combo": "365",
+                "charter": "今年も「NerSANTA」「BarbarianerSLEDGE」と遊ぼう！！\\\\リンコ*198食べ放題//"
+            },
+            "lN": {
+                "rgba": "0,0,0,1",
+                "level": "?",
+                "difficulty": "0℃",
+                "tap": "1290",
+                "hold": "225",
+                "flick": "173",
+                "drag": "812",
+                "combo": "2500",
+                "charter": "今年も「NerSANTA」「BarbarianerSLEDGE」と遊ぼう！！\\\\リンコ*198食べ放題//"
+            }
+        },
+        "isOriginal": true
+    },
+    "Christmas": {
+        "song": "Christmas",
+        "chapter": "SP",
+        "bpm": "125",
+        "composer": "姜米條",
+        "length": "1:05",
+        "illustrator": "knife美工刀",
+        "spinfo": "本曲目已于 v1.2.4 版本后移除\n愚人节在 Burn 选曲界面点击烟进入",
+        "chart": {
+            "圣诞快乐": {
+                "rgba": "244,179,169,1",
+                "level": "?",
+                "difficulty": "0℃",
+                "tap": "115",
+                "hold": "5",
+                "flick": "50",
+                "drag": "7",
+                "combo": "177",
+                "charter": "Catcats"
+            }
+        },
+        "isOriginal": true
+    },
+    "Spasmodic(Haocore Mix)": {
+        "song": "Spasmodic(Haocore Mix)",
+        "chapter": "SP",
+        "bpm": "200",
+        "composer": "Daily天利",
+        "length": "2:24",
+        "illustrator": "笔记RE",
+        "spinfo": "本曲目已于 v1.6.6 版本后移除\n愚人节在 光 选曲界面点击中央光亮处进入",
+        "chart": {
+            "一库呦": {
+                "rgba": "244,110,113,1",
+                "level": "?",
+                "difficulty": "❤",
+                "tap": "952",
+                "hold": "237",
+                "flick": "309",
+                "drag": "1002",
+                "combo": "2500",
+                "charter": "Phigros Spasming Team “無極病院”"
+            }
+        }
+    },
+    "Burn(Haocore Mix)": {
+        "song": "Burn(Haocore Mix)",
+        "chapter": "SP",
+        "bpm": "200",
+        "composer": "Daily天利",
+        "length": "2:24",
+        "illustrator": "knife美工刀",
+        "spinfo": "本曲目已于 v1.4.1 版本后移除\n愚人节在 Burn 选曲界面点击禁烟标志进入",
+        "chart": {
+            "禁烟先锋": {
+                "rgba": "155,38,30,1",
+                "level": "?",
+                "difficulty": "🚫",
+                "tap": "944",
+                "hold": "233",
+                "flick": "0",
+                "drag": "338",
+                "combo": "1515",
+                "charter": "Catcats"
+            }
+        }
+    },
+    "Winter♂cube": {
+        "song": "Winter♂cube",
+        "chapter": "SP",
+        "bpm": "208",
+        "composer": "Ctymax feat. NceS",
+        "length": "2:40",
+        "illustrator": "翠冷兮",
+        "spinfo": "本谱面已于 v1.3.0 版本后移除\n在 Winter ↑cube↓ 选曲界面点击左上角的星星进入",
+        "chart": {
+            "♂": {
+                "rgba": "203,199,214,1",
+                "level": "?",
+                "difficulty": "♂",
+                "tap": "471",
+                "hold": "48",
+                "flick": "63",
+                "drag": "342",
+                "combo": "924",
+                "charter": "小鹏"
+            }
+        }
+    },
+    "Sigma (Haocore Mix) ~ 105秒の伝説 ~": {
+        "song": "Sigma (Haocore Mix) ~ 105秒の伝説 ~",
+        "chapter": "SP",
+        "bpm": "200",
+        "composer": "Daily天利",
+        "length": "1:45",
+        "illustrator": "~天利利利利利利~",
+        "spinfo": "本曲目已于 v2.1.4 版本后移除\n愚人节在 SIGMA 选曲界面长按难度进入\n可通过本曲目解锁 Sigma (Haocore Mix) ~ Regrets of The Yellow Tulip ~",
+        "chart": {
+            "嘿！": {
+                "rgba": "3,166,55,1",
+                "level": "?",
+                "difficulty": "嘿！",
+                "tap": "419",
+                "hold": "103",
+                "flick": "223",
+                "drag": "407",
+                "combo": "1152",
+                "charter": "Barbari...太长了后面不写了"
+            }
+        }
+    },
+    "Sigma (Haocore Mix) ~ Regrets of The Yellow Tulip ~": {
+        "song": "Sigma (Haocore Mix) ~ Regrets of The Yellow Tulip ~",
+        "chapter": "SP",
+        "bpm": "200",
+        "composer": "Daily天利",
+        "length": "2:37",
+        "illustrator": "Viosgit",
+        "spinfo": "本曲目已于 v2.1.4 版本后移除\n愚人节在 Sigma(Haocore Mix)～105秒の伝説～ 曲目中达到[600000-699999]分后解锁\n游玩后可通过连续点击难度快速进入",
+        "chart": {
+            "踏平星空": {
+                "rgba": "216,195,156,1",
+                "level": "?",
+                "difficulty": "exe",
+                "tap": "890",
+                "hold": "415",
+                "flick": "518",
+                "drag": "2177",
+                "combo": "4000",
+                "charter": "Σ as Nαrcατυs"
+            }
+        }
+    },
+    "Anomaly": {
+        "song": "Anomaly",
+        "illustration": "https://static.wikia.nocookie.net/phigros/images/a/a3/Anomaly_jacket.png/revision/latest/scale-to-width-down/1000?cb=20210305094754",
+        "illustration_big": "https://static.wikia.nocookie.net/phigros/images/a/a3/Anomaly_jacket.png/revision/latest/scale-to-width-down/1000?cb=20210305094754",
+        "chapter": "Chapter EX-姜米條 精选集",
+        "bpm": "200",
+        "composer": "姜米條 & RocketLant",
+        "length": "2:27",
+        "illustrator": "姜米條",
+        "spinfo": "本曲目已于 v1.6.4 版本后移除",
+        "chart": {
+            "EZ": {
+                "level": "7",
+                "difficulty": "7.5",
+                "tap": "126",
+                "hold": "0",
+                "flick": "29",
+                "drag": "718",
+                "combo": "873",
+                "charter": "NerSAN"
+            },
+            "HD": {
+                "level": "7",
+                "difficulty": "7.9",
+                "tap": "50",
+                "hold": "198",
+                "flick": "9",
+                "drag": "12",
+                "combo": "269",
+                "charter": "NerSAN"
+            },
+            "IN": {
+                "level": "14",
+                "difficulty": "14.6",
+                "tap": "247",
+                "hold": "74",
+                "flick": "74",
+                "drag": "817",
+                "combo": "1212",
+                "charter": "NerSAN"
+            }
+        }
+    },
+    "Destination": {
+        "song": "Destination",
+        "chapter": "Chapter EX-姜米條 精选集",
+        "bpm": "200",
+        "composer": "姜米條 & RocketLant",
+        "length": "2:49",
+        "illustrator": "Rallxkurara",
+        "spinfo": "本曲目已于 v1.6.4 版本后移除",
+        "chart": {
+            "EZ": {
+                "level": "3",
+                "difficulty": "3.6",
+                "tap": "140",
+                "hold": "1",
+                "flick": "27",
+                "drag": "85",
+                "combo": "253",
+                "charter": "阿爽"
+            },
+            "HD": {
+                "level": "9",
+                "difficulty": "9.4",
+                "tap": "312",
+                "hold": "3",
+                "flick": "16",
+                "drag": "160",
+                "combo": "491",
+                "charter": "阿爽"
+            },
+            "IN": {
+                "level": "13",
+                "difficulty": "13.6",
+                "tap": "396",
+                "hold": "17",
+                "flick": "39",
+                "drag": "93",
+                "combo": "545",
+                "charter": "阿爽 vs JKy"
+            },
+            "AT": {
+                "level": "15",
+                "difficulty": "15.4",
+                "tap": "704",
+                "hold": "58",
+                "flick": "39",
+                "drag": "164",
+                "combo": "965",
+                "charter": "Journey's End"
+            }
+        }
+    },
+    "Introduction" : {
+        "song": "Introduction",
+        "chapter": "SP",
+        "spinfo": "新手教程",
+        "bpm": "138",
+        "composer": "姜米條&ElousΛ.-FZ",
+        "length": "2:30",
+        "illustrator": "L-sp4",
+        "chart": {
+            "EZ": {
+                "level": "1",
+                "difficulty": "1",
+                "tap": "9",
+                "hold": "14",
+                "flick": "10",
+                "drag": "60",
+                "combo": "93",
+                "charter": "Catcats"
+            }
+        },
+        "isOriginal": true
+    }
+}

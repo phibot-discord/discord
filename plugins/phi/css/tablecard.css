@@ -1,0 +1,16 @@
+.titleRow {
+  height: 210px !important;
+  min-height: 210px !important;
+  flex: none !important;
+  background: rgba(0, 181, 255, 0.3) !important;
+  background-image: none !important;
+}
+.title { height: 105px !important; width: 52% !important; }
+.title-line { height: auto !important; align-items: center !important; }
+.titleDesc { height: auto !important; flex: none !important; overflow: visible !important; }
+.titleDesc p { white-space: nowrap !important; font-size: 38px !important; }
+.phigrosVersion { width: 96px !important; padding: 0 8px !important; flex: none !important; clip-path: none !important; }
+.phigrosVersion p { white-space: nowrap !important; }
+.queryDifficulty .index { height: 150px !important; width: 280px !important; }
+.queryDifficulty .index .total p { white-space: nowrap !important; }
+.row { position: relative !important; }

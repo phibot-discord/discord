@@ -1,0 +1,23 @@
+.panel {
+  background-color: rgba(8, 28, 46, 0.88) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+.title-box {
+  background-color: rgba(102, 212, 255, 0.16) !important;
+  background-image: none !important;
+}
+.option-card {
+  background-color: rgba(10, 32, 50, 0.8) !important;
+  background-image: none !important;
+}
+.option-card.selected {
+  background-color: rgba(24, 72, 105, 0.9) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+.setting-title { color: #ffffff !important; }
+.setting-current { color: #9be6ff !important; }
+.setting-desc { color: #c6def1 !important; }
+.setting-theme .option-row { flex-wrap: nowrap !important; }
+.setting-theme .option-card { flex: 1 1 0 !important; }

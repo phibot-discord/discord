@@ -1,0 +1,276 @@
+.createdbox, .phi-brand, .ver { display: none !important; }
+
+.tips {
+  position: relative !important;
+  z-index: 3 !important;
+  align-self: stretch !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin: var(--footer-margin-top) 0 var(--footer-margin-bottom) !important;
+  padding: 0 16px !important;
+  overflow: visible !important;
+  text-align: left !important;
+}
+.tips p {
+  font-size: var(--footer-font-size) !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+  font-family: Aldrich, PHI, sans-serif !important;
+  color: #f4f4f4 !important;
+}
+
+.tips-abs {
+  position: absolute !important;
+  left: 16px !important;
+  right: 16px !important;
+  bottom: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  align-self: auto !important;
+}
+
+body {
+  background-image: none !important;
+  background-color: #071018 !important;
+  position: relative !important;
+  padding-bottom: 40px !important;
+  box-sizing: border-box !important;
+}
+.clip-box, .clip-box-left, .clip-box-right { clip-path: none !important; overflow: hidden !important; }
+.dataBox.clip-box { overflow: visible !important; }
+.background {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  z-index: 0 !important;
+}
+.background img.star-base {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  transform: none !important;
+}
+.background img.star-overlay {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  top: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  object-fit: contain !important;
+  object-position: bottom center !important;
+  transform: none !important;
+}
+.title, .b19, .over_flow, .b30-analysis-row { position: relative !important; z-index: 2 !important; }
+.blackBlock { height: 73px !important; overflow: hidden !important; }
+.num { height: 18px !important; overflow: visible !important; }
+.ill { height: 95px !important; overflow: hidden !important; }
+.rank-AT, .rank-IN, .rank-HD, .rank-EZ { height: 31px !important; overflow: hidden !important; }
+.dataBox, .spInfoBox {
+  height: 20px !important;
+  overflow: visible !important;
+  white-space: nowrap !important;
+}
+.dataBox {
+  bottom: var(--b30-databox-bottom) !important;
+  left: var(--b30-databox-left) !important;
+  padding-right: 10px !important;
+  padding-left: 8px !important;
+}
+.recordInfo {
+  height: 112px !important;
+  clip-path: none !important;
+  overflow: hidden !important;
+  width: 28% !important;
+  background-color: rgba(0, 0, 0, 0.62) !important;
+  padding: 8px 8px 8px 10px !important;
+  box-sizing: border-box !important;
+}
+.whiteLine { display: none !important; }
+.stats-table {
+  display: flex !important;
+  flex-direction: column !important;
+  width: var(--b30-stats-table-width) !important;
+  height: var(--b30-stats-table-height) !important;
+  justify-content: space-evenly !important;
+}
+.stats-row {
+  display: flex !important;
+  flex-direction: row !important;
+  width: var(--b30-stats-table-width) !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 24px !important;
+}
+.stats-lab, .stats-val {
+  color: #fff !important;
+  text-align: center !important;
+  font-size: 15px !important;
+  line-height: 1.2 !important;
+  flex: none !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.stats-lab {
+  width: var(--b30-stats-lab-width) !important;
+  flex: 0 0 var(--b30-stats-lab-width) !important;
+  color: rgba(255,255,255,0.9) !important;
+}
+.stats-val {
+  width: var(--b30-stats-val-width) !important;
+  flex: 0 0 var(--b30-stats-val-width) !important;
+}
+.sheet {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: 96px !important;
+  justify-content: space-evenly !important;
+}
+.sheet .row {
+  display: flex !important;
+  flex-direction: row !important;
+  position: static !important;
+  left: 0 !important;
+  height: auto !important;
+  width: 100% !important;
+  align-items: center !important;
+}
+.sheet .poz {
+  position: static !important;
+  width: 58px !important;
+  height: auto !important;
+  left: auto !important;
+  flex: none !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.sheet .poz.stats-lab { width: 36px !important; }
+.flow_line_box_l, .flow_line_box_r {
+  display: flex !important;
+  width: 38% !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.flow_line {
+  background-color: #ffffff !important;
+  height: 15px !important;
+  flex: none !important;
+  clip-path: polygon(100% 0%, 88% 100%, 0% 100%, 12% 0%) !important;
+}
+.info-AT, .info-IN, .info-HD, .info-EZ {
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+.info-AT { background-color: rgba(90, 0, 0, 0.82) !important; }
+.info-IN, .info-HD, .info-EZ { background-color: rgba(0, 50, 80, 0.82) !important; }
+.analysis-panel, .histogram-panel {
+  height: 310px !important;
+  clip-path: none !important;
+  overflow: visible !important;
+  background: rgba(0, 0, 0, 0.72) !important;
+  padding: 15px 28px 22px !important;
+}
+.histogram-wide .histogram-panel { width: 100% !important; }
+.analysis-panel-head {
+  width: 100% !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+}
+.histogram-summary {
+  text-align: right !important;
+  flex: none !important;
+  min-width: 160px !important;
+}
+.histogram-chart {
+  height: 178px !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  position: relative !important;
+}
+.histogram-plot {
+  height: 160px !important;
+  position: relative !important;
+  flex: 1 !important;
+}
+.histogram-scale {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 24px !important;
+  left: 0 !important;
+}
+.histogram-bars {
+  position: absolute !important;
+  top: 0 !important;
+  right: 3px !important;
+  bottom: 0 !important;
+  left: 29px !important;
+  display: flex !important;
+  align-items: stretch !important;
+}
+.histogram-bar-area {
+  height: 136px !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+}
+.histogram-bar { width: 72% !important; min-height: 3px !important; }
+.histogram-slot-label {
+  font-size: 10px !important;
+  writing-mode: horizontal-tb !important;
+  transform: none !important;
+  height: 22px !important;
+  text-align: center !important;
+}
+.histogram-grid-line p, .average-marker p, .histogram-legend p { font-size: 11px !important; }
+.svg-box .line, .line-box .line, .rks_line .line { filter: none !important; transform: none !important; }
+.svg-box svg, .line svg, .rks_line svg {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+.chart-container, .chart-container svg {
+  width: 800px !important;
+  height: 250px !important;
+  overflow: visible !important;
+}
+.main-box { filter: none !important; }
+.descTip, .main-box, .s-song { position: relative !important; z-index: 2 !important; }
+.s-song .ill { height: 90px !important; }
+.levelKind { height: 20px !important; }
+.changeTag {
+  position: absolute !important;
+  height: 25px !important;
+  width: 43px !important;
+}
+.changeTagLine { height: 25px !important; width: 11px !important; }
+.upLine, .downLine, .underLine, .circInner { width: 5px !important; }
+.upLine { height: 30px !important; }
+.midCirc, .circInner { height: 5px !important; }
+.title, .record_box, .rks_line, .box_title { position: relative !important; z-index: 2 !important; }
+.words, .words svg { overflow: visible !important; }
+.bar-box { height: 180px !important; align-items: flex-end !important; }
+.bar { height: 180px !important; justify-content: flex-end !important; }
+.left, .right, .left-up { transform: none !important; }
+canvas, .snow-box, .topTextBox { display: none !important; }

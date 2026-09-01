@@ -1,0 +1,162 @@
+body {
+	display: flex !important;
+	flex-direction: row !important;
+	flex-wrap: nowrap !important;
+	justify-content: flex-start !important;
+	align-items: flex-start !important;
+	padding: 40px 28px 56px !important;
+	box-sizing: border-box !important;
+	gap: 24px !important;
+	min-height: 1200px !important;
+	position: relative !important;
+}
+.background {
+	position: absolute !important;
+	inset: 0 !important;
+	z-index: 0 !important;
+	overflow: hidden !important;
+	pointer-events: none !important;
+}
+.background img {
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: cover !important;
+	transform: none !important;
+}
+.left,
+.right {
+	position: relative !important;
+	left: auto !important;
+	right: auto !important;
+	top: auto !important;
+	height: auto !important;
+	min-height: 1100px !important;
+	z-index: 2 !important;
+	overflow: visible !important;
+}
+.left {
+	width: 680px !important;
+	flex: none !important;
+}
+.right {
+	width: 1120px !important;
+	flex: 1 1 auto !important;
+	max-width: 1140px !important;
+}
+.Player_Info-after {
+	display: none !important;
+}
+.Player_profile_box {
+	height: 260px !important;
+}
+.Player_data_box {
+	max-height: none !important;
+	height: auto !important;
+}
+.Player_data_title,
+.Player_data_value {
+	height: auto !important;
+}
+.Player_data_line {
+	height: 116px !important;
+}
+.Player_data_line-left,
+.Player_data_line-right,
+.Player_Id-left,
+.file-content-left {
+	clip-path: none !important;
+}
+.Player_Id-left {
+	position: relative !important;
+	top: auto !important;
+	height: 36px !important;
+}
+.file-content {
+	height: 35px !important;
+	width: 100% !important;
+}
+.svg-box {
+	height: 192px !important;
+	width: 92% !important;
+}
+.line {
+	height: 140px !important;
+}
+.line svg {
+	transform: none !important;
+}
+.one-stats-box {
+	height: 200px !important;
+	overflow: hidden !important;
+}
+.rank {
+	height: 90px !important;
+	transform: none !important;
+}
+.stats-score {
+	height: 90px !important;
+	justify-content: space-around !important;
+}
+.stats-rating-group {
+	position: relative !important;
+	left: auto !important;
+	top: auto !important;
+	width: auto !important;
+	flex: 1 1 auto !important;
+}
+.stats-up {
+	gap: 10px !important;
+}
+.stats-group {
+	gap: 2px !important;
+}
+.stats-group-real p {
+	white-space: nowrap !important;
+}
+.stats-group-tot p {
+	white-space: nowrap !important;
+}
+.rating-value p,
+.rating-tatle p {
+	white-space: nowrap !important;
+}
+.data_title {
+	overflow: hidden !important;
+}
+.data_title > p {
+	font-size: 14px !important;
+	white-space: nowrap !important;
+	overflow: hidden !important;
+}
+.date_box {
+	position: relative !important;
+	height: 22px !important;
+	overflow: visible !important;
+}
+.date_box p {
+	white-space: nowrap !important;
+}
+.song_Id {
+	height: 40px !important;
+}
+
+.data_score p {
+	white-space: nowrap !important;
+}
+.data_mid {
+	gap: 10px !important;
+}
+.no_info p {
+	font-size: 60px !important;
+}
+.scoreHistory {
+	max-height: none !important;
+	overflow: visible !important;
+}
+.oneHistory {
+	margin-top: 30px !important;
+}
+.HistoryDate p {
+	font-size: 14px !important;
+	white-space: nowrap !important;
+}

@@ -1,0 +1,26 @@
+.progress_bar-out {
+  flex-direction: column !important;
+  width: 60% !important;
+  height: auto !important;
+  gap: 4px !important;
+  padding: 4px 0 4px 1% !important;
+  justify-content: center !important;
+}
+.progress_bar-in-phi, .progress_bar-in-fc {
+  height: 14px !important;
+  min-height: 14px !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.progress_bar-in-phi p, .progress_bar-in-fc p {
+  white-space: nowrap !important;
+  font-size: 15px !important;
+  position: relative !important;
+  left: 100% !important;
+  margin: 0 0 0 10px !important;
+  width: auto !important;
+  text-align: left !important;
+  color: #fff !important;
+}
