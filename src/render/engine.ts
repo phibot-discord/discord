@@ -5,6 +5,7 @@ import { Renderer } from "takumi-js/node"
 import { logger } from "../logger.ts"
 import type { FontEntry, RenderedImage, RenderFormat, TemplateDefinition } from "../sdk/index.ts"
 import { collectRootVars, collectStylesheets, resolveCssVars, stripScripts, stripUnsupportedCss } from "./css.ts"
+import { PHI_FONT_FAMILIES } from "./fonts.ts"
 import { type ImageAsset, rewriteLocalUrls } from "./html.ts"
 
 setGlyphCacheMaxBytes(64 * 1024 * 1024)
@@ -135,12 +136,13 @@ export class RenderEngine {
         height: 16_000,
         stylesheets,
         images,
+        fontFamilies: [...PHI_FONT_FAMILIES],
+        lang: "zh-CN",
       })
       const boxH = measured.height || 0
       const extent = Math.max(1, Math.ceil(contentExtent(measured)))
-      if (boxH < 64) height = extent
-      else if (boxH >= 400 && extent > boxH * 2.5) height = Math.max(1, Math.ceil(boxH))
-      else height = extent
+      const raw = Math.max(boxH, extent)
+      height = Math.min(16_000, Math.max(1, Math.ceil(raw) + 24))
       logger.info(`measured box ${measured.width}x${measured.height} content ${extent} using ${height}`)
     }
 
@@ -155,6 +157,8 @@ export class RenderEngine {
         fonts,
         images,
         emoji: "noto",
+        fontFamilies: [...PHI_FONT_FAMILIES],
+        lang: "zh-CN",
       } as Parameters<typeof render>[1]),
     )
 

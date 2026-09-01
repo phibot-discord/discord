@@ -1,14 +1,27 @@
 body {
 	display: flex !important;
-	flex-direction: row !important;
+	flex-direction: column !important;
 	flex-wrap: nowrap !important;
 	justify-content: flex-start !important;
-	align-items: flex-start !important;
+	align-items: stretch !important;
 	padding: 40px 28px 56px !important;
 	box-sizing: border-box !important;
 	gap: 24px !important;
 	min-height: 1200px !important;
+	height: auto !important;
+	overflow: visible !important;
 	position: relative !important;
+}
+.info-row {
+	display: flex !important;
+	flex-direction: row !important;
+	flex-wrap: nowrap !important;
+	align-items: flex-start !important;
+	justify-content: flex-start !important;
+	gap: 24px !important;
+	width: 100% !important;
+	position: relative !important;
+	z-index: 2 !important;
 }
 .background {
 	position: absolute !important;
@@ -40,8 +53,16 @@ body {
 }
 .right {
 	width: 1120px !important;
-	flex: 1 1 auto !important;
+	flex: none !important;
 	max-width: 1140px !important;
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: center !important;
+}
+.tips {
+	flex: none !important;
+	width: 100% !important;
+	max-width: 100% !important;
 }
 .Player_Info-after {
 	display: none !important;
@@ -53,18 +74,66 @@ body {
 	max-height: none !important;
 	height: auto !important;
 }
-.Player_data_title,
-.Player_data_value {
-	height: auto !important;
-}
 .Player_data_line {
 	height: 116px !important;
+	overflow: hidden !important;
+	background: none !important;
+	background-image: none !important;
+	align-items: stretch !important;
 }
 .Player_data_line-left,
-.Player_data_line-right,
+.Player_data_line-right {
+	height: 116px !important;
+	box-sizing: border-box !important;
+	background-color: rgba(135, 207, 235, 0.5) !important;
+	overflow: hidden !important;
+}
+.Player_data_line-left {
+	clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 0% 100%) !important;
+	padding-left: 8% !important;
+	padding-right: 14% !important;
+}
+.Player_data_line-right {
+	clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%) !important;
+	padding-left: 14% !important;
+	padding-right: 6% !important;
+}
+.Player_data_title,
+.Player_data_value,
+#Player_data_left,
+#Player_data_right {
+	filter: none !important;
+}
+.Player_data_title {
+	height: 32px !important;
+	flex: none !important;
+	margin-top: 8px !important;
+}
+.Player_data_title p {
+	font-size: 24px !important;
+	line-height: 1 !important;
+	margin: 0 !important;
+}
+.Player_data_value {
+	height: 64px !important;
+	flex: none !important;
+	margin-top: 4px !important;
+	overflow: hidden !important;
+}
+.Player_data_value p {
+	font-size: 48px !important;
+	line-height: 1 !important;
+	margin: 0 !important;
+	white-space: nowrap !important;
+}
 .Player_Id-left,
 .file-content-left {
 	clip-path: none !important;
+}
+.Player_Id p,
+.Player_Id-right p,
+.Player_Id-right {
+	font-family: NotoSansSC, PHI, Aldrich, sans-serif !important;
 }
 .Player_Id-left {
 	position: relative !important;

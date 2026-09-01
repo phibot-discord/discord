@@ -125,13 +125,27 @@ export const fCompute = {
   },
   formatDate(date?: Date | string | number, formater = "YYYY/MM/DD hh:mm:ss") {
     const d = date ? new Date(date) : new Date()
+    const parts = Object.fromEntries(
+      new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Asia/Shanghai",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hourCycle: "h23",
+      })
+        .formatToParts(d)
+        .map(p => [p.type, p.value]),
+    )
     return formater
-      .replace("YYYY", `${d.getFullYear()}`)
-      .replace("MM", (d.getMonth() + 1).toString().padStart(2, "0"))
-      .replace("DD", d.getDate().toString().padStart(2, "0"))
-      .replace("hh", d.getHours().toString().padStart(2, "0"))
-      .replace("mm", d.getMinutes().toString().padStart(2, "0"))
-      .replace("ss", d.getSeconds().toString().padStart(2, "0"))
+      .replace("YYYY", parts.year ?? "")
+      .replace("MM", parts.month ?? "")
+      .replace("DD", parts.day ?? "")
+      .replace("hh", parts.hour ?? "")
+      .replace("mm", parts.minute ?? "")
+      .replace("ss", parts.second ?? "")
   },
   rgbaToGradient(rgba?: string) {
     if (!rgba) return undefined

@@ -52,8 +52,8 @@ export async function blurCardBackgrounds(html: string): Promise<string> {
   return out + html.slice(last)
 }
 
-/** Mean 0.4 treated a navy glow as “light” and painted black on dark cards. */
-const LIGHT_LUMA = 0.62
+/** Blurred ills are darkened ~0.62; 0.48 still treats navy as dark. */
+const LIGHT_LUMA = 0.48
 
 function ink(lightBg: boolean) {
   return lightBg

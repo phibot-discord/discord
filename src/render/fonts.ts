@@ -15,7 +15,23 @@ const PHI_FONT_FILES: Record<string, string> = {
   "NotoSansKannada.woff2": "NotoSansKannada",
   "NotoSansCanadianAboriginal.woff2": "NotoSansCanadianAboriginal",
   "NotoSansMath-Regular.woff2": "NotoSansMath-Regular",
+  "noto-sans-sc-400.woff2": "NotoSansSC",
 }
+
+export const PHI_FONT_FAMILIES = [
+  "NotoSansSC",
+  "PHI",
+  "Aldrich",
+  "NotoSansJP",
+  "NOTO",
+  "NotoSansArabic",
+  "NotoSansSymbols2",
+  "NotoSansKannada",
+  "NotoSansCanadianAboriginal",
+  "HIMALAYA",
+  "吞弥恰俊",
+  "NotoSansMath-Regular",
+] as const
 
 export async function loadFontsFromDir(
   dir: string,

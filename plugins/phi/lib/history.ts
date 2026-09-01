@@ -3,6 +3,7 @@ import { join } from "node:path"
 import type { Kv } from "../../../src/sdk/index.ts"
 import { cardCopy, fill, resolvePhiLocale } from "./card-i18n.ts"
 import { kvKey } from "./const.ts"
+import { fCompute } from "./fcompute.ts"
 import type { Catalog } from "./catalog.ts"
 import type { LineSeg } from "./charts.ts"
 import type { UserNotes } from "./notes.ts"
@@ -111,9 +112,7 @@ function rangePct(value: number, span: number[]) {
 }
 
 function fmtLineDate(t: number) {
-  const d = new Date(t)
-  const p = (n: number) => String(n).padStart(2, "0")
-  return `${d.getFullYear()}/${p(d.getMonth() + 1)}/${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`
+  return fCompute.formatDate(t)
 }
 
 /** Port of phi-plugin `saveHistory.getRksLine` (order preserved, same collapse rule). */

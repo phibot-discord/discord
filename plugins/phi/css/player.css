@@ -1,7 +1,22 @@
 .title {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
   margin-top: var(--b30-title-margin-top) !important;
   margin-bottom: var(--b30-title-margin-bottom) !important;
   height: var(--b30-title-height) !important;
+}
+.playerInfo {
+  position: absolute !important;
+  left: 7% !important;
+  width: 50% !important;
+  height: 5rem !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
 }
 .avatar {
   height: var(--b30-avatar-height) !important;
@@ -32,7 +47,6 @@
   box-sizing: border-box !important;
 }
 .playerInfo .clgBox { left: var(--b30-clg-left) !important; z-index: 3 !important; }
-.playerInfo .date p { color: #f4f4f4 !important; }
 
 .playerInfo .blackBlock,
 .playerInfo .blackBlock.clip-box {
@@ -52,6 +66,10 @@
   width: 100% !important;
 }
 .playerInfo .playerId {
+  position: absolute !important;
+  height: 80% !important;
+  width: 51% !important;
+  right: 6% !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -59,6 +77,8 @@
 .playerInfo .playerId p {
   text-align: center !important;
   margin: 0 !important;
+  font-size: 2rem !important;
+  font-family: NotoSansSC, PHI, Aldrich, sans-serif !important;
 }
 .playerInfo .dataBox,
 .playerInfo .dataBox.clip-box {
