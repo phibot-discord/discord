@@ -35,6 +35,16 @@ export function rewriteLocalUrls(
   const images: ImageAsset[] = []
   const seen = new Set<string>()
   const html2 = html.replace(SRC_RE, (m, spec: string) => {
+    if (/^data:image\/[a-z0-9.+-]+;base64,/i.test(spec)) {
+      if (!seen.has(spec)) {
+        seen.add(spec)
+        images.push({
+          src: spec,
+          data: Buffer.from(spec.slice(spec.indexOf(",") + 1), "base64"),
+        })
+      }
+      return m
+    }
     if (/^(data:|https?:|cid:|#)/i.test(spec)) return m
     let file = spec.startsWith("file://") ? decodeURIComponent(spec.replace(/^file:\/\//, "")) : spec
     if (!isAbsolute(file)) file = resolve(baseDir, file)

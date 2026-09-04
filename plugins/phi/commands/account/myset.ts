@@ -5,10 +5,10 @@ import { getNotes, setNotes, setUserLocale } from "../../lib/notes.ts"
 import { userSettingCard } from "../../lib/user-setting.ts"
 import { isBanned, replyCard, themeOf } from "../../lib/util.ts"
 
-const FIELDS = ["lang", "theme", "avgkind", "avgcolor", "api", "analysis"] as const
+const FIELDS = ["lang", "theme", "avgkind", "avgcolor", "api", "analysis", "tags"] as const
 
 export default defineCommand({
-  description: "Personal render settings (language, theme, b30 avg, API)",
+  description: "Personal render settings (language, theme, b30 avg, API, tags)",
   options: [
     { name: "field", description: "Setting name (omit to view)", type: "string", choices: FIELDS.map(f => ({ name: f, value: f })) },
     { name: "value", description: "Value or index", type: "string" },
@@ -59,6 +59,8 @@ export default defineCommand({
       notes.allowApiUsage = value === "1" || value === "true" || value === "on"
     } else if (field === "analysis") {
       notes.showB30Analysis = value === "1" || value === "true" || value === "on"
+    } else if (field === "tags") {
+      notes.showTagAnalysis = value === "1" || value === "true" || value === "on"
     }
     await setNotes(ctx.db, ctx.userId, notes)
     await ctx.reply({ content: `Updated **${field}**. Theme is ${await themeOf(ctx)}.`, ephemeral: true })

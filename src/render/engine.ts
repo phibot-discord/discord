@@ -10,6 +10,27 @@ import { type ImageAsset, rewriteLocalUrls } from "./html.ts"
 
 setGlyphCacheMaxBytes(64 * 1024 * 1024)
 
+/** Takumi 2.12 ignores `devicePixelRatio`; scale the laid-out tree onto a 2x canvas. */
+const PIXEL_RATIO = 2
+
+function wrapPixelRoot(html: string, cssWidth: number, ratio: number) {
+  const root = `<div class="phi-pixel-root" style="width:${cssWidth}px;transform:scale(${ratio});transform-origin:0 0;">`
+  if (/<body\b/i.test(html)) {
+    const opened = html.replace(/<body\b([^>]*)>/i, `<body$1>${root}`)
+    return /<\/body>/i.test(opened) ? opened.replace(/<\/body>/i, "</div></body>") : `${opened}</div>`
+  }
+  return `${root}${html}</div>`
+}
+
+function rootBoxCss(cssWidth: number) {
+  return `html, body { position: relative !important; width: ${cssWidth}px !important; height: auto !important; min-height: min-content !important; overflow: visible !important; transform: none !important; }`
+}
+
+function pixelRootCss(cssWidth: number, transform?: string) {
+  const reset = transform ? `transform: ${transform} !important; ` : ""
+  return `.phi-pixel-root { width: ${cssWidth}px !important; ${reset}transform-origin: 0 0 !important; overflow: visible !important; }`
+}
+
 function fmtMs(ms: number) {
   if (ms < 1000) return `${Math.round(ms)}ms`
   return `${(ms / 1000).toFixed(2)}s`
@@ -107,17 +128,19 @@ export class RenderEngine {
       return ""
     })
 
+    html = wrapPixelRoot(html, width, PIXEL_RATIO)
     const parsed = fromHtml(html)
     const rawSheets = [
       ...sheets.sheets,
       ...(parsed.stylesheets || []),
-      `html, body { position: relative !important; width: ${width}px !important; height: auto !important; min-height: min-content !important; overflow: visible !important; transform: none !important; }`,
       ...inline,
     ]
     const vars = new Map<string, string>()
     for (const s of rawSheets) collectRootVars(s, vars)
     const stylesheets = rawSheets.map(s => stripUnsupportedCss(resolveCssVars(s, vars)))
-    const images = [...rewritten.images, ...stylesheets.flatMap(collectCssImages)].map(i => ({
+    const layoutCss = [...stylesheets, rootBoxCss(width), pixelRootCss(width, "none")]
+    const paintCss = [...stylesheets, rootBoxCss(width), pixelRootCss(width)]
+    const images = [...rewritten.images, ...layoutCss.flatMap(collectCssImages)].map(i => ({
       src: i.src,
       data: new Uint8Array(i.data),
     }))
@@ -134,7 +157,7 @@ export class RenderEngine {
       const measured = await this.renderer!.measure(parsed.node, {
         width,
         height: 16_000,
-        stylesheets,
+        stylesheets: layoutCss,
         images,
         fontFamilies: [...PHI_FONT_FAMILIES],
         lang: "zh-CN",
@@ -149,11 +172,11 @@ export class RenderEngine {
     const bytes = Buffer.from(
       await render(parsed.node, {
         renderer: this.renderer,
-        width,
-        height,
+        width: width * PIXEL_RATIO,
+        height: height * PIXEL_RATIO,
         format,
         quality,
-        stylesheets,
+        stylesheets: paintCss,
         fonts,
         images,
         emoji: "noto",
@@ -163,7 +186,7 @@ export class RenderEngine {
     )
 
     const ms = performance.now() - started
-    logger.ok(`card ${id} ${width}x${height} ${format} ${bytes.length}B in ${Math.round(ms)}ms`)
+    logger.ok(`card ${id} ${width}x${height} @${PIXEL_RATIO}x ${format} ${bytes.length}B in ${Math.round(ms)}ms`)
     return { bytes, mime: mime(format), ext: ext(format), width, height }
   }
 

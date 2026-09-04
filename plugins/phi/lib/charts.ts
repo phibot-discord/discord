@@ -1,5 +1,12 @@
 /** Static SVG charts for Takumi (scripts are stripped before paint). */
 
+import { createHash } from "node:crypto"
+import { existsSync, mkdirSync, writeFileSync } from "node:fs"
+import { tmpdir } from "node:os"
+import { join } from "node:path"
+import { pathToFileURL } from "node:url"
+import sharp from "sharp"
+
 export type LineSeg = [number, number, number, number]
 
 type ChartPoint = {
@@ -171,10 +178,95 @@ function radarSvg(words: RadarWord[], maxValue: number, size = 280) {
   )
 }
 
+
+export type TagRadarPlot = {
+  grids: string[]
+  axes: { x: number; y: number }[]
+  points: string
+  categories: {
+    name: string
+    displayRks: string
+    pointX: number
+    pointY: number
+    labelX: number
+    labelY: number
+    anchor: "start" | "middle" | "end"
+  }[]
+}
+
+function labelShift(anchor: "start" | "middle" | "end") {
+  if (anchor === "end") return "translate(-100%, -10px)"
+  if (anchor === "start") return "translate(0, -10px)"
+  return "translate(-50%, -10px)"
+}
+
+function radarLabels(radar: TagRadarPlot) {
+  return radar.categories
+    .map(category => {
+      const score = esc(category.displayRks)
+      return (
+        `<div class="tag-radar-html-label is-${category.anchor}" style="position:absolute;left:${category.labelX}px;top:${category.labelY}px;transform:${labelShift(category.anchor)};">` +
+        `<p class="tag-radar-html-name" style="margin:0;color:#ffffff;font-size:10px;line-height:1.15;white-space:nowrap;">${esc(category.name)}</p>` +
+        `<p class="tag-radar-html-score" style="margin:2px 0 0;color:#00b7f0;font-size:8px;line-height:1;white-space:nowrap;">${score}</p>` +
+        `</div>`
+      )
+    })
+    .join("")
+}
+
+export function tagRadarPlotSvg(radar: TagRadarPlot, scale = 1) {
+  const grids = radar.grids
+    .map(grid => `<polygon points="${grid}" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1"/>`)
+    .join("")
+  const axes = radar.axes
+    .map(axis => `<line x1="100" y1="92" x2="${axis.x}" y2="${axis.y}" fill="none" stroke="rgba(255,255,255,0.32)" stroke-width="1"/>`)
+    .join("")
+  const shape = radar.points
+    ? `<polygon points="${radar.points}" fill="#ffffff" fill-opacity="0.92" stroke="#ffffff" stroke-width="2"/>`
+    : ""
+  const dots = radar.categories
+    .map(category => `<circle cx="${category.pointX}" cy="${category.pointY}" r="3.2" fill="#ffffff" stroke="#ffffff" stroke-width="1"/>`)
+    .join("")
+  return (
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${200 * scale}" height="${184 * scale}" viewBox="0 0 200 184">` +
+    `${grids}${axes}${shape}${dots}</svg>`
+  )
+}
+
+export async function tagRadarPlotPng(radar: TagRadarPlot) {
+  return sharp(Buffer.from(tagRadarPlotSvg(radar, 2))).png().toBuffer()
+}
+
+function radarPlotFileSrc(png: Buffer) {
+  const dir = join(tmpdir(), "phi-tag-radar")
+  mkdirSync(dir, { recursive: true })
+  const file = join(dir, `${createHash("sha1").update(png).digest("hex").slice(0, 20)}.png`)
+  if (!existsSync(file)) writeFileSync(file, png)
+  return pathToFileURL(file).href
+}
+
+/** Plot is a PNG file so Takumi uses the same image path as song ills. */
+export async function tagRadarHtml(radar: TagRadarPlot) {
+  const png = await tagRadarPlotPng(radar)
+  const src = radarPlotFileSrc(png)
+  return (
+    `<div class="tag-radar" style="width:200px;height:184px;position:relative;flex:none;overflow:visible;">` +
+    `<img class="tag-radar-plot" width="200" height="184" src="${src}" style="width:200px;height:184px;max-width:200px;max-height:184px;display:block;flex:none;padding:0;margin:0;object-fit:fill;position:relative;z-index:2;top:auto;right:auto;bottom:auto;left:auto;transform:none;min-width:200px;min-height:184px;"/>` +
+    radarLabels(radar) +
+    `</div>`
+  )
+}
+
+export function paintTagRadarSvg(html: string) {
+  if (!html.includes("tag-radar")) return html
+  return html.replace(/<svg\b[^>]*class="[^"]*\btag-radar\b[^"]*"[^>]*>[\s\S]*?<\/svg>/i, "")
+}
+
 export function polishSvgCharts(html: string) {
   let out = injectDifficultyChart(html)
   out = replacePercentSvgLines(out)
   out = injectRadarFromScript(out)
+  out = paintTagRadarSvg(out)
   return out
 }
 

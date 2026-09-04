@@ -38,7 +38,7 @@
         body { font-family: "phi-theme", "PHI", "NOTO", "NotoSansJP", "HIMALAYA", "NotoSansMath-Regular"; }
         {{/if}}
         {{if themeInfo.backgroundUrl}}
-        body > .background:not(.theme-background) { display: none; }
+        body > .phi-pixel-root > .background:not(.theme-background) { display: none; }
         {{/if}}
     </style>
     {{/if}}

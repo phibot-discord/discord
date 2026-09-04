@@ -357,23 +357,8 @@
             <div class="tag-analysis-content">
                 <div class="tag-radar-column">
                     <div class="tag-radar-title"><span></span><p>{{t.categorySummary}}</p></div>
-                    {{if b30Analysis.tagAnalysis && b30Analysis.tagAnalysis.radar.categories.length}}
-                    <svg class="tag-radar" viewBox="0 0 200 184" aria-label="分类标签能力雷达图">
-                        {{each b30Analysis.tagAnalysis.radar.grids grid}}
-                        <polygon class="tag-radar-grid" points="{{grid}}"></polygon>
-                        {{/each}}
-                        {{each b30Analysis.tagAnalysis.radar.axes axis}}
-                        <line class="tag-radar-axis" x1="100" y1="92" x2="{{axis.x}}" y2="{{axis.y}}"></line>
-                        {{/each}}
-                        <polygon class="tag-radar-shape" points="{{b30Analysis.tagAnalysis.radar.points}}"></polygon>
-                        {{each b30Analysis.tagAnalysis.radar.categories category}}
-                        <circle class="tag-radar-point" cx="{{category.pointX}}" cy="{{category.pointY}}" r="2.3"></circle>
-                        <text class="tag-radar-label" x="{{category.labelX}}" y="{{category.labelY}}" text-anchor="{{category.anchor}}">
-                            <tspan x="{{category.labelX}}">{{category.name}}</tspan>
-                            <tspan class="tag-radar-score" x="{{category.labelX}}" dy="10">{{category.displayRks}}</tspan>
-                        </text>
-                        {{/each}}
-                    </svg>
+                    {{if b30Analysis.radarHtml}}
+                    {{@ b30Analysis.radarHtml}}
                     {{/if}}
                 </div>
                 <div class="tag-ranking-column">

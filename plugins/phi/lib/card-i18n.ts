@@ -95,6 +95,8 @@ const en = {
   apiDesc: "Turn off to skip online score lookups.",
   analysisSettingTitle: "B30 analysis",
   analysisSettingDesc: "Equivalent-RKS histogram at the end of the B30 card.",
+  tagSettingTitle: "Chart tag profile",
+  tagSettingDesc: "Five-axis radar and strong/weak tags on the B30 card. Needs API lookups.",
   langTitle: "Language",
   langDesc: "Web UI and every rendered card. Shared with the Discord bot.",
   theme: {
@@ -198,6 +200,8 @@ const zh: typeof en = {
   apiDesc: "关闭后不再使用在线查分相关功能。",
   analysisSettingTitle: "B30统计分析",
   analysisSettingDesc: "控制 B30 图片末尾的等效 RKS 直方图。",
+  tagSettingTitle: "谱面标签能力",
+  tagSettingDesc: "B30 图上的五维雷达和擅长/薄弱词条。需要开启 API 功能。",
   langTitle: "语言",
   langDesc: "网页和所有成绩图。和 Discord 机器人共用。",
   theme: {

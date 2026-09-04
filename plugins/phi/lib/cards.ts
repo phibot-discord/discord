@@ -2,8 +2,10 @@ import type { Kv } from "../../../src/sdk/index.ts"
 import { buildRksHistogram, getB30AnalysisRecords } from "./b30-analysis.ts"
 import { cardCopy, fill, localizeSuggestFields, resolvePhiLocale, type PhiLocale } from "./card-i18n.ts"
 import type { Catalog } from "./catalog.ts"
+import { tagRadarHtml } from "./charts.ts"
+import { tagAnalysisFor } from "./chart-tags-api.ts"
 import { accRksLines, loadHisb30Snaps, loadSaveHistory, rksLineFor } from "./history.ts"
-import { getNotes, type UserNotes } from "./notes.ts"
+import { getNotes, tagAnalysisEnabled, type UserNotes } from "./notes.ts"
 import type { PhiRuntime } from "./runtime.ts"
 import type { Save } from "./save.ts"
 import { getToken, moneyText } from "./saves.ts"
@@ -12,11 +14,21 @@ async function b30AnalysisFor(save_b19: { phi?: unknown[]; b19_list?: unknown[] 
   if (notes.showB30Analysis === false || nnum !== 33) return null
   const records = getB30AnalysisRecords(save_b19)
   const histogram = buildRksHistogram(records)
+  const showTags = tagAnalysisEnabled(notes)
+  let tagAnalysis = null
+  if (showTags && records.length) {
+    try {
+      tagAnalysis = await tagAnalysisFor(records)
+    } catch {
+      tagAnalysis = null
+    }
+  }
   return {
     histogram,
-    tagAnalysis: null,
-    showTags: false,
-    histogramWide: true,
+    tagAnalysis,
+    radarHtml: tagAnalysis?.radar.categories.length ? await tagRadarHtml(tagAnalysis.radar) : "",
+    showTags,
+    histogramWide: !showTags,
   }
 }
 

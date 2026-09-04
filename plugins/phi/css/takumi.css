@@ -181,13 +181,132 @@ body {
 .info-AT { background-color: rgba(90, 0, 0, 0.82) !important; }
 .info-IN, .info-HD, .info-EZ { background-color: rgba(0, 50, 80, 0.82) !important; }
 .analysis-panel, .histogram-panel {
-  height: 310px !important;
+  height: 340px !important;
   clip-path: none !important;
   overflow: visible !important;
   background: rgba(0, 0, 0, 0.72) !important;
   padding: 15px 28px 22px !important;
 }
 .histogram-wide .histogram-panel { width: 100% !important; }
+.tag-analysis-panel,
+.histogram-panel {
+  width: calc(50% - 11px) !important;
+  flex: none !important;
+}
+.b30-analysis-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+  gap: 22px !important;
+}
+.tag-analysis-body {
+  height: 216px !important;
+  position: relative !important;
+}
+.tag-analysis-content {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 10px !important;
+}
+.tag-radar-column {
+  width: 200px !important;
+  flex: none !important;
+  min-width: 0 !important;
+}
+.tag-ranking-column {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+.tag-radar {
+  width: 200px !important;
+  height: 184px !important;
+  position: relative !important;
+  flex: none !important;
+  overflow: visible !important;
+  display: block !important;
+}
+img.tag-radar-plot,
+.tag-radar-plot,
+.tag-radar img {
+  width: 200px !important;
+  height: 184px !important;
+  min-width: 200px !important;
+  min-height: 184px !important;
+  max-width: 200px !important;
+  max-height: 184px !important;
+  display: block !important;
+  flex: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  object-fit: fill !important;
+  object-position: center !important;
+  position: relative !important;
+  z-index: 2 !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform: none !important;
+}
+.tag-radar-dot {
+  position: absolute !important;
+  width: 6px !important;
+  height: 6px !important;
+  margin-left: -3px !important;
+  margin-top: -3px !important;
+  background: #ffffff !important;
+  border: 1px solid #00b7f0 !important;
+  border-radius: 50% !important;
+}
+.tag-radar-html-label {
+  position: absolute !important;
+}
+.tag-radar-html-name {
+  margin: 0 !important;
+  color: #ffffff !important;
+  font-size: 10px !important;
+  line-height: 1.15 !important;
+  white-space: nowrap !important;
+}
+.tag-radar-html-score {
+  margin: 2px 0 0 !important;
+  color: #00b7f0 !important;
+  font-size: 8px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+.tag-result-row {
+  height: 20px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+.tag-rank {
+  width: 16px !important;
+  flex: none !important;
+}
+.tag-name {
+  flex: 1 !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}
+.tag-rks {
+  width: 37px !important;
+  flex: none !important;
+  text-align: right !important;
+}
+.tag-insufficient-message {
+  position: absolute !important;
+  inset: 15px 8px 0 !important;
+}
+.tag-analysis-body.is-insufficient .tag-analysis-content {
+  opacity: 0.48 !important;
+}
 .analysis-panel-head {
   width: 100% !important;
   display: flex !important;

@@ -19,6 +19,7 @@ export type UserNotes = {
   b30AvgColor: "red" | "gold" | "blue" | "green"
   allowApiUsage: boolean
   showB30Analysis: boolean
+  showTagAnalysis: boolean
   /** Stored language for web UI + every rendered card. Unset until the user picks one. */
   locale?: PhiLocale
 }
@@ -35,6 +36,7 @@ function defaults(): UserNotes {
     b30AvgColor: "blue",
     allowApiUsage: true,
     showB30Analysis: true,
+    showTagAnalysis: true,
   }
 }
 
@@ -66,4 +68,8 @@ export async function setUserLocale(db: Kv, userId: string, locale: PhiLocale) {
   const notes = await getNotes(db, userId)
   notes.locale = locale
   await setNotes(db, userId, notes)
+}
+
+export function tagAnalysisEnabled(notes: UserNotes) {
+  return notes.showTagAnalysis !== false && notes.allowApiUsage !== false
 }

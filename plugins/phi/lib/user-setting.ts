@@ -39,6 +39,7 @@ export function userSettingCard(notes: UserNotes, locale: PhiLocale) {
       item("b30AvgColor", t.avgColorTitle, t.avgColorDesc, notes.b30AvgColor || "red", t.avgColor),
       item("allowApiUsage", t.apiTitle, t.apiDesc, String(notes.allowApiUsage !== false), t.onOff),
       item("showB30Analysis", t.analysisSettingTitle, t.analysisSettingDesc, String(notes.showB30Analysis !== false), t.onOff),
+      item("showTagAnalysis", t.tagSettingTitle, t.tagSettingDesc, String(notes.showTagAnalysis !== false), t.onOff),
     ],
   }
 }
