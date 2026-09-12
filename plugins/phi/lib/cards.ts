@@ -1,6 +1,6 @@
 import type { Kv } from "../../../src/sdk/index.ts"
 import { buildRksHistogram, getB30AnalysisRecords } from "./b30-analysis.ts"
-import { cardCopy, fill, localizeSuggestFields, resolvePhiLocale, type PhiLocale } from "./card-i18n.ts"
+import { cardCopy, fill, localizeChartTagLabels, localizeSuggestFields, resolvePhiLocale, type PhiLocale } from "./card-i18n.ts"
 import type { Catalog } from "./catalog.ts"
 import { tagRadarHtml } from "./charts.ts"
 import { tagAnalysisFor } from "./chart-tags-api.ts"
@@ -10,7 +10,7 @@ import type { PhiRuntime } from "./runtime.ts"
 import type { Save } from "./save.ts"
 import { getToken, moneyText } from "./saves.ts"
 
-async function b30AnalysisFor(save_b19: { phi?: unknown[]; b19_list?: unknown[] }, notes: UserNotes, nnum: number) {
+async function b30AnalysisFor(save_b19: { phi?: unknown[]; b19_list?: unknown[] }, notes: UserNotes, nnum: number, locale: PhiLocale) {
   if (notes.showB30Analysis === false || nnum !== 33) return null
   const records = getB30AnalysisRecords(save_b19)
   const histogram = buildRksHistogram(records)
@@ -18,7 +18,7 @@ async function b30AnalysisFor(save_b19: { phi?: unknown[]; b19_list?: unknown[] 
   let tagAnalysis = null
   if (showTags && records.length) {
     try {
-      tagAnalysis = await tagAnalysisFor(records)
+      tagAnalysis = localizeChartTagLabels(await tagAnalysisFor(records), locale)
     } catch {
       tagAnalysis = null
     }
@@ -94,7 +94,7 @@ export async function b19Card(
     stats,
     spInfo,
     locale,
-    b30Analysis: await b30AnalysisFor(save_b19, notes, nnum),
+    b30Analysis: await b30AnalysisFor(save_b19, notes, nnum, locale),
     BSIllPath: rt.getInfo.getill("BANGINGSTRIKE.DewPleiades.0", "common"),
   }
 }

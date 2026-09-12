@@ -200,13 +200,39 @@ function labelShift(anchor: "start" | "middle" | "end") {
   return "translate(-50%, -10px)"
 }
 
+function radarNameAlign(anchor: "start" | "middle" | "end") {
+  if (anchor === "end") return "right"
+  if (anchor === "start") return "left"
+  return "center"
+}
+
+/** Keep the hyphen on the first line so "Multi-Finger" stacks as Multi- / Finger. */
+function splitRadarName(name: string): string[] {
+  const cut = name.indexOf("-")
+  if (cut <= 0 || cut >= name.length - 1) return [name]
+  return [name.slice(0, cut + 1), name.slice(cut + 1)]
+}
+
+function radarNameHtml(
+  name: string,
+  anchor: "start" | "middle" | "end",
+): string {
+  const align = radarNameAlign(anchor)
+  return splitRadarName(name)
+    .map(
+      line =>
+        `<p class="tag-radar-html-name" style="margin:0;color:#ffffff;font-size:10px;line-height:1.15;white-space:nowrap;text-align:${align};">${esc(line)}</p>`,
+    )
+    .join("")
+}
+
 function radarLabels(radar: TagRadarPlot) {
   return radar.categories
     .map(category => {
       const score = esc(category.displayRks)
       return (
-        `<div class="tag-radar-html-label is-${category.anchor}" style="position:absolute;left:${category.labelX}px;top:${category.labelY}px;transform:${labelShift(category.anchor)};">` +
-        `<p class="tag-radar-html-name" style="margin:0;color:#ffffff;font-size:10px;line-height:1.15;white-space:nowrap;">${esc(category.name)}</p>` +
+        `<div class="tag-radar-html-label is-${category.anchor}" style="position:absolute;left:${category.labelX}px;top:${category.labelY}px;transform:${labelShift(category.anchor)};text-align:${radarNameAlign(category.anchor)};">` +
+        radarNameHtml(category.name, category.anchor) +
         `<p class="tag-radar-html-score" style="margin:2px 0 0;color:#00b7f0;font-size:8px;line-height:1;white-space:nowrap;">${score}</p>` +
         `</div>`
       )
@@ -234,7 +260,7 @@ export function tagRadarPlotSvg(radar: TagRadarPlot, scale = 1) {
 }
 
 export async function tagRadarPlotPng(radar: TagRadarPlot) {
-  return sharp(Buffer.from(tagRadarPlotSvg(radar, 2))).png().toBuffer()
+  return sharp(Buffer.from(tagRadarPlotSvg(radar, 2))).png({ compressionLevel: 1 }).toBuffer()
 }
 
 function radarPlotFileSrc(png: Buffer) {
@@ -250,7 +276,7 @@ export async function tagRadarHtml(radar: TagRadarPlot) {
   const png = await tagRadarPlotPng(radar)
   const src = radarPlotFileSrc(png)
   return (
-    `<div class="tag-radar" style="width:200px;height:184px;position:relative;flex:none;overflow:visible;">` +
+    `<div class="tag-radar" style="width:200px;height:184px;position:relative;flex:none;overflow:visible;margin-left:16px;">` +
     `<img class="tag-radar-plot" width="200" height="184" src="${src}" style="width:200px;height:184px;max-width:200px;max-height:184px;display:block;flex:none;padding:0;margin:0;object-fit:fill;position:relative;z-index:2;top:auto;right:auto;bottom:auto;left:auto;transform:none;min-width:200px;min-height:184px;"/>` +
     radarLabels(radar) +
     `</div>`

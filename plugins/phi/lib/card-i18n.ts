@@ -238,6 +238,79 @@ export function cardCopy(locale: PhiLocale): CardCopy {
   return locale === "zh" ? zh : en
 }
 
+/** API tag names stay Chinese. English cards use short labels that fit the radar. */
+const CHART_TAG_EN: Record<string, string> = {
+  读谱: "Reading",
+  硬抗: "Stamina",
+  拆谱: "Pattern",
+  定位: "Aim",
+  多指: "Multi-Finger",
+  差速: "Mixed speed",
+  脑裂: "Split-brain",
+  多面下落: "Multi-side",
+  "变速/闪现": "Flash / BPM",
+  面海: "Note flood",
+  扫线: "Sweep",
+  长条藏键: "Hold hide",
+  慢流速: "Slow scroll",
+  非线性下落: "Nonlinear",
+  判定线干扰: "Line noise",
+  复杂节奏: "Polyrhythm",
+  长纵连: "Long jacks",
+  "长连点/交互": "Long trills",
+  快交互: "Fast trills",
+  双押海: "Chord flood",
+  宽排键: "Wide span",
+  连点爆发: "Stream burst",
+  全换: "Full switch",
+  反手: "Cross-hand",
+  锁手: "Locked hand",
+  锚键: "Anchor",
+  刹车: "Brake",
+  频繁切轨: "Lane hop",
+  倒打: "Reverse",
+  蓝夹黄: "BY sandwich",
+  蓝夹红: "BR sandwich",
+  浮现式: "Emerge",
+  叠: "Stack",
+  乱: "Scramble",
+  切: "Cut",
+  楼梯: "Stairs",
+  拍砖: "Bricks",
+  对拍: "Alternating",
+  对切: "Split cut",
+}
+
+export function localizeChartTagName(name: string, locale: PhiLocale): string {
+  if (locale !== "en" || !name) return name
+  return CHART_TAG_EN[name] ?? name
+}
+
+function withLocalizedName<T extends { name: string }>(row: T, locale: PhiLocale): T {
+  return { ...row, name: localizeChartTagName(row.name, locale) }
+}
+
+export function localizeChartTagLabels<
+  T extends {
+    categories: { name: string }[]
+    radar: { categories: { name: string }[] }
+    strong: { name: string }[]
+    weak: { name: string }[]
+  },
+>(analysis: T, locale: PhiLocale): T {
+  if (locale !== "en") return analysis
+  return {
+    ...analysis,
+    categories: analysis.categories.map(row => withLocalizedName(row, locale)),
+    radar: {
+      ...analysis.radar,
+      categories: analysis.radar.categories.map(row => withLocalizedName(row, locale)),
+    },
+    strong: analysis.strong.map(row => withLocalizedName(row, locale)),
+    weak: analysis.weak.map(row => withLocalizedName(row, locale)),
+  }
+}
+
 export function fill(template: string, vars: Record<string, string | number>): string {
   let out = template
   for (const [k, v] of Object.entries(vars)) out = out.replaceAll(`{${k}}`, String(v))

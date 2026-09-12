@@ -414,11 +414,16 @@
             </div>
         </div>
         <div class="histogram-chart">
-            <div class="histogram-y-label">{{t.histY}}</div>
             <div class="histogram-plot">
+                <div class="histogram-y-ticks">
+                    {{each b30Analysis.histogram.ticks tick}}
+                    <p class="histogram-y-tick" style="bottom: {{tick.position}}%;">{{tick.label}}</p>
+                    {{/each}}
+                </div>
+                <div class="histogram-y-label">{{t.histY}}</div>
                 <div class="histogram-scale">
                     {{each b30Analysis.histogram.ticks tick}}
-                    <div class="histogram-grid-line" style="bottom: {{tick.position}}%;"><p>{{tick.label}}</p></div>
+                    <div class="histogram-grid-line" style="bottom: {{tick.position}}%;"></div>
                     {{/each}}
                     <div class="average-marker" style="bottom: {{b30Analysis.histogram.averagePosition}}%;"><p>AVG {{b30Analysis.histogram.average.toFixed(4)}}</p></div>
                 </div>

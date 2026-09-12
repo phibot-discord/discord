@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto"
 import { existsSync, readFileSync } from "node:fs"
 import { render, setGlyphCacheMaxBytes } from "takumi-js"
 import { fromHtml } from "takumi-js/helpers/html"
@@ -7,14 +8,18 @@ import type { FontEntry, RenderedImage, RenderFormat, TemplateDefinition } from 
 import { collectRootVars, collectStylesheets, resolveCssVars, stripScripts, stripUnsupportedCss } from "./css.ts"
 import { PHI_FONT_FAMILIES } from "./fonts.ts"
 import { type ImageAsset, rewriteLocalUrls } from "./html.ts"
+import { fitPaint, PIXEL_RATIO } from "./paint-budget.ts"
+import { fitPaintImages } from "./paint-images.ts"
 
 setGlyphCacheMaxBytes(64 * 1024 * 1024)
-
-/** Takumi 2.12 ignores `devicePixelRatio`; scale the laid-out tree onto a 2x canvas. */
-const PIXEL_RATIO = 2
+const RENDERER_CACHE_BYTES = 512 * 1024 * 1024
+const MEASURE_VIEWPORT_H = 16_000
+const cssTransformCache = new Map<string, string>()
+const CSS_CACHE_MAX = 256
 
 function wrapPixelRoot(html: string, cssWidth: number, ratio: number) {
-  const root = `<div class="phi-pixel-root" style="width:${cssWidth}px;transform:scale(${ratio});transform-origin:0 0;">`
+  const scale = ratio === 1 ? "" : `transform:scale(${ratio});transform-origin:0 0;`
+  const root = `<div class="phi-pixel-root" style="width:${cssWidth}px;${scale}">`
   if (/<body\b/i.test(html)) {
     const opened = html.replace(/<body\b([^>]*)>/i, `<body$1>${root}`)
     return /<\/body>/i.test(opened) ? opened.replace(/<\/body>/i, "</div></body>") : `${opened}</div>`
@@ -42,6 +47,23 @@ function mime(format: RenderFormat) {
 
 function ext(format: RenderFormat) {
   return format === "jpeg" ? "jpg" : format
+}
+
+function transformSheet(sheet: string, vars: Map<string, string>, varsKey: string): string {
+  const key = createHash("sha1").update(varsKey).update("\0").update(sheet).digest("hex")
+  const hit = cssTransformCache.get(key)
+  if (hit !== undefined) {
+    cssTransformCache.delete(key)
+    cssTransformCache.set(key, hit)
+    return hit
+  }
+  const out = stripUnsupportedCss(resolveCssVars(sheet, vars))
+  if (cssTransformCache.size >= CSS_CACHE_MAX) {
+    const oldest = cssTransformCache.keys().next().value
+    if (oldest !== undefined) cssTransformCache.delete(oldest)
+  }
+  cssTransformCache.set(key, out)
+  return out
 }
 
 function collectCssImages(css: string): ImageAsset[] {
@@ -76,7 +98,7 @@ export class RenderEngine {
   private fontsRegistered = false
 
   async init() {
-    this.renderer = new Renderer({ cacheMaxBytes: 64 * 1024 * 1024 })
+    this.renderer = new Renderer({ cacheMaxBytes: RENDERER_CACHE_BYTES })
   }
 
   registerFont(entry: FontEntry) {
@@ -128,22 +150,25 @@ export class RenderEngine {
       return ""
     })
 
-    html = wrapPixelRoot(html, width, PIXEL_RATIO)
-    const parsed = fromHtml(html)
+    const prepared = html
+    const layoutTree = fromHtml(wrapPixelRoot(prepared, width, 1))
     const rawSheets = [
       ...sheets.sheets,
-      ...(parsed.stylesheets || []),
+      ...(layoutTree.stylesheets || []),
+      `.help_box, .line { overflow: visible !important; max-height: none !important; }`,
       ...inline,
     ]
     const vars = new Map<string, string>()
     for (const s of rawSheets) collectRootVars(s, vars)
-    const stylesheets = rawSheets.map(s => stripUnsupportedCss(resolveCssVars(s, vars)))
-    const layoutCss = [...stylesheets, rootBoxCss(width), pixelRootCss(width, "none")]
-    const paintCss = [...stylesheets, rootBoxCss(width), pixelRootCss(width)]
-    const images = [...rewritten.images, ...layoutCss.flatMap(collectCssImages)].map(i => ({
-      src: i.src,
-      data: new Uint8Array(i.data),
-    }))
+    const varsKey = createHash("sha1").update([...vars].flat().join("\0")).digest("hex")
+    const sharedSheets = rawSheets.map(s => transformSheet(s, vars, varsKey))
+    const layoutCss = [...sharedSheets, rootBoxCss(width), pixelRootCss(width, "none")]
+    const images = await fitPaintImages(
+      [...rewritten.images, ...layoutCss.flatMap(collectCssImages)].map(i => ({
+        src: i.src,
+        data: new Uint8Array(i.data),
+      })),
+    )
 
     const fonts = this.fonts.map(f => ({
       name: f.name,
@@ -154,9 +179,9 @@ export class RenderEngine {
 
     let height = opts.height
     if (!height) {
-      const measured = await this.renderer!.measure(parsed.node, {
+      const measured = await this.renderer!.measure(layoutTree.node, {
         width,
-        height: 16_000,
+        height: MEASURE_VIEWPORT_H,
         stylesheets: layoutCss,
         images,
         fontFamilies: [...PHI_FONT_FAMILIES],
@@ -164,16 +189,27 @@ export class RenderEngine {
       })
       const boxH = measured.height || 0
       const extent = Math.max(1, Math.ceil(contentExtent(measured)))
-      const raw = Math.max(boxH, extent)
-      height = Math.min(16_000, Math.max(1, Math.ceil(raw) + 24))
+      let raw = Math.max(boxH, extent)
+      if (extent >= MEASURE_VIEWPORT_H - 1 && boxH > 64 && boxH + 24 < extent) {
+        raw = boxH
+      }
+      height = Math.min(MEASURE_VIEWPORT_H, Math.max(1, Math.ceil(raw) + 24))
       logger.info(`measured box ${measured.width}x${measured.height} content ${extent} using ${height}`)
     }
 
+    const paint = fitPaint(width, height)
+    if (paint.ratio < PIXEL_RATIO) {
+      logger.warn(
+        `paint ${id} ${width}x${height} ratio ${paint.ratio.toFixed(3)} (Takumi ${paint.width}x${paint.height})`,
+      )
+    }
+    const paintTree = fromHtml(wrapPixelRoot(prepared, width, paint.ratio))
+    const paintCss = [...sharedSheets, rootBoxCss(width), pixelRootCss(width)]
     const bytes = Buffer.from(
-      await render(parsed.node, {
+      await render(paintTree.node, {
         renderer: this.renderer,
-        width: width * PIXEL_RATIO,
-        height: height * PIXEL_RATIO,
+        width: paint.width,
+        height: paint.height,
         format,
         quality,
         stylesheets: paintCss,
@@ -186,7 +222,8 @@ export class RenderEngine {
     )
 
     const ms = performance.now() - started
-    logger.ok(`card ${id} ${width}x${height} @${PIXEL_RATIO}x ${format} ${bytes.length}B in ${Math.round(ms)}ms`)
+    const ratioLabel = paint.ratio === PIXEL_RATIO ? String(PIXEL_RATIO) : paint.ratio.toFixed(3)
+    logger.ok(`card ${id} ${width}x${height} @${ratioLabel}x ${format} ${bytes.length}B in ${Math.round(ms)}ms`)
     return { bytes, mime: mime(format), ext: ext(format), width, height }
   }
 

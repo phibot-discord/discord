@@ -1,4 +1,4 @@
-import { readdirSync, statSync } from "node:fs"
+import { readdirSync, statSync, writeFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
 import { logger } from "../../src/logger.ts"
@@ -12,6 +12,7 @@ import { knobNum } from "./lib/knobs.ts"
 import { bootPhiRuntime } from "./lib/runtime.ts"
 import { readPhiVersion } from "./lib/version.ts"
 import { cardCopy, resolvePhiLocale } from "./lib/card-i18n.ts"
+import { layoutHistogram } from "./lib/histogram.ts"
 
 const PHI_CSS = join(dirname(fileURLToPath(import.meta.url)), "css")
 
@@ -220,39 +221,6 @@ function convertSheetToTable(html: string) {
   }
   const table = `<div class="stats-table">${rows.join("")}</div>`
   return `${html.slice(0, start)}${table}${html.slice(i)}`
-}
-
-function layoutHistogram(html: string) {
-  const plot = 136
-  let out = html.replace(
-    /<div class="histogram-summary">\s*<p(?: class="histogram-avg-label")?>([^<]*)<\/p>\s*<p>([^<]*)<\/p>\s*<\/div>/,
-    (_m, label: string, avg: string) =>
-      `<div class="histogram-summary" style="text-align:right;flex:none;min-width:160px;">` +
-      `<p class="histogram-avg-label" style="font-size:12px;color:rgba(255,255,255,0.75);">${label}</p>` +
-      `<p style="font-size:24px;color:#ffffff;font-family:Aldrich,PHI;">${avg}</p></div>`,
-  )
-  out = out.replace(
-    /class="histogram-bar ([^"]+)" style="height:\s*([0-9.]+)%;?"/g,
-    (_m, kind: string, pct: string) => {
-      const h = Math.max(3, Math.round((Number(pct) / 100) * plot))
-      return `class="histogram-bar ${kind}" style="height:${h}px;width:72%;min-height:3px;"`
-    },
-  )
-  out = out.replace(
-    /class="histogram-grid-line" style="bottom:\s*([0-9.]+)%;?"/g,
-    (_m, pct: string) => {
-      const bottom = Math.round((Number(pct) / 100) * plot)
-      return `class="histogram-grid-line" style="position:absolute;left:0;right:0;bottom:${bottom}px;border-top:1px dashed rgba(255,255,255,0.28);"`
-    },
-  )
-  out = out.replace(
-    /class="average-marker" style="bottom:\s*([0-9.]+)%;?"/g,
-    (_m, pct: string) => {
-      const bottom = Math.round((Number(pct) / 100) * plot)
-      return `class="average-marker" style="position:absolute;left:29px;right:0;bottom:${bottom}px;height:2px;background:#ffffff;"`
-    },
-  )
-  return out
 }
 
 function layoutGradeWithScore(html: string) {
@@ -644,7 +612,19 @@ export default definePlugin({
     const fontDir = join(resources, "html/common/font")
     await app.fonts.fromDir(fontDir)
 
-    const catalog = new Catalog(resources).load()
+    const catalog = new Catalog(resources)
+    try {
+      const raw = await app.db.get(kvKey("infoFile"))
+      if (raw) {
+        const parsed = JSON.parse(raw) as { csv?: unknown }
+        if (typeof parsed.csv === "string" && parsed.csv.includes("\t")) {
+          writeFileSync(join(resources, "info", "info.csv"), parsed.csv)
+        }
+      }
+    } catch {
+      /* bundled info.csv */
+    }
+    catalog.load()
     const extraNicks = await app.db.get(kvKey("nicklist"))
     if (extraNicks) {
       try {

@@ -1,6 +1,9 @@
-import { existsSync, readFileSync } from "node:fs"
+import { existsSync, readFileSync, statSync } from "node:fs"
 import { dirname, isAbsolute, resolve } from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
+
+const flattenCache = new Map<string, { stamp: string; css: string }>()
+const FLATTEN_CACHE_MAX = 64
 
 const IMPORT_RE = /@import\s+(?:url\()?['"]?([^'")]+)['"]?\)?\s*;/gi
 const URL_RE = /url\((['"]?)([^'")]+)\1\)/gi
@@ -86,11 +89,28 @@ export function collectStylesheets(html: string, htmlDir: string): { html: strin
       const href = /href=["']([^"']+)["']/i.exec(tag)?.[1]
       if (!href) return ""
       const path = hrefToPath(href, htmlDir)
-      if (existsSync(path)) sheets.push(flattenCss(readFileSync(path, "utf8"), path))
+      if (existsSync(path)) sheets.push(flattenCssCached(path))
       return ""
     },
   )
   return { html: stripped, sheets }
+}
+
+function flattenCssCached(path: string): string {
+  let stamp = "css"
+  try {
+    const s = statSync(path)
+    stamp = `${s.mtimeMs}|${s.size}`
+  } catch {}
+  const hit = flattenCache.get(path)
+  if (hit && hit.stamp === stamp) return hit.css
+  const css = flattenCss(readFileSync(path, "utf8"), path)
+  if (flattenCache.size >= FLATTEN_CACHE_MAX) {
+    const oldest = flattenCache.keys().next().value
+    if (oldest !== undefined) flattenCache.delete(oldest)
+  }
+  flattenCache.set(path, { stamp, css })
+  return css
 }
 
 export function stripScripts(html: string): string {

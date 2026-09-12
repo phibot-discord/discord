@@ -6,6 +6,7 @@ import {
 	buildTagRadar,
 	type ChartTagTreeNode,
 } from "./b30-analysis.ts"
+import { localizeChartTagLabels, localizeChartTagName } from "./card-i18n.ts"
 import { tagRadarHtml, tagRadarPlotPng, tagRadarPlotSvg } from "./charts.ts"
 
 const rec = (id: string, rank: string, rks: number) => ({
@@ -140,6 +141,27 @@ test("radar plot is a white PNG, not a black Takumi SVG/clip-path fill", async (
 	assert.match(html, /src="file:\/\//);
 	assert.match(html, /读谱/);
 	assert.match(html, /16\.34/);
+
+	const enHtml = await tagRadarHtml(
+		localizeChartTagLabels(
+			{
+				categories: radar.categories,
+				radar,
+				strong: [],
+				weak: [],
+			},
+			"en",
+		).radar,
+	);
+	assert.match(enHtml, /Reading/);
+	assert.match(enHtml, /Stamina/);
+	assert.match(enHtml, /Multi-/);
+	assert.match(enHtml, />Finger</);
+	assert.doesNotMatch(enHtml, /Multi-Finger/);
+	assert.doesNotMatch(enHtml, /读谱/);
+	assert.equal(localizeChartTagName("读谱", "zh"), "读谱");
+	assert.equal(localizeChartTagName("多指", "en"), "Multi-Finger");
+	assert.equal(localizeChartTagName("快交互", "en"), "Fast trills");
 	assert.doesNotMatch(html, /<svg\b/i);
 	assert.doesNotMatch(html, /clip-path/);
 	assert.doesNotMatch(html, /data:image\/png;base64,/);

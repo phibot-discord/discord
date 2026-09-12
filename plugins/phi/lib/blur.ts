@@ -27,12 +27,24 @@ async function blurredFile(src: string, fallbackSigma = 10): Promise<string> {
   const key = createHash("sha1").update(`${file}:${st.mtimeMs}:${st.size}:${sigma}:cover`).digest("hex")
   const out = join(cacheDir, `${key}.png`)
   if (existsSync(out)) return out
-  await sharp(file).rotate().resize({ width: 1800, height: 1800, fit: "cover" }).blur(sigma).modulate({ brightness: 0.62 }).png().toFile(out)
+  await sharp(file).rotate().resize({ width: 1800, height: 1800, fit: "cover" }).blur(sigma).modulate({ brightness: 0.62 }).png({ compressionLevel: 1 }).toFile(out)
   return out
 }
 
 export async function blurCardBackgrounds(html: string): Promise<string> {
   const blockRe = /<div\b[^>]*class="[^"]*\bbackground\b[^"]*"[^>]*>[\s\S]*?<\/div>/gi
+  const srcs = new Set<string>()
+  for (const m of html.matchAll(blockRe)) {
+    for (const im of m[0].matchAll(/(<img\b[^>]*\bsrc=")([^"]+)(")/gi)) {
+      if (im[2]) srcs.add(im[2])
+    }
+  }
+  const blurred = new Map<string, string>()
+  await Promise.all(
+    [...srcs].map(async src => {
+      blurred.set(src, await blurredFile(src))
+    }),
+  )
   let out = ""
   let last = 0
   for (const m of html.matchAll(blockRe)) {
@@ -43,8 +55,8 @@ export async function blurCardBackgrounds(html: string): Promise<string> {
     for (let i = imgs.length - 1; i >= 0; i--) {
       const im = imgs[i]!
       const at = im.index ?? 0
-      const blurred = await blurredFile(im[2]!)
-      block = `${block.slice(0, at)}${im[1]}${blurred}${im[3]}${block.slice(at + im[0].length)}`
+      const next = blurred.get(im[2]!) ?? im[2]!
+      block = `${block.slice(0, at)}${im[1]}${next}${im[3]}${block.slice(at + im[0].length)}`
     }
     out += block
     last = start + m[0].length
@@ -52,18 +64,20 @@ export async function blurCardBackgrounds(html: string): Promise<string> {
   return out + html.slice(last)
 }
 
-/** Blurred ills are darkened ~0.62; 0.48 still treats navy as dark. */
-const LIGHT_LUMA = 0.48
+/** Blurred ills are darkened ~0.62; 0.40 still treats navy as dark. */
+const LIGHT_LUMA = 0.4
+const lumaCache = new Map<string, { top: number; bottom: number }>()
+const LUMA_CACHE_MAX = 256
 
 function ink(lightBg: boolean) {
   return lightBg
     ? {
-        color: "#141414",
-        shadow: "0 1px 2px rgba(255,255,255,0.9), 0 0 10px rgba(255,255,255,0.55)",
+        color: "#000000",
+        shadow: "0 0 6px rgba(255,255,255,0.85)",
       }
     : {
-        color: "#f4f4f4",
-        shadow: "0 1px 2px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.55)",
+        color: "#ffffff",
+        shadow: "0 0 6px rgba(0,0,0,0.75)",
       }
 }
 
@@ -90,14 +104,12 @@ async function sampleBandMedian(file: string, y0: number, y1: number) {
 }
 
 function backgroundSrc(html: string) {
-  // rand/clg paint a full-bleed .ill illustration over the background div, so
-  // that image — not the hidden background — is what sits behind the ink.
-  const ill = /<div class="ill">\s*<img\b[^>]*\bsrc="([^"]+)"/i.exec(html)?.[1]
-  if (ill) return ill
   const star = /<img class="star-base"[^>]*src="([^"]+)"/i.exec(html)?.[1]
   if (star) return star
   const block = /<div\b[^>]*class="[^"]*\bbackground\b[^"]*"[^>]*>[\s\S]*?<\/div>/i.exec(html)?.[0]
-  return block ? /<img\b[^>]*\bsrc="([^"]+)"/i.exec(block)?.[1] : undefined
+  const bg = block ? /<img\b[^>]*\bsrc="([^"]+)"/i.exec(block)?.[1] : undefined
+  if (bg) return bg
+  return /<div class="ill">\s*<img\b[^>]*\bsrc="([^"]+)"/i.exec(html)?.[1]
 }
 
 function inkCss(sel: string, lightBg: boolean) {
@@ -105,7 +117,18 @@ function inkCss(sel: string, lightBg: boolean) {
   return `${sel} { color: ${color} !important; text-shadow: ${shadow} !important; }`
 }
 
-/** Date sits on the top of the ill; Tip sits on the bottom — sample each, prefer white. */
+function stampInk(html: string, re: RegExp, light: boolean) {
+  const { color, shadow } = ink(light)
+  const extra = `color:${color};text-shadow:${shadow};`
+  return html.replace(re, (_full, open: string, rest: string) => {
+    if (/\sstyle="/i.test(rest)) {
+      return `${open}${rest.replace(/style="/i, `style="${extra}`)}`
+    }
+    return `${open}${rest.replace(/>$/, ` style="${extra}">`)}`
+  })
+}
+
+/** Date sits on the top of the card bg; Tip sits on the bottom. */
 export async function contrastOverBackground(html: string): Promise<string> {
   const src = backgroundSrc(html)
   const file = src ? localFile(src) : undefined
@@ -113,17 +136,32 @@ export async function contrastOverBackground(html: string): Promise<string> {
   let bottomLight = false
   if (file) {
     try {
-      topLight = (await sampleBandMedian(file, 0, 0.12)) >= LIGHT_LUMA
-      bottomLight = (await sampleBandMedian(file, 0.88, 1)) >= LIGHT_LUMA
+      const st = statSync(file)
+      const key = `${file}|${st.mtimeMs}|${st.size}`
+      let luma = lumaCache.get(key)
+      if (!luma) {
+        const [top, bottom] = await Promise.all([sampleBandMedian(file, 0, 0.12), sampleBandMedian(file, 0.88, 1)])
+        luma = { top, bottom }
+        if (lumaCache.size >= LUMA_CACHE_MAX) {
+          const oldest = lumaCache.keys().next().value
+          if (oldest !== undefined) lumaCache.delete(oldest)
+        }
+        lumaCache.set(key, luma)
+      }
+      topLight = luma.top >= LIGHT_LUMA
+      bottomLight = luma.bottom >= LIGHT_LUMA
     } catch {
       topLight = false
       bottomLight = false
     }
   }
+  let out = html
+  out = stampInk(out, /(<div class="date">\s*<p)([^>]*>)/i, topLight)
+  out = stampInk(out, /(<div class="tips(?:-abs)?"[^>]*>\s*<p)([^>]*>)/gi, bottomLight)
   const css = `<style>
-    ${inkCss(".playerInfo .date p, .row-date p, .descTip p", topLight)}
-    ${inkCss(".tips p", bottomLight)}
+    ${inkCss(".playerInfo .date p, .date p, .row-date p, .descTip p", topLight)}
+    ${inkCss(".tips p, .tips-abs p", bottomLight)}
   </style>`
-  if (html.includes("</head>")) return html.replace("</head>", `${css}</head>`)
-  return css + html
+  if (out.includes("</head>")) return out.replace("</head>", `${css}</head>`)
+  return css + out
 }
