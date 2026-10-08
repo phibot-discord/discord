@@ -52,14 +52,17 @@ export default defineCommand({
         ephemeral: true,
       })
       if (!existsSync(`${resources}/original_ill/.git`)) {
-        logger.info("cloning illustration pack into original_ill (large)")
-        await runGit(["clone", "--depth=1", "--progress", url, "original_ill"], resources)
+        // Sparse: the cards never read chartimg/ (half the repo).
+        logger.info("cloning illustration pack into original_ill")
+        await runGit(["clone", "--depth=1", "--filter=blob:none", "--no-checkout", "--progress", url, "original_ill"], resources)
+        await runGit(["sparse-checkout", "set", "ill", "illLow", "illBlur", "SP", "chap"], `${resources}/original_ill`)
+        await runGit(["checkout", "--progress"], `${resources}/original_ill`)
       } else {
         logger.info("updating illustration pack (original_ill)")
         await runGit(["pull", "--ff-only", "--progress"], `${resources}/original_ill`)
       }
       logger.ok("illustration pack ready")
-      await ctx.reply({ content: "Illustration pack updated. Restart the bot to pick up new art.", ephemeral: true })
+      await ctx.reply({ content: "Illustration pack updated. New art is used on the next card.", ephemeral: true })
     } catch (err) {
       const msg = publicText(String(err instanceof Error ? err.message : err), [resources, process.cwd(), homedir()])
       logger.error("downill failed", msg)

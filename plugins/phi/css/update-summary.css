@@ -1,0 +1,1243 @@
+/* "Summary" history layout; widths here feed the text fitting in variants/update-summary.ts */
+:root {
+	--us-bg: #0a1018;
+	--us-panel: #111a26;
+	--us-panel-hi: #172232;
+	--us-line: rgba(255, 255, 255, 0.08);
+	--us-text: #f3f6fa;
+	--us-text-2: #b4bfcc;
+	--us-text-3: #8b97a8;
+	--us-accent: #62d2ff;
+	--us-gold: #ffd25e;
+	--us-red: #ff7a72;
+	--us-num: Aldrich, PHI, NotoSansSC, sans-serif;
+	--us-sans:
+		PHI, NotoSansSC, NotoSansJP, NotoSansSymbols2, NotoSansMath-Regular,
+		Aldrich, sans-serif;
+}
+
+body {
+	background: var(--us-bg);
+}
+
+.us-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 800px;
+	overflow: hidden;
+	background: var(--us-bg);
+	color: var(--us-text);
+	font-family: var(--us-sans);
+}
+
+/* Blurred jacket, held far under the header so text keeps its contrast */
+.us-bgimg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 800px;
+	height: 460px;
+	object-fit: cover;
+	opacity: 0.34;
+	mask-image: linear-gradient(
+		180deg,
+		#000 0%,
+		rgba(0, 0, 0, 0.7) 50%,
+		transparent 100%
+	);
+}
+
+.us-bgshade {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 800px;
+	height: 460px;
+	background-image: linear-gradient(
+		180deg,
+		rgba(10, 16, 24, 0.45) 0%,
+		rgba(10, 16, 24, 0.78) 55%,
+		#0a1018 100%
+	);
+}
+
+/* Slant stripes over the header; they fade out above the first section instead of ending on a hard edge */
+.us-bgstripes {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 800px;
+	height: 460px;
+	background-image:
+		linear-gradient(
+			115deg,
+			transparent 58%,
+			rgba(98, 210, 255, 0.07) 58%,
+			rgba(98, 210, 255, 0.07) 71%,
+			transparent 71%
+		),
+		linear-gradient(
+			115deg,
+			transparent 73%,
+			rgba(255, 255, 255, 0.035) 73%,
+			rgba(255, 255, 255, 0.035) 76%,
+			transparent 76%
+		);
+	mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 88%);
+}
+
+.us-k {
+	font-size: 11px;
+	letter-spacing: 0.16em;
+	color: var(--us-text-2);
+	line-height: 1.2;
+}
+
+.us-mark {
+	flex: none;
+	width: 8px;
+	height: 16px;
+	background: var(--us-accent);
+	clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%);
+}
+
+/* Header */
+.us-head {
+	position: relative;
+	display: flex;
+	align-items: flex-end;
+	gap: 24px;
+	padding: 44px 32px 30px;
+}
+
+.us-id {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	min-width: 0;
+}
+
+.us-eyebrow {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.us-eyebrow p {
+	font-size: 13px;
+	letter-spacing: 0.18em;
+	color: var(--us-accent);
+}
+
+.us-name {
+	display: flex;
+	margin-top: 14px;
+	overflow: hidden;
+}
+
+.us-name p {
+	line-height: 1.22;
+	color: #ffffff;
+	text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+
+.us-meta {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	margin-top: 16px;
+}
+
+.us-clg {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: none;
+	width: 92px;
+	height: 45px;
+}
+
+.us-clg img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 92px;
+	height: 45px;
+}
+
+.us-clg p {
+	position: relative;
+	font-family: var(--us-num);
+	font-size: 20px;
+	color: #ffffff;
+	text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.us-saved {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.us-saved-v {
+	font-family: var(--us-num);
+	font-size: 15px;
+	color: var(--us-text);
+}
+
+.us-rks {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	flex: none;
+	width: 268px;
+	padding: 18px 22px 18px 38px;
+	background: linear-gradient(
+		135deg,
+		rgba(25, 37, 54, 0.94) 0%,
+		rgba(14, 22, 33, 0.94) 100%
+	);
+	border-top: 2px solid var(--us-accent);
+	clip-path: polygon(22px 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.us-rks-v {
+	margin-top: 8px;
+	font-family: var(--us-num);
+	font-size: 48px;
+	line-height: 1;
+	color: #ffffff;
+	text-shadow: 0 0 18px rgba(98, 210, 255, 0.35);
+}
+
+.us-rks-d {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.us-delta {
+	font-family: var(--us-num);
+	font-size: 18px;
+	line-height: 1;
+}
+
+.us-rks-dk {
+	font-size: 12px;
+	color: var(--us-text-3);
+}
+
+/* Period strip: the span the KPI tiles below summarise */
+.us-period {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 12px;
+	padding: 0 32px;
+}
+
+.us-period-v {
+	font-family: var(--us-num);
+	font-size: 13px;
+	color: var(--us-text);
+}
+
+.us-period-line {
+	flex: 1;
+	height: 1px;
+	background: var(--us-line);
+}
+
+.us-period-m {
+	font-size: 12px;
+	color: var(--us-text-2);
+}
+
+/* KPI tiles */
+.us-kpis {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 12px;
+	padding: 0 32px;
+}
+
+.us-kpi {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	height: 150px;
+	padding: 14px 16px 14px;
+	background: linear-gradient(
+		180deg,
+		var(--us-panel-hi) 0%,
+		var(--us-panel) 100%
+	);
+	clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+}
+
+.us-kpi-v {
+	margin-top: 14px;
+	font-family: var(--us-num);
+	font-size: 30px;
+	line-height: 1;
+	color: #ffffff;
+}
+
+.us-kpi-s {
+	margin-top: auto;
+	font-size: 12px;
+	line-height: 1.3;
+	color: var(--us-text-2);
+}
+
+.us-kpi-num {
+	font-family: var(--us-num);
+}
+
+.us-spark {
+	display: flex;
+	margin-top: 10px;
+	height: 30px;
+}
+
+/* New φ titles under the count: a gold pip, the title, "+N" on the last line */
+.us-kpi-list {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	margin-top: 9px;
+}
+
+.us-kpi-li {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	height: 16px;
+}
+
+.us-kpi-pip {
+	flex: none;
+	width: 6px;
+	height: 10px;
+	background: var(--us-gold);
+	clip-path: polygon(2px 0, 100% 0, calc(100% - 2px) 100%, 0 100%);
+}
+
+.us-kpi-li p {
+	min-width: 0;
+	line-height: 16px;
+	color: var(--us-text);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.us-kpi-li .us-kpi-more {
+	flex: none;
+	font-family: var(--us-num);
+	font-size: 12px;
+	color: var(--us-gold);
+}
+
+.us-kpi-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-top: 14px;
+}
+
+.us-kpi-row .us-kpi-v {
+	margin-top: 0;
+}
+
+.us-kpi-icon {
+	width: 30px;
+	height: 30px;
+	opacity: 0.3;
+}
+
+.us-kpi-phi {
+	background: linear-gradient(170deg, #2a2a26 0%, var(--us-panel) 70%);
+	box-shadow: inset 0 2px 0 var(--us-gold);
+}
+
+.us-kpi-phi .us-kpi-icon {
+	opacity: 1;
+}
+
+.us-kpi-song {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 6px;
+	margin-top: auto;
+}
+
+.us-kpi-song > p {
+	max-width: 143px;
+	line-height: 1.25;
+	color: var(--us-text);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Difficulty chips */
+.us-chip {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	flex: none;
+	height: 20px;
+	padding: 0 9px;
+	clip-path: polygon(5px 0, 100% 0, calc(100% - 5px) 100%, 0 100%);
+	background: #2a2e36;
+}
+
+.us-chip p {
+	font-size: 11.5px;
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: 0.04em;
+	color: #ffffff;
+}
+
+.us-chip .us-chip-lv {
+	font-weight: 400;
+	letter-spacing: 0;
+}
+
+.us-chip-EZ {
+	background: #237a37;
+}
+
+.us-chip-HD {
+	background: #2e6cba;
+}
+
+.us-chip-IN {
+	background: #c3342e;
+}
+
+.us-chip-AT {
+	background: #2b2f37;
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+.us-chip-LEGACY {
+	background: #7646bf;
+}
+
+.us-chip-LEGACY p {
+	font-size: 9.5px;
+	letter-spacing: 0;
+}
+
+/* Sections */
+.us-sec {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	margin-top: 40px;
+	padding: 0 32px;
+}
+
+.us-sec-h {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 16px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid var(--us-line);
+}
+
+.us-sec-t {
+	font-size: 17px;
+	letter-spacing: 0.16em;
+	color: #ffffff;
+}
+
+.us-sec-m {
+	margin-left: auto;
+	font-size: 12px;
+	color: var(--us-text-3);
+}
+
+.us-note {
+	display: flex;
+	padding: 16px 18px;
+	background: var(--us-panel);
+}
+
+.us-note p {
+	font-size: 14px;
+	color: var(--us-text-2);
+}
+
+/* Top gains */
+.us-gains {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 16px;
+}
+
+.us-gain {
+	display: flex;
+	flex-direction: column;
+	background: var(--us-panel);
+	clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+}
+
+.us-gain-phi {
+	background: linear-gradient(0deg, #1f2226 0%, var(--us-panel) 55%);
+	box-shadow: inset 0 -2px 0 var(--us-gold);
+}
+
+/* The panel tint shows when a jacket is missing */
+.us-gain-art {
+	position: relative;
+	display: flex;
+	height: 122px;
+	overflow: hidden;
+	background: var(--us-panel-hi);
+}
+
+.us-jacket {
+	width: 100%;
+	height: 122px;
+	object-fit: cover;
+}
+
+.us-gain-fade {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 122px;
+	background-image: linear-gradient(
+		180deg,
+		rgba(17, 26, 38, 0) 55%,
+		rgba(17, 26, 38, 0.92) 100%
+	);
+}
+
+.us-gain-no {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 5px 18px 5px 10px;
+	background: #ffffff;
+	clip-path: polygon(0 0, 100% 0, calc(100% - 9px) 100%, 0 100%);
+}
+
+.us-gain-no p {
+	font-family: var(--us-num);
+	font-size: 15px;
+	line-height: 1;
+	color: var(--us-bg);
+}
+
+/* Grade icon on a dark plate so blue / white icons hold up on bright jackets */
+.us-gain-grade {
+	position: absolute;
+	top: 8px;
+	right: 12px;
+	display: flex;
+	padding: 3px 12px;
+	background: rgba(8, 12, 19, 0.76);
+	clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+
+.us-gain-grade img {
+	width: 32px;
+	height: 32px;
+	object-fit: contain;
+}
+
+.us-gain-chip {
+	position: absolute;
+	left: 12px;
+	bottom: 10px;
+	display: flex;
+}
+
+.us-gain-body {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 10px 15px 14px;
+}
+
+.us-gain-title {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 42px;
+}
+
+.us-gain-title p {
+	line-height: 1.24;
+	color: #ffffff;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.us-gain-stats {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.us-gain-big {
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
+	padding-top: 10px;
+	border-top: 1px solid var(--us-line);
+}
+
+.us-gain-v {
+	font-family: var(--us-num);
+	font-size: 28px;
+	line-height: 1;
+	color: var(--us-accent);
+}
+
+.us-gain-v.us-first {
+	color: #ffffff;
+}
+
+.us-gain-k {
+	font-size: 12px;
+	color: var(--us-text-3);
+}
+
+.us-cmp {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.us-cmp-r {
+	display: flex;
+	align-items: center;
+	height: 16px;
+}
+
+.us-cmp-r p {
+	line-height: 16px;
+}
+
+.us-cmp-k {
+	position: relative;
+	top: -1px;
+	flex: none;
+	width: 36px;
+	font-size: 10.5px;
+	letter-spacing: 0.06em;
+	color: var(--us-text-3);
+}
+
+/* Before → after pivots on the arrow: old values end at it, new values start after it */
+.us-cmp-o,
+.us-cmp-n {
+	font-family: var(--us-num);
+	font-size: 12px;
+	white-space: nowrap;
+}
+
+.us-cmp-o {
+	flex: none;
+	width: 72px;
+	text-align: right;
+	color: var(--us-text-2);
+}
+
+.us-cmp-n {
+	flex: 1;
+	min-width: 0;
+	color: #ffffff;
+}
+
+/* First record: only new values, so the label column needs its own gap */
+.us-cmp-first .us-cmp-k {
+	width: 50px;
+}
+
+.us-cmp-a {
+	flex: none;
+	width: 18px;
+	text-align: center;
+	font-size: 12px;
+	color: var(--us-text-3);
+}
+
+/* Fewer than 3 gains: full-width rows, jacket left, numbers right */
+.us-gains-wide {
+	grid-template-columns: 1fr;
+	gap: 14px;
+}
+
+.us-gains-wide .us-gain {
+	flex-direction: row;
+	height: 164px;
+}
+
+.us-gains-wide .us-gain-art {
+	flex: none;
+	width: 312px;
+	height: 164px;
+}
+
+.us-gains-wide .us-jacket {
+	width: 312px;
+	height: 164px;
+}
+
+.us-gains-wide .us-gain-fade {
+	height: 164px;
+	background-image: linear-gradient(
+		90deg,
+		rgba(17, 26, 38, 0) 62%,
+		rgba(17, 26, 38, 0.85) 100%
+	);
+}
+
+.us-gains-wide .us-gain-body {
+	flex: 1;
+	min-width: 0;
+	justify-content: center;
+	gap: 12px;
+	padding: 14px 24px 14px 22px;
+}
+
+.us-gains-wide .us-gain-title {
+	height: auto;
+}
+
+.us-gains-wide .us-gain-stats {
+	flex-direction: row;
+	align-items: center;
+	gap: 20px;
+	padding-top: 12px;
+	border-top: 1px solid var(--us-line);
+}
+
+.us-gains-wide .us-gain-big {
+	flex: 1;
+	min-width: 0;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 6px;
+	padding-top: 0;
+	border-top: none;
+}
+
+.us-gains-wide .us-gain-v {
+	font-size: 32px;
+}
+
+.us-gains-wide .us-cmp {
+	flex: none;
+	width: 212px;
+}
+
+/* B30 movement */
+.us-moves {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+
+.us-move {
+	display: flex;
+	flex-direction: column;
+	padding: 12px 14px 8px;
+	background: var(--us-panel);
+}
+
+.us-move-h {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding-bottom: 8px;
+}
+
+.us-move-ic {
+	flex: none;
+	width: 12px;
+	height: 10px;
+	background: var(--us-accent);
+	clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.us-move-out .us-move-ic {
+	background: var(--us-red);
+	clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.us-move-t {
+	font-size: 14px;
+	letter-spacing: 0.06em;
+	color: #ffffff;
+}
+
+.us-move-n {
+	margin-left: auto;
+	font-family: var(--us-num);
+	font-size: 16px;
+	color: var(--us-accent);
+}
+
+.us-move-out .us-move-n {
+	color: var(--us-red);
+}
+
+.us-move-rows {
+	display: flex;
+	flex-direction: column;
+}
+
+/* One side only: count next to the title, the empty side as a muted note, rows in two columns */
+.us-moves-solo {
+	grid-template-columns: 1fr;
+}
+
+.us-moves-solo .us-move-n {
+	margin-left: 4px;
+}
+
+.us-move-aside {
+	margin-left: auto;
+	font-size: 12px;
+	color: var(--us-text-3);
+}
+
+.us-moves-solo .us-move-rows {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 24px;
+}
+
+.us-move-r {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 8px 0;
+	border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Slanted jacket thumbnail; the tint stands in for a missing jacket */
+.us-thumb {
+	display: flex;
+	flex: none;
+	width: 72px;
+	height: 38px;
+	overflow: hidden;
+	background: var(--us-panel-hi);
+	clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+}
+
+.us-thumb img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.us-move-info {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 5px;
+	flex: 1;
+	min-width: 0;
+}
+
+.us-move-title {
+	display: flex;
+	flex-direction: column;
+}
+
+.us-move-title p {
+	line-height: 1.25;
+	color: #ffffff;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.us-move-more {
+	padding: 8px 0;
+	font-size: 12px;
+	color: var(--us-text-3);
+}
+
+/* Update list */
+.us-cols {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 0 14px 6px;
+}
+
+.us-cols p {
+	font-size: 11px;
+	letter-spacing: 0.12em;
+	color: var(--us-text-3);
+}
+
+.us-grp {
+	display: flex;
+	flex-direction: column;
+	margin-top: 10px;
+}
+
+.us-grp-h {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 8px 14px;
+	background: linear-gradient(
+		90deg,
+		rgba(98, 210, 255, 0.12) 0%,
+		rgba(98, 210, 255, 0) 70%
+	);
+}
+
+.us-grp-dot {
+	flex: none;
+	width: 6px;
+	height: 14px;
+	background: var(--us-accent);
+	clip-path: polygon(2px 0, 100% 0, calc(100% - 2px) 100%, 0 100%);
+}
+
+.us-grp-d {
+	font-family: var(--us-num);
+	font-size: 15px;
+	color: #ffffff;
+}
+
+.us-grp-n {
+	margin-left: auto;
+	font-size: 12px;
+	color: var(--us-text-2);
+}
+
+.us-grp-more {
+	padding: 8px 14px 0;
+	font-size: 12px;
+	color: var(--us-text-3);
+}
+
+.us-list {
+	display: flex;
+	flex-direction: column;
+}
+
+.us-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-height: 36px;
+	padding: 5px 14px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+}
+
+.us-row:nth-child(even) {
+	background: rgba(255, 255, 255, 0.025);
+}
+
+.us-c-grade {
+	display: flex;
+	justify-content: center;
+	flex: none;
+	width: 26px;
+}
+
+.us-c-grade img {
+	width: 24px;
+	height: 24px;
+	object-fit: contain;
+}
+
+.us-c-chip {
+	display: flex;
+	flex: none;
+	width: 76px;
+}
+
+.us-c-title {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	min-width: 0;
+}
+
+.us-c-title p {
+	line-height: 1.25;
+	color: #ffffff;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.us-c-score,
+.us-c-acc,
+.us-c-rks,
+.us-c-delta {
+	flex: none;
+	text-align: right;
+	font-family: var(--us-num);
+	font-size: 14px;
+}
+
+.us-cols .us-c-score,
+.us-cols .us-c-acc,
+.us-cols .us-c-rks,
+.us-cols .us-c-delta {
+	font-family: var(--us-sans);
+	font-size: 11px;
+}
+
+.us-c-score {
+	width: 74px;
+}
+
+.us-c-acc {
+	width: 92px;
+	color: var(--us-text-2);
+}
+
+.us-c-rks {
+	width: 66px;
+}
+
+.us-c-delta {
+	width: 70px;
+}
+
+.us-d-up {
+	color: var(--us-accent);
+}
+
+.us-d-flat {
+	color: var(--us-text-3);
+}
+
+/* New φ: the score turns gold, as on the KPI and gain tiles */
+.us-row-phi .us-c-score {
+	color: var(--us-gold);
+}
+
+/* First record: a small tag in the gain column instead of a number */
+.us-c-tag {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.us-newtag {
+	padding: 3px 6px 3px 7px;
+	font-family: var(--us-sans);
+	font-size: 10.5px;
+	line-height: 1.2;
+	letter-spacing: 0.12em;
+	color: var(--us-text);
+	background: rgba(255, 255, 255, 0.08);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+/* Tasks */
+.us-thumb-s {
+	width: 56px;
+	height: 30px;
+}
+
+/* Task chips carry no level: the column hugs the chip (LEGACY just runs wider) */
+.us-task .us-c-chip {
+	width: auto;
+	min-width: 38px;
+}
+
+.us-task-target {
+	flex: none;
+	width: 160px;
+	text-align: right;
+	font-family: var(--us-num);
+	font-size: 13px;
+	color: var(--us-text-2);
+}
+
+.us-task-st {
+	display: flex;
+	justify-content: center;
+	flex: none;
+	width: 76px;
+	padding: 4px 0;
+	background: rgba(255, 255, 255, 0.06);
+}
+
+.us-task-st p {
+	font-size: 12px;
+	color: var(--us-text-2);
+}
+
+.us-task-done {
+	background: rgba(98, 210, 255, 0.16);
+}
+
+.us-task-done p {
+	color: var(--us-accent);
+}
+
+/* Empty state */
+.us-empty {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 8px 32px 0;
+	padding: 56px 40px 52px;
+	background: linear-gradient(
+		180deg,
+		var(--us-panel-hi) 0%,
+		var(--us-panel) 100%
+	);
+	clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
+}
+
+.us-empty-mark {
+	display: flex;
+	gap: 6px;
+	margin-bottom: 22px;
+}
+
+.us-empty-mark div {
+	width: 11px;
+	height: 34px;
+	background: var(--us-accent);
+	clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+}
+
+.us-empty-mark div:nth-child(2) {
+	opacity: 0.6;
+}
+
+.us-empty-mark div:nth-child(3) {
+	opacity: 0.3;
+}
+
+.us-empty-t {
+	font-size: 24px;
+	color: #ffffff;
+}
+
+.us-empty-b {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 12px;
+}
+
+.us-empty-b p {
+	font-size: 15px;
+	line-height: 1.55;
+	text-align: center;
+	color: var(--us-text-2);
+}
+
+/* Empty, but the B30 moved: a compact note above the movement section */
+.us-empty-slim {
+	padding: 30px 40px 28px;
+}
+
+.us-empty-slim .us-empty-mark {
+	margin-bottom: 14px;
+}
+
+.us-empty-slim .us-empty-mark div {
+	height: 24px;
+}
+
+.us-empty-slim .us-empty-t {
+	font-size: 20px;
+}
+
+/* Footer: the tip box keeps a fixed two-line height so cached heights hold for any tip */
+.us-foot {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	margin-top: 40px;
+	padding: 18px 32px 30px;
+	border-top: 1px solid var(--us-line);
+	background: rgba(255, 255, 255, 0.015);
+}
+
+.us-foot-k {
+	display: flex;
+	flex: none;
+	margin-top: 1px;
+	padding: 3px 13px 3px 10px;
+	background: var(--us-accent);
+	clip-path: polygon(0 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+}
+
+.us-foot-k p {
+	font-size: 11px;
+	letter-spacing: 0.14em;
+	line-height: 1.2;
+	color: var(--us-bg);
+}
+
+.us-foot-t {
+	flex: 1;
+	min-width: 0;
+	height: 40px;
+	font-size: 13px;
+	line-height: 20px;
+	color: var(--us-text-2);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-clamp: 2;
+	-webkit-line-clamp: 2;
+}
+
+/* Semantic colours last so they win over the base text colour of any block */
+.us-card .us-up {
+	color: var(--us-gold);
+}
+
+.us-card .us-down {
+	color: var(--us-red);
+}
+
+.us-card .us-flat {
+	color: var(--us-text-2);
+}
+
+.us-card .us-accent {
+	color: var(--us-accent);
+}
+
+.us-card .us-gold {
+	color: var(--us-gold);
+}
+
+/* CJK is not letter-spaced: keep the tracking of the Latin labels for en only */
+.us-l-zh .us-k,
+.us-l-zh .us-sec-t,
+.us-l-zh .us-eyebrow p,
+.us-l-zh .us-cols p,
+.us-l-zh .us-move-t,
+.us-l-zh .us-foot-k p,
+.us-l-zh .us-newtag {
+	letter-spacing: 0.04em;
+}

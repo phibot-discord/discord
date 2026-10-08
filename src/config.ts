@@ -49,6 +49,11 @@ export function loadConfig(root: string): AppConfig {
     namespaceId: process.env.CLOUDFLARE_KV_NAMESPACE_ID?.trim() || kv.namespaceId || "",
     apiToken: process.env.CLOUDFLARE_API_TOKEN?.trim() || kv.apiToken || "",
   }
+  const r2 = (cfg as Partial<AppConfig>).r2 || { bucket: "", publicBase: "" }
+  cfg.r2 = {
+    bucket: process.env.CLOUDFLARE_R2_BUCKET?.trim() || r2.bucket || "",
+    publicBase: process.env.CLOUDFLARE_R2_PUBLIC_BASE?.trim() || r2.publicBase || "",
+  }
   const discord = cfg.discord as AppConfig["discord"] & { shards?: unknown; shardProcesses?: unknown }
   discord.shards = parseShards(discord.shards)
   discord.shardProcesses = Boolean(discord.shardProcesses)

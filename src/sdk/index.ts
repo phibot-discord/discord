@@ -26,6 +26,15 @@ export type RenderedImage = {
   ext: string
   width: number
   height: number
+  timings?: {
+    htmlMs?: number
+    assetsMs?: number
+    measureMs?: number
+    rasterMs?: number
+    encodeMs?: number
+    paintMs?: number
+    heightCache?: "hit" | "miss"
+  }
 }
 
 export type RenderFormat = "png" | "jpeg" | "webp"
@@ -41,15 +50,26 @@ export type TemplateDefinition = {
   height?: number
   format?: RenderFormat
   quality?: number
-  engine?: "takumi"
-  html?: (data: Record<string, unknown>, helpers: TemplateHelpers) => string | Promise<string>
-  render?: (data: Record<string, unknown>, helpers: TemplateHelpers) => unknown
+  /** Device-pixel ceiling for `high` paint quality (default: the engine's 2×). */
+  maxRatio?: number
+  html: (data: Record<string, unknown>, helpers: TemplateHelpers) => string | Promise<string>
+}
+
+/** Per-render knobs shared with the WebUI engine (see src/render/engine.ts). */
+export type RenderOptions = {
+  /** Reuse the measured card height across renders of the same card shape. */
+  heightKey?: string
+  height?: number
+  paintQuality?: "high" | "fast"
+  /** Abort to stop the render at its next stage and free its raster-lock slot */
+  signal?: AbortSignal
 }
 
 export type Kv = {
   get: (key: string) => Promise<string | undefined>
   set: (key: string, value: string, ttlMs?: number) => Promise<void>
-  setNx: (key: string, value: string, ttlMs?: number) => Promise<boolean>
+  /** Only on the host-wrapped `db` (commands, contexts); the shared KV facade omits it. */
+  setNx?: (key: string, value: string, ttlMs?: number) => Promise<boolean>
   del: (key: string) => Promise<void>
   keys: (prefix?: string) => Promise<string[]>
   ping: () => Promise<string>
@@ -111,7 +131,7 @@ export type Context = {
   defer: (ephemeral?: boolean) => Promise<void>
   showModal: (spec: ModalSpec) => Promise<Record<string, string> | undefined>
   collect: (opts?: CollectOptions) => Promise<string | undefined>
-  render: (id: string, data?: Record<string, unknown>) => Promise<RenderedImage>
+  render: (id: string, data?: Record<string, unknown>, opts?: RenderOptions) => Promise<RenderedImage>
   service: <T = unknown>(name: string) => T
   config: AppConfig
 }
@@ -121,6 +141,7 @@ export type FontEntry = {
   data: Buffer
   weight?: number
   style?: "normal" | "italic"
+  generic?: "sans-serif" | "serif" | "monospace" | "system-ui"
 }
 
 export type AppConfig = {
@@ -134,6 +155,8 @@ export type AppConfig = {
   admins: string[]
   owners: string[]
   kv: { accountId: string; namespaceId: string; apiToken: string }
+  /** Card images (jackets, avatars, icons) and catalog files live in this R2 bucket (filled by ../ill-sync). */
+  r2: { bucket: string; publicBase: string }
   paths: { data: string; plugins: string; phiResources: string }
   render: { format: RenderFormat; quality: number; width: number; scale: number }
 }
@@ -150,7 +173,7 @@ export type App = {
     register: (entry: FontEntry) => void
     fromDir: (dir: string, map?: Record<string, string>) => Promise<void>
   }
-  render: (id: string, data?: Record<string, unknown>) => Promise<RenderedImage>
+  render: (id: string, data?: Record<string, unknown>, opts?: RenderOptions) => Promise<RenderedImage>
   renderHtml: (html: string, opts?: Partial<TemplateDefinition>) => Promise<RenderedImage>
   compile: (id: string, data?: Record<string, unknown>) => Promise<string>
   close: () => Promise<void>

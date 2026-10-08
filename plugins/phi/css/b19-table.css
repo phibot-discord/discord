@@ -1,0 +1,1481 @@
+/* "Table" layout for b30 / x30 / fc30; column widths must match TITLE_W / NAME_W / HIST in variants/b19-table.ts */
+:root {
+	--tbl-bg: #0b1019;
+	--tbl-panel: #0f1621;
+	--tbl-head: #172131;
+	--tbl-text: #eef2f8;
+	--tbl-text-2: #cdd5e1;
+	--tbl-dim: #93a0b5;
+	--tbl-muted: #7f8ca2;
+	--tbl-line: rgba(255, 255, 255, 0.05);
+	--tbl-accent: #4fd2f5;
+	--tbl-gold: #f3c74d;
+	--tbl-up: #5fd39a;
+	--tbl-down: #ff7b7b;
+	--tbl-hard: #ff9a6b;
+	--tbl-sans:
+		PHI, NOTO, NotoSansSC, NotoSansJP, NotoSansSymbols2, NotoSansMath-Regular,
+		sans-serif;
+	--tbl-num: Aldrich, PHI, NOTO, NotoSansSC, sans-serif;
+	--tbl-tab: NotoSansSC, PHI, sans-serif;
+}
+
+body {
+	background: var(--tbl-bg);
+}
+
+p {
+	margin: 0;
+}
+
+.tbl {
+	position: relative;
+	width: 1200px;
+	overflow: hidden;
+	background: var(--tbl-bg);
+	color: var(--tbl-text);
+	font-family: var(--tbl-sans);
+}
+
+/* Blurred jacket: only a glow behind the header, fading into the solid card colour */
+/* max-height keeps a short card (no rows) from being measured 760px tall */
+.tbl-glow {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1200px;
+	height: 760px;
+	max-height: 100%;
+	opacity: 0.6;
+}
+
+.tbl-glow img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.tbl-shade {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1200px;
+	height: 760px;
+	max-height: 100%;
+	background: linear-gradient(
+		180deg,
+		rgba(11, 16, 25, 0.55) 0%,
+		rgba(11, 16, 25, 0.8) 45%,
+		#0b1019 100%
+	);
+}
+
+.tbl-wrap {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	padding: 26px 24px 0;
+}
+
+.tbl-k {
+	font-family: var(--tbl-num);
+	font-size: 11px;
+	line-height: 14px;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--tbl-dim);
+}
+
+.tbl-mark {
+	flex: none;
+	width: 14px;
+	height: 46px;
+	background: var(--tbl-accent);
+	clip-path: polygon(7px 0, 100% 0, calc(100% - 7px) 100%, 0 100%);
+	box-shadow: 0 0 18px rgba(79, 210, 245, 0.6);
+}
+
+.tbl-mark.is-sm {
+	width: 10px;
+	height: 24px;
+	clip-path: polygon(5px 0, 100% 0, calc(100% - 5px) 100%, 0 100%);
+}
+
+/* ---------- title strip ---------- */
+
+.tbl-top {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	margin-bottom: 16px;
+}
+
+.tbl-top-l {
+	display: flex;
+	align-items: center;
+}
+
+.tbl-heading {
+	display: flex;
+	flex-direction: column;
+	margin-left: 14px;
+}
+
+.tbl-title-row {
+	display: flex;
+	align-items: center;
+}
+
+.tbl-title {
+	font-size: 34px;
+	line-height: 38px;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	color: #ffffff;
+}
+
+.tbl-desc {
+	margin-top: 4px;
+	font-size: 14px;
+	line-height: 18px;
+	color: var(--tbl-text-2);
+}
+
+.tbl-chip {
+	margin-left: 18px;
+	padding: 4px 16px;
+	font-size: 14px;
+	line-height: 18px;
+	font-weight: 700;
+	color: #08111b;
+	background: var(--tbl-accent);
+	clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+
+.tbl-top-r {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	padding-bottom: 2px;
+}
+
+/* On the jacket glow: text-2, not the dim label colour, to keep 4.5:1 */
+.tbl-top-r .tbl-k {
+	color: var(--tbl-text-2);
+}
+
+.tbl-saved {
+	margin-top: 4px;
+	font-family: var(--tbl-num);
+	font-size: 20px;
+	line-height: 22px;
+	color: var(--tbl-text);
+}
+
+/* ---------- identity panel ---------- */
+
+.tbl-id {
+	display: flex;
+	align-items: center;
+	padding: 22px 48px 22px 22px;
+	margin-bottom: 20px;
+	background: linear-gradient(
+		100deg,
+		rgba(22, 32, 48, 0.94) 0%,
+		rgba(15, 22, 33, 0.94) 100%
+	);
+	box-shadow: inset 0 2px 0 var(--tbl-accent);
+	clip-path: polygon(0 0, 100% 0, calc(100% - 28px) 100%, 0 100%);
+}
+
+.tbl-avatar {
+	flex: none;
+	width: 124px;
+	height: 124px;
+	overflow: hidden;
+	background: #1b2536;
+	clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+}
+
+.tbl-avatar img {
+	width: 124px;
+	height: 124px;
+	object-fit: cover;
+}
+
+.tbl-who {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	margin-left: 26px;
+}
+
+.tbl-name {
+	line-height: 1.18;
+	color: #ffffff;
+}
+
+.tbl-name.is-clip p {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.tbl-rks {
+	display: flex;
+	align-items: flex-end;
+	margin-top: 6px;
+}
+
+.tbl-rks-k {
+	padding-bottom: 9px;
+	margin-right: 12px;
+	font-family: var(--tbl-num);
+	font-size: 14px;
+	line-height: 16px;
+	letter-spacing: 0.2em;
+	color: var(--tbl-accent);
+}
+
+.tbl-rks-v {
+	font-family: var(--tbl-num);
+	font-size: 56px;
+	line-height: 56px;
+	color: #ffffff;
+	text-shadow: 0 0 22px rgba(79, 210, 245, 0.35);
+}
+
+.tbl-rks-sd {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 6px;
+	margin-left: 14px;
+}
+
+.tbl-rks-sd .tbl-k {
+	font-size: 10px;
+	line-height: 12px;
+	letter-spacing: 0.12em;
+}
+
+.tbl-rks-sdv {
+	margin-top: 2px;
+	font-family: var(--tbl-num);
+	font-size: 20px;
+	line-height: 22px;
+	color: var(--tbl-text-2);
+}
+
+.tbl-badges {
+	display: flex;
+	align-items: center;
+	margin-top: 12px;
+}
+
+.tbl-clg {
+	position: relative;
+	width: 76px;
+	height: 38px;
+	margin-right: 12px;
+}
+
+.tbl-clg img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 76px;
+	height: 38px;
+}
+
+.tbl-clg p {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 76px;
+	height: 38px;
+	font-family: var(--tbl-num);
+	font-size: 21px;
+	line-height: 38px;
+	text-align: center;
+	color: #ffffff;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.tbl-data {
+	display: flex;
+	align-items: center;
+	height: 32px;
+	padding: 0 18px 0 16px;
+	background: rgba(255, 255, 255, 0.08);
+	clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+
+.tbl-data img {
+	width: 20px;
+	height: 12px;
+}
+
+.tbl-data p {
+	margin-left: 10px;
+	font-family: var(--tbl-num);
+	font-size: 16px;
+	line-height: 20px;
+	color: var(--tbl-text-2);
+}
+
+/* Without the C / FC / Phi table the badges move to the right edge */
+.tbl-id.no-stats .tbl-who {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
+}
+
+.tbl-id.no-stats .tbl-name {
+	grid-column: 1;
+	grid-row: 1;
+}
+
+.tbl-id.no-stats .tbl-rks {
+	grid-column: 1;
+	grid-row: 2;
+}
+
+.tbl-id.no-stats .tbl-badges {
+	grid-column: 2;
+	grid-row: 1 / span 2;
+	flex-direction: column;
+	align-items: flex-end;
+	margin: 0 0 0 28px;
+}
+
+.tbl-id.no-stats .tbl-clg {
+	margin: 0 6px 14px 0;
+}
+
+/* C / FC / Phi counts */
+.tbl-stats {
+	flex: none;
+	display: flex;
+	flex-direction: column;
+	width: 360px;
+	margin-left: 28px;
+}
+
+.tbl-stats-row {
+	display: flex;
+	align-items: center;
+	height: 32px;
+	border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.tbl-stats-row.is-head {
+	height: 30px;
+	border-top: 0;
+}
+
+/* PHI sits lower in its line box than Aldrich: lift the label to the digits */
+.tbl-stats-k {
+	width: 72px;
+	padding-bottom: 4px;
+	font-size: 14px;
+	line-height: 22px;
+	color: var(--tbl-dim);
+}
+
+.tbl-stats-v {
+	width: 72px;
+	font-family: var(--tbl-num);
+	font-size: 20px;
+	line-height: 22px;
+	text-align: center;
+	color: var(--tbl-text);
+}
+
+.tbl-stats-row.is-phi .tbl-stats-k,
+.tbl-stats-row.is-phi .tbl-stats-v {
+	color: var(--tbl-gold);
+}
+
+.tbl-stats-lv {
+	display: flex;
+	justify-content: center;
+	width: 72px;
+}
+
+.tbl-stats-lv p {
+	width: 48px;
+	font-family: var(--tbl-num);
+	font-size: 13px;
+	line-height: 20px;
+	font-weight: 700;
+	text-align: center;
+	color: #ffffff;
+	clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+}
+
+/* ---------- difficulty colours (stats header + level chips) ---------- */
+
+/* Dark enough for white 13px labels to keep >= 4.5:1 */
+.lv-ez {
+	background: #278240;
+}
+
+.lv-hd {
+	background: #2f6fd0;
+}
+
+.lv-in {
+	background: #d1393f;
+}
+
+.lv-at {
+	background: #e9ecf1;
+	color: #12151a;
+}
+
+.lv-legacy {
+	background: #7d4fc9;
+}
+
+.lv-unknown {
+	background: #5a6270;
+}
+
+.tbl-stats-lv .lv-at {
+	color: #12151a;
+}
+
+/* ---------- table ---------- */
+
+.tbl-table {
+	display: flex;
+	flex-direction: column;
+	background: rgba(14, 20, 31, 0.97);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.tbl-cols,
+.tbl-row {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 0 16px 0 14px;
+}
+
+.tbl-cols {
+	height: 42px;
+	background: var(--tbl-head);
+	border-bottom: 1px solid rgba(79, 210, 245, 0.6);
+	font-family: var(--tbl-num);
+	font-size: 12px;
+	line-height: 14px;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: #a3afc2;
+}
+
+.c-rank {
+	flex: none;
+	width: 46px;
+	text-align: right;
+}
+
+.c-ill {
+	flex: none;
+	width: 104px;
+}
+
+.c-song {
+	flex: 1;
+	min-width: 0;
+}
+
+.c-lv {
+	flex: none;
+	width: 100px;
+}
+
+.c-grade {
+	flex: none;
+	width: 40px;
+}
+
+.c-score,
+.c-acc,
+.c-rks,
+.c-push {
+	flex: none;
+	text-align: right;
+}
+
+.c-score {
+	width: 96px;
+}
+
+.c-acc {
+	width: 106px;
+}
+
+.c-rks {
+	width: 92px;
+}
+
+.c-push {
+	width: 100px;
+}
+
+.tbl-cols .c-acc,
+.tbl-cols .c-push {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.tbl-cols-sub {
+	margin-top: 2px;
+	font-size: 10px;
+	line-height: 12px;
+	letter-spacing: 0.06em;
+	text-transform: none;
+	color: var(--tbl-dim);
+}
+
+/* What the push target colours mean: "easy · mid · hard" in those colours */
+.tbl-push-key {
+	display: flex;
+	margin-top: 2px;
+}
+
+.tbl-push-key p {
+	font-size: 10px;
+	line-height: 12px;
+	letter-spacing: 0.06em;
+	text-transform: none;
+	color: var(--tbl-accent);
+}
+
+.tbl-push-key .tbl-push-sep {
+	margin: 0 4px;
+	color: var(--tbl-dim);
+}
+
+.tbl-push-key .is-easy {
+	color: var(--tbl-up);
+}
+
+.tbl-push-key .is-hard {
+	color: var(--tbl-hard);
+}
+
+.tbl-row {
+	height: 64px;
+	border-top: 1px solid var(--tbl-line);
+}
+
+.tbl-row.is-alt {
+	background: rgba(255, 255, 255, 0.025);
+}
+
+/* The clip-path keeps Takumi from painting the gradient above the row */
+.tbl-row.is-phi {
+	background: linear-gradient(
+		90deg,
+		rgba(243, 199, 77, 0.11) 0%,
+		rgba(243, 199, 77, 0.04) 45%,
+		rgba(243, 199, 77, 0.02) 100%
+	);
+	box-shadow: inset 3px 0 0 var(--tbl-gold);
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.tbl-rk {
+	font-family: var(--tbl-num);
+	font-size: 19px;
+	line-height: 22px;
+	color: var(--tbl-text-2);
+}
+
+.tbl-rk-p {
+	font-size: 13px;
+	color: var(--tbl-muted);
+}
+
+.tbl-row.is-phi .tbl-rk,
+.tbl-row.is-phi .tbl-rk-p {
+	color: var(--tbl-gold);
+}
+
+.tbl-row .c-ill {
+	height: 56px;
+	overflow: hidden;
+	background: #1a2333;
+	clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+}
+
+.tbl-row .c-ill img {
+	width: 104px;
+	height: 56px;
+	object-fit: cover;
+}
+
+.tbl-ill-ph {
+	width: 104px;
+	height: 56px;
+}
+
+/* Empty P slot: a neutral hatched jacket; only the row keeps the gold accent */
+.tbl-row.is-empty .c-ill {
+	background: repeating-linear-gradient(
+		-60deg,
+		rgba(255, 255, 255, 0.1) 0 6px,
+		rgba(255, 255, 255, 0.03) 6px 12px
+	);
+}
+
+.tbl-row .c-song {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	line-height: 1.22;
+	color: #ffffff;
+}
+
+.tbl-row .c-song p {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.tbl-row .c-song.is-clip p {
+	white-space: normal;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+}
+
+.tbl-row.is-empty .c-song {
+	color: var(--tbl-muted);
+}
+
+.tbl-row.is-over .c-ill img {
+	opacity: 0.7;
+}
+
+.tbl-row.is-over .c-song,
+.tbl-row.is-over .tbl-rk {
+	color: var(--tbl-text-2);
+}
+
+/* Overflow rows do not count toward RKS: their RKS loses the bold white */
+.tbl-row.is-over .c-rks .tbl-num {
+	font-weight: 400;
+	color: var(--tbl-text-2);
+}
+
+/* level chip: [IN | 15.8] */
+.tbl-lv {
+	display: flex;
+	width: 96px;
+	height: 26px;
+	clip-path: polygon(7px 0, 100% 0, calc(100% - 7px) 100%, 0 100%);
+}
+
+.tbl-lv-n {
+	flex: none;
+	width: 42px;
+	padding-left: 3px;
+	font-family: var(--tbl-num);
+	font-size: 13px;
+	line-height: 26px;
+	font-weight: 700;
+	text-align: center;
+	color: #ffffff;
+}
+
+.tbl-lv-c {
+	flex: 1;
+	padding-right: 4px;
+	font-family: var(--tbl-num);
+	font-size: 16px;
+	line-height: 26px;
+	text-align: center;
+	color: #ffffff;
+	background: rgba(8, 12, 19, 0.62);
+}
+
+.tbl-lv.lv-at .tbl-lv-n {
+	color: #12151a;
+}
+
+.tbl-lv.lv-at .tbl-lv-c {
+	background: #2f343d;
+}
+
+.tbl-lv.lv-legacy .tbl-lv-n {
+	width: 54px;
+	padding-left: 6px;
+	font-size: 10px;
+	letter-spacing: 0;
+}
+
+.tbl-row .c-lv .tbl-dash {
+	padding-left: 40px;
+}
+
+.tbl-row .c-grade {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 40px;
+}
+
+.tbl-row .c-grade img {
+	width: 40px;
+	height: 36px;
+	object-fit: contain;
+}
+
+/* Data numbers use NotoSansSC: its digits are tabular, so right-aligned columns
+   line up on the decimal point (Takumi ignores font-variant-numeric) */
+.tbl-num {
+	font-family: var(--tbl-tab);
+	line-height: 1.15;
+	text-align: right;
+	white-space: nowrap;
+}
+
+.tbl-dz {
+	color: rgba(147, 160, 181, 0.42);
+}
+
+.tbl-row .c-score .tbl-num {
+	font-size: 18px;
+	color: var(--tbl-text-2);
+}
+
+/* The acc stays on the row's number line; the peer figure hangs below it */
+.tbl-row .c-acc {
+	position: relative;
+	align-self: stretch;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: center;
+}
+
+.tbl-row .c-acc > .tbl-num {
+	font-size: 18px;
+	color: var(--tbl-text-2);
+}
+
+.tbl-row .c-acc > .tbl-num.is-ap {
+	color: var(--tbl-gold);
+}
+
+.tbl-row .c-rks .tbl-num {
+	font-size: 20px;
+	font-weight: 700;
+	color: #ffffff;
+}
+
+/* Like the acc cell: the push figure stays centred, the ±0.05 rank hangs below */
+.tbl-row .c-push {
+	position: relative;
+	align-self: stretch;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: center;
+}
+
+.tbl-row .c-push .tbl-num {
+	font-size: 16px;
+	color: var(--tbl-accent);
+}
+
+/* Push difficulty: below 99.5% green, below 99.85% the accent, else warm */
+.tbl-row .c-push .tbl-push-easy {
+	color: var(--tbl-up);
+}
+
+.tbl-row .c-push .tbl-push-hard {
+	color: var(--tbl-hard);
+}
+
+.tbl-nopush {
+	font-size: 13px;
+	line-height: 16px;
+	color: var(--tbl-muted);
+}
+
+.tbl-dash {
+	font-family: var(--tbl-num);
+	font-size: 16px;
+	color: #4c5768;
+}
+
+.tbl-avg {
+	position: absolute;
+	top: 44px;
+	right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	max-width: 106px;
+	height: 14px;
+	overflow: hidden;
+}
+
+.tbl-avg p {
+	line-height: 14px;
+	white-space: nowrap;
+	color: var(--tbl-dim);
+}
+
+.tbl-avg.is-up .tbl-num {
+	color: var(--tbl-up);
+}
+
+.tbl-avg.is-down .tbl-num {
+	color: var(--tbl-down);
+}
+
+/*
+ * Peer rank ("rank" mode): "#3,611 / 70,388  Top 5.1%" hangs under the acc like
+ * the peer average, but may reach left under the score (sized by fitRank); with
+ * both populations the ±0.05 one sits on the same line under the RKS and push cells
+ */
+.tbl-rank {
+	position: absolute;
+	top: 44px;
+	right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	width: 216px;
+	height: 14px;
+	overflow: hidden;
+}
+
+/* RKS (92px), the row gap (14px) and push (100px): reaches left from the push cell */
+.tbl-rank.is-side {
+	width: 206px;
+}
+
+.tbl-rank p {
+	font-family: var(--tbl-tab);
+	line-height: 14px;
+	white-space: nowrap;
+}
+
+.tbl-rank-tag {
+	margin-right: 5px;
+	color: var(--tbl-dim);
+}
+
+.tbl-rank-pos {
+	font-weight: 700;
+	color: #ffffff;
+}
+
+.tbl-rank-of {
+	margin-left: 4px;
+	color: var(--tbl-dim);
+}
+
+.tbl-rank-pct {
+	margin-left: 8px;
+	color: var(--tbl-accent);
+}
+
+/* A ±0.05 badge showing only its share: right after the tag */
+.tbl-rank-pct.is-lead {
+	margin-left: 0;
+}
+
+.tbl-rank.is-ap .tbl-rank-pos,
+.tbl-rank.is-ap .tbl-rank-pct {
+	color: var(--tbl-gold);
+}
+
+.tbl-tri {
+	flex: none;
+	width: 8px;
+	height: 7px;
+	margin-right: 4px;
+}
+
+.tbl-avg.is-up .tbl-tri {
+	background: var(--tbl-up);
+	clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.tbl-avg.is-down .tbl-tri {
+	background: var(--tbl-down);
+	clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+/* section bands: "Phi · P1–P3", "Best 27" */
+.tbl-band {
+	display: flex;
+	align-items: center;
+	height: 34px;
+	padding: 0 16px 0 14px;
+	background: rgba(255, 255, 255, 0.035);
+	border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tbl-band-tag {
+	flex: none;
+	width: 12px;
+	height: 16px;
+	margin: 0 12px 0 34px;
+	background: var(--tbl-accent);
+	clip-path: polygon(5px 0, 100% 0, calc(100% - 5px) 100%, 0 100%);
+}
+
+.tbl-band-l {
+	font-family: var(--tbl-num);
+	font-size: 14px;
+	line-height: 16px;
+	letter-spacing: 0.12em;
+	color: var(--tbl-accent);
+}
+
+.tbl-band-d {
+	margin-left: 14px;
+	font-size: 13px;
+	line-height: 16px;
+	color: var(--tbl-dim);
+}
+
+.tbl-band.is-phi .tbl-band-tag {
+	background: var(--tbl-gold);
+}
+
+.tbl-band.is-phi .tbl-band-l {
+	color: var(--tbl-gold);
+}
+
+/* OVERFLOW divider */
+.tbl-over {
+	display: flex;
+	align-items: center;
+	height: 54px;
+	/* Takumi paints an angled repeating gradient past the box; keep it in */
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+	padding: 0 24px;
+	border-top: 1px solid rgba(255, 255, 255, 0.06);
+	background: repeating-linear-gradient(
+		-60deg,
+		rgba(255, 255, 255, 0.035) 0 10px,
+		rgba(255, 255, 255, 0) 10px 22px
+	);
+}
+
+.tbl-over-line {
+	flex: 1;
+	height: 2px;
+	background: linear-gradient(
+		90deg,
+		rgba(255, 255, 255, 0),
+		rgba(255, 255, 255, 0.45)
+	);
+}
+
+.tbl-over-line:last-child {
+	background: linear-gradient(
+		90deg,
+		rgba(255, 255, 255, 0.45),
+		rgba(255, 255, 255, 0)
+	);
+}
+
+.tbl-over-mid {
+	display: flex;
+	align-items: center;
+	padding: 0 22px;
+}
+
+.tbl-over-l {
+	font-family: var(--tbl-num);
+	font-size: 18px;
+	line-height: 20px;
+	letter-spacing: 0.32em;
+	text-transform: uppercase;
+	color: #ffffff;
+}
+
+.tbl-over-d {
+	margin-left: 14px;
+	font-size: 13px;
+	line-height: 16px;
+	color: var(--tbl-dim);
+}
+
+.tbl-note {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 60px;
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+	border-top: 1px solid var(--tbl-line);
+	background: repeating-linear-gradient(
+		-60deg,
+		rgba(255, 255, 255, 0.025) 0 10px,
+		rgba(255, 255, 255, 0) 10px 22px
+	);
+}
+
+.tbl-note p {
+	font-size: 15px;
+	line-height: 18px;
+	letter-spacing: 0.04em;
+	color: var(--tbl-dim);
+}
+
+/* ---------- analysis ---------- */
+
+.tbl-ana {
+	margin-top: 22px;
+	padding: 20px 24px 24px;
+	background: rgba(14, 20, 31, 0.97);
+	box-shadow: inset 0 2px 0 var(--tbl-accent);
+}
+
+.tbl-sec {
+	display: flex;
+	align-items: center;
+	margin-bottom: 18px;
+}
+
+.tbl-sec-k {
+	margin-left: 12px;
+	font-family: var(--tbl-num);
+	font-size: 13px;
+	line-height: 16px;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--tbl-accent);
+}
+
+.tbl-sec-t {
+	margin-left: 14px;
+	font-size: 18px;
+	line-height: 22px;
+	color: #ffffff;
+}
+
+.tbl-ana-body {
+	display: flex;
+	align-items: stretch;
+	gap: 24px;
+}
+
+.tbl-hist {
+	flex: none;
+	display: flex;
+	flex-direction: column;
+}
+
+.tbl-hist-head {
+	display: flex;
+	align-items: flex-start;
+	margin-bottom: 16px;
+	padding-left: 56px;
+}
+
+.tbl-hist-stat {
+	display: flex;
+	flex-direction: column;
+	margin-right: 40px;
+}
+
+.tbl-hist-avg {
+	margin-top: 4px;
+	font-family: var(--tbl-num);
+	font-size: 30px;
+	line-height: 32px;
+	color: #ffffff;
+}
+
+.tbl-hist-sd {
+	margin-top: 4px;
+	font-family: var(--tbl-num);
+	font-size: 20px;
+	line-height: 24px;
+	color: var(--tbl-text-2);
+}
+
+.tbl-hist-legend {
+	display: flex;
+	align-items: center;
+	align-self: flex-end;
+	margin-left: auto;
+	padding-bottom: 4px;
+}
+
+.tbl-lg {
+	display: flex;
+	align-items: center;
+	margin-right: 18px;
+}
+
+.tbl-lg-dot {
+	width: 10px;
+	height: 10px;
+	background: var(--tbl-accent);
+}
+
+.tbl-lg.is-phi .tbl-lg-dot {
+	background: var(--tbl-gold);
+}
+
+.tbl-lg p {
+	margin-left: 7px;
+	font-family: var(--tbl-num);
+	font-size: 13px;
+	line-height: 16px;
+	color: var(--tbl-text-2);
+}
+
+.tbl-lg-n {
+	font-size: 13px;
+	line-height: 16px;
+	color: var(--tbl-dim);
+}
+
+.tbl-plot {
+	display: flex;
+	height: 180px;
+}
+
+.tbl-yaxis {
+	flex: none;
+	position: relative;
+	width: 56px;
+	height: 180px;
+}
+
+.tbl-yaxis p {
+	position: absolute;
+	right: 10px;
+	font-family: var(--tbl-num);
+	font-size: 12px;
+	line-height: 14px;
+	color: var(--tbl-dim);
+}
+
+.tbl-area {
+	flex: none;
+	position: relative;
+	height: 180px;
+	border-left: 1px solid rgba(255, 255, 255, 0.2);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.tbl-grid {
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 1px;
+	background: rgba(255, 255, 255, 0.07);
+}
+
+.tbl-bars {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	display: flex;
+	align-items: flex-end;
+	height: 180px;
+}
+
+.tbl-slot {
+	flex: none;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	height: 180px;
+}
+
+.tbl-bar {
+	background: linear-gradient(180deg, #72e1ff 0%, #1e95c8 100%);
+}
+
+.tbl-slot.is-phi .tbl-bar {
+	background: linear-gradient(180deg, #ffe08c 0%, #c9971f 100%);
+}
+
+.tbl-slot.is-empty .tbl-bar {
+	background: rgba(255, 255, 255, 0.16);
+}
+
+.tbl-avgline {
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: rgba(255, 255, 255, 0.9);
+	box-shadow: 0 0 8px rgba(79, 210, 245, 0.9);
+}
+
+.tbl-avgtag {
+	position: absolute;
+	right: 6px;
+	padding: 1px 6px;
+	font-family: var(--tbl-num);
+	font-size: 12px;
+	line-height: 14px;
+	color: #ffffff;
+	background: rgba(14, 20, 31, 0.9);
+}
+
+.tbl-xaxis {
+	display: flex;
+	margin-left: 57px;
+	margin-top: 6px;
+}
+
+.tbl-xaxis p {
+	flex: none;
+	font-family: var(--tbl-num);
+	font-size: 11px;
+	line-height: 14px;
+	text-align: center;
+	color: var(--tbl-dim);
+}
+
+.tbl-xaxis p.is-phi {
+	color: var(--tbl-gold);
+}
+
+/* strong / weak chart tags */
+.tbl-tags {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	padding: 16px;
+	background: rgba(255, 255, 255, 0.035);
+}
+
+.tbl-tags-head {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 12px;
+}
+
+.tbl-tags-t {
+	font-size: 16px;
+	line-height: 20px;
+	color: #ffffff;
+}
+
+.tbl-tags-meta {
+	margin-top: 3px;
+	font-size: 12px;
+	line-height: 16px;
+	color: var(--tbl-dim);
+}
+
+.tbl-tags-cols {
+	display: flex;
+	gap: 14px;
+}
+
+.tbl-tags-col {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.tbl-tags-k {
+	padding-bottom: 6px;
+	margin-bottom: 2px;
+	font-size: 13px;
+	line-height: 16px;
+	border-bottom: 2px solid var(--tbl-up);
+	color: var(--tbl-up);
+}
+
+.tbl-tags-col.is-weak .tbl-tags-k {
+	border-bottom-color: var(--tbl-down);
+	color: var(--tbl-down);
+}
+
+.tbl-tag {
+	display: flex;
+	align-items: center;
+	height: 30px;
+	border-bottom: 1px solid var(--tbl-line);
+}
+
+.tbl-tag-i {
+	flex: none;
+	width: 18px;
+	font-family: var(--tbl-num);
+	font-size: 12px;
+	color: var(--tbl-dim);
+}
+
+/* Lifted like .tbl-stats-k so the name lines up with the Aldrich numbers */
+.tbl-tag-n {
+	flex: 1;
+	min-width: 0;
+	padding-bottom: 3px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #ffffff;
+}
+
+.tbl-tag-v {
+	flex: none;
+	width: 46px;
+	font-family: var(--tbl-num);
+	font-size: 14px;
+	text-align: right;
+	color: var(--tbl-text-2);
+}
+
+/* No usable tag result: one centred note instead of empty columns */
+.tbl-tags-empty {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 18px 24px;
+	border: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+.tbl-tags-empty-mark {
+	width: 18px;
+	height: 18px;
+	margin-bottom: 12px;
+	background: var(--tbl-muted);
+	clip-path: polygon(7px 0, 100% 0, calc(100% - 7px) 100%, 0 100%);
+}
+
+.tbl-tags-msg {
+	font-size: 14px;
+	line-height: 20px;
+	text-align: center;
+	color: var(--tbl-text-2);
+}
+
+.tbl-tags-foot {
+	display: flex;
+	flex-direction: column;
+	margin-top: 10px;
+}
+
+.tbl-tags-foot p {
+	font-size: 12px;
+	line-height: 17px;
+	color: var(--tbl-muted);
+}
+
+/* ---------- footer ---------- */
+
+.tbl-foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 92px;
+	margin-top: 20px;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tbl-tip {
+	display: flex;
+	align-items: center;
+	width: 880px;
+}
+
+.tbl-tip-k {
+	flex: none;
+	margin-right: 14px;
+	padding: 3px 9px;
+	font-family: var(--tbl-num);
+	font-size: 12px;
+	line-height: 14px;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--tbl-accent);
+	border: 1px solid rgba(79, 210, 245, 0.6);
+}
+
+/*
+ * One or two lines, broken in prepare() (tipView): a CSS line clamp puts each
+ * colour emoji of a tip on a line of its own
+ */
+.tbl-tip-t {
+	display: flex;
+	flex-direction: column;
+	width: 820px;
+	overflow: hidden;
+	color: var(--tbl-text-2);
+}
+
+.tbl-tip-t p {
+	line-height: 1.35;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.tbl-brand {
+	display: flex;
+	align-items: center;
+}
+
+.tbl-brand-meta {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	margin-right: 18px;
+}
+
+.tbl-brand-date {
+	margin-top: 3px;
+	font-family: var(--tbl-num);
+	font-size: 14px;
+	line-height: 16px;
+	color: var(--tbl-text-2);
+}
+
+.tbl-logo {
+	display: flex;
+	align-items: center;
+}
+
+.tbl-logo-bars {
+	display: flex;
+}
+
+.tbl-logo-bars div {
+	width: 7px;
+	height: 22px;
+	margin-right: 3px;
+	background: #ffffff;
+	clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+}
+
+.tbl-logo-bars div:first-child {
+	background: var(--tbl-accent);
+}
+
+.tbl-logo p {
+	margin-left: 6px;
+	font-family: var(--tbl-num);
+	font-size: 20px;
+	line-height: 22px;
+	letter-spacing: 0.06em;
+	color: #ffffff;
+}

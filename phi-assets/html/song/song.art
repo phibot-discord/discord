@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+<head><meta charset="utf-8"><title>phi</title></head>
+<body>
+<div class="sc-card sc-l-{{sc.lc}}">
+	{{if background}}<img class="sc-bgimg" src="{{background}}" alt="">{{/if}}
+	<div class="sc-bgshade"></div>
+
+	<div class="sc-top">
+		<div class="sc-eyebrow"><div class="sc-mark"></div><p>{{sc.vt.eyebrow}}</p></div>
+		<div class="sc-player">
+			{{if sc.player.avatar}}<img class="sc-avatar" src="{{_res_path}}html/avatar/{{sc.player.avatar}}.png" alt="">{{/if}}
+			<div class="sc-player-t">
+				<p class="sc-player-n">{{sc.player.name}}</p>
+				{{if sc.player.rks}}<p class="sc-player-r">RKS {{sc.player.rks}}</p>{{/if}}
+			</div>
+		</div>
+	</div>
+
+	<div class="sc-hero">
+		<div class="sc-jacket"><img src="{{sc.head.jacket}}" alt=""></div>
+		<div class="sc-hero-t">
+			<div class="sc-chip sc-chip-{{sc.head.chip.cls}}"><p>{{sc.head.chip.rank}}</p><p class="sc-chip-lv">{{sc.head.chip.level}}</p></div>
+			<div class="sc-title">
+				{{each sc.head.title.lines line}}<p style="font-size:{{sc.head.title.px}}px;">{{line}}</p>{{/each}}
+			</div>
+			<div class="sc-credit"><p class="sc-credit-k">{{sc.vt.composer}}</p><p class="sc-credit-v">{{sc.head.composer}}</p></div>
+			{{if sc.head.charter}}<div class="sc-credit"><p class="sc-credit-k">{{sc.vt.charter}}</p><p class="sc-credit-v">{{sc.head.charter}}</p></div>{{/if}}
+			{{if sc.head.notes}}
+			<div class="sc-notes">
+				<p class="sc-notes-n">{{sc.head.notes}}</p>
+				{{each sc.head.kinds kind}}<p class="sc-notes-k">{{kind.k}} {{kind.n}}</p>{{/each}}
+			</div>
+			{{/if}}
+		</div>
+	</div>
+
+	<div class="sc-sec">
+		<div class="sc-sec-h"><div class="sc-mark"></div><p class="sc-sec-t">{{sc.vt.record}}</p></div>
+		{{if sc.record}}
+		<div class="sc-rec">
+			<div class="sc-grade">{{if sc.record.rating}}<img src="{{_imgPath}}{{sc.record.rating}}.png" alt="">{{/if}}</div>
+			<div class="sc-rec-col sc-rec-score">
+				<p class="sc-k">{{sc.vt.score}}</p>
+				<p class="sc-score">{{sc.record.score}}</p>
+			</div>
+			<div class="sc-rec-col sc-rec-acc">
+				<p class="sc-k">{{sc.vt.acc}}</p>
+				<p class="sc-acc">{{sc.record.acc}}</p>
+			</div>
+			<div class="sc-rec-col sc-rec-rks">
+				<p class="sc-k">{{sc.vt.chartRks}}</p>
+				<p class="sc-rks">{{sc.record.rks}}</p>
+			</div>
+			{{if sc.record.badge}}<div class="sc-badge sc-badge-{{sc.record.badge}}"><p>{{sc.record.badge}}</p></div>{{/if}}
+		</div>
+		{{else}}
+		<div class="sc-rec sc-rec-none">
+			<p class="sc-none-t">{{sc.vt.noRecord}}</p>
+			<p class="sc-none-s">{{sc.vt.noRecordSub}}</p>
+		</div>
+		{{/if}}
+	</div>
+
+	<div class="sc-sec">
+		<div class="sc-sec-h"><div class="sc-mark"></div><p class="sc-sec-t">{{sc.vt.standing}}</p><p class="sc-sec-m">{{sc.vt.standingMeta}}</p></div>
+		<div class="sc-tiles">
+			{{each sc.tiles tile}}
+			<div class="sc-tile{{if tile.ap}} sc-tile-ap{{/if}}{{if !tile.ok}} sc-tile-off{{/if}}">
+				<p class="sc-k">{{tile.label}}</p>
+				<div class="sc-pos">
+					<p class="sc-pos-n" style="font-size:{{tile.posPx}}px;">{{tile.pos}}</p>
+					{{if tile.of}}<p class="sc-pos-of">{{tile.of}}</p>{{/if}}
+				</div>
+				{{if tile.pct}}<div class="sc-pct"><p>{{tile.pct}}</p></div>{{/if}}
+				<p class="sc-tile-s">{{tile.sub}}</p>
+				{{if tile.note}}<p class="sc-tile-n">{{tile.note}}</p>{{/if}}
+			</div>
+			{{/each}}
+		</div>
+	</div>
+
+	<div class="sc-sec">
+		<div class="sc-sec-h"><div class="sc-mark"></div><p class="sc-sec-t">{{sc.vt.dist}}</p>{{if sc.dist.meta}}<p class="sc-sec-m">{{sc.dist.meta}}</p>{{/if}}</div>
+		{{if sc.dist.ok}}
+		<div class="sc-panel sc-dist">
+			<div class="sc-plot" style="width:{{sc.dist.plotW}}px;">
+				{{if sc.dist.marker}}
+				<div class="sc-mk-label" style="left:{{sc.dist.marker.labelX}}px;"><p>{{sc.dist.marker.label}}</p></div>
+				{{/if}}
+				<div class="sc-bars" style="width:{{sc.dist.plotW}}px;">
+					{{each sc.dist.bars bar}}<div class="sc-bin"><div class="sc-bin-f sc-bin-{{bar.cls}}" style="height:{{bar.h}}px;"></div></div>{{/each}}
+					<div class="sc-apcol" style="left:{{sc.dist.ap.x}}px;">
+						{{if sc.dist.ap.label}}<p class="sc-apcol-n">{{sc.dist.ap.label}}</p>{{/if}}
+						<div class="sc-apcol-f{{if sc.dist.ap.you}} sc-apcol-you{{/if}}" style="height:{{sc.dist.ap.h}}px;">{{if sc.dist.ap.cut}}<div class="sc-apcol-cut"></div>{{/if}}</div>
+					</div>
+					{{if sc.dist.marker && sc.dist.marker.line}}<div class="sc-mk" style="left:{{sc.dist.marker.left}}px;"></div>{{/if}}
+				</div>
+				<div class="sc-axis" style="width:{{sc.dist.plotW}}px;">
+					{{each sc.dist.ticks tick}}<p class="sc-tick" style="left:{{tick.left}}px;">{{tick.label}}</p>{{/each}}
+					<p class="sc-tick sc-tick-ap" style="left:{{sc.dist.ap.axisX}}px;">{{sc.vt.ap}}</p>
+				</div>
+			</div>
+			{{if sc.dist.below}}<p class="sc-dist-below">{{sc.dist.below}}</p>{{/if}}
+			<p class="sc-k sc-strip-k">{{sc.vt.field}}</p>
+			<div class="sc-strip-wrap">
+				{{if sc.dist.strip.marker}}
+				<div class="sc-strip-label" style="left:{{sc.dist.strip.marker.labelX}}px;"><p>{{sc.dist.strip.marker.label}}</p></div>
+				{{/if}}
+				<div class="sc-strip">
+					<div class="sc-strip-ap" style="width:{{sc.dist.strip.apW}}px;"></div>
+					{{each sc.dist.strip.ticks tick}}<div class="sc-strip-tk" style="left:{{tick.tick}}px;"></div>{{/each}}
+					{{if sc.dist.strip.marker}}<div class="sc-strip-mk" style="left:{{sc.dist.strip.marker.left}}px;"></div>{{/if}}
+				</div>
+				<div class="sc-strip-axis">
+					{{each sc.dist.strip.ticks tick}}
+					<div class="sc-strip-tl" style="left:{{tick.left}}px;"><p class="sc-strip-tn">{{tick.label}}</p><p class="sc-strip-tv">{{tick.acc}}</p></div>
+					{{/each}}
+				</div>
+			</div>
+		</div>
+		{{else}}
+		<div class="sc-panel sc-note"><p>{{sc.dist.note}}</p></div>
+		{{/if}}
+	</div>
+
+	<div class="sc-sec">
+		<div class="sc-sec-h"><div class="sc-mark"></div><p class="sc-sec-t">{{sc.vt.counts}}</p></div>
+		{{if sc.counts.ok}}
+		<div class="sc-counts">
+			<div class="sc-count">
+				<p class="sc-k">{{sc.vt.records}}</p>
+				<p class="sc-count-v">{{sc.counts.records}}</p>
+				<p class="sc-count-s sc-count-s1">{{sc.vt.recordsSub}}</p>
+			</div>
+			<div class="sc-count sc-count-ap">
+				<p class="sc-k">{{sc.vt.apRate}}</p>
+				<p class="sc-count-v">{{sc.counts.ap}}</p>
+				<div class="sc-meter"><div class="sc-meter-f" style="width:{{sc.counts.apW}}px;"></div></div>
+				<p class="sc-count-s">{{sc.counts.apSub}}</p>
+			</div>
+			<div class="sc-count sc-count-fc">
+				<p class="sc-k">{{sc.vt.fcRate}}</p>
+				<p class="sc-count-v">{{sc.counts.fc}}</p>
+				<div class="sc-meter"><div class="sc-meter-f" style="width:{{sc.counts.fcW}}px;"></div></div>
+				<p class="sc-count-s">{{sc.counts.fcSub}}</p>
+			</div>
+		</div>
+		{{else}}
+		<div class="sc-panel sc-note"><p>{{sc.counts.note}}</p></div>
+		{{/if}}
+	</div>
+
+	{{if sc.levels.length > 1}}
+	<div class="sc-sec">
+		<div class="sc-sec-h"><div class="sc-mark"></div><p class="sc-sec-t">{{sc.vt.levels}}</p></div>
+		<div class="sc-lv-head">
+			<p class="sc-lv-c1">{{sc.vt.colLevel}}</p>
+			<p class="sc-lv-c2">{{sc.vt.colScore}}</p>
+			<p class="sc-lv-c3">{{sc.vt.colAcc}}</p>
+			<p class="sc-lv-c4">{{sc.vt.colPos}}</p>
+			<p class="sc-lv-c5">{{sc.vt.colAp}}</p>
+		</div>
+		{{each sc.levels lv}}
+		<div class="sc-lv{{if lv.current}} sc-lv-cur{{/if}}{{if !lv.played}} sc-lv-none{{/if}}">
+			<div class="sc-lv-c1"><div class="sc-chip sc-chip-s sc-chip-{{lv.cls}}"><p>{{lv.rank}}</p><p class="sc-chip-lv">{{lv.constant}}</p></div></div>
+			<div class="sc-lv-c2">{{if lv.rating}}<img class="sc-lv-grade" src="{{_imgPath}}{{lv.rating}}.png" alt="">{{/if}}<p>{{lv.score}}</p></div>
+			<p class="sc-lv-c3">{{lv.acc}}</p>
+			<div class="sc-lv-c4"><p class="sc-lv-pos">{{lv.pos}}</p>{{if lv.pct}}<p class="sc-lv-pct">{{lv.pct}}</p>{{/if}}</div>
+			<p class="sc-lv-c5">{{lv.ap}}</p>
+		</div>
+		{{/each}}
+	</div>
+	{{/if}}
+
+	<div class="sc-foot">
+		<p class="sc-foot-t">{{sc.vt.foot}}</p>
+		<p class="sc-foot-s">{{sc.source}}</p>
+	</div>
+</div>
+</body>
+</html>

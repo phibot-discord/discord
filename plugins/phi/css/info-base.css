@@ -1,0 +1,245 @@
+/* Shared by the info layouts: palette, backdrop, chips, bars, chart frame */
+:root {
+	--ib-panel: rgba(12, 18, 27, 0.84);
+	--ib-panel-2: rgba(20, 28, 40, 0.92);
+	--ib-line: rgba(255, 255, 255, 0.1);
+	--ib-text: #eef2f6;
+	--ib-text-2: #a3aebb;
+	--ib-text-3: #6f7a89;
+	--ib-accent: #6fd6e8;
+	--ib-gold: #f2c45a;
+	--ib-ez: #4fbf6a;
+	--ib-hd: #3b8fe0;
+	--ib-in: #e2484f;
+	--ib-at: #8f96a3;
+	--ib-num: Aldrich, PHI, NotoSansSC, sans-serif;
+	--ib-sans: NotoSansSC, PHI, NotoSansJP, sans-serif;
+}
+
+body {
+	position: relative;
+	background: #0a0e14;
+	color: var(--ib-text);
+	font-family: var(--ib-sans);
+}
+
+.ib-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+}
+
+.ib-bg img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0.6;
+}
+
+.ib-shade {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(
+		180deg,
+		rgba(8, 12, 18, 0.7) 0%,
+		rgba(8, 12, 18, 0.9) 45%,
+		rgba(8, 12, 18, 0.96) 100%
+	);
+}
+
+.ib-root {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.ib-kicker {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	color: var(--ib-accent);
+	font-size: 14px;
+	letter-spacing: 3px;
+}
+
+.ib-kicker-bar {
+	width: 18px;
+	height: 4px;
+	background: var(--ib-accent);
+	clip-path: polygon(30% 0, 100% 0, 70% 100%, 0 100%);
+}
+
+.ib-section {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 0 0 14px;
+	color: var(--ib-text-2);
+	font-size: 15px;
+	letter-spacing: 2px;
+}
+
+.ib-section-mark {
+	width: 12px;
+	height: 20px;
+	background: var(--ib-accent);
+	clip-path: polygon(40% 0, 100% 0, 60% 100%, 0 100%);
+}
+
+.ib-panel {
+	background: var(--ib-panel);
+	border: 1px solid var(--ib-line);
+	border-radius: 6px;
+}
+
+/* Difficulty chip and colours */
+.ib-chip {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 28px;
+	padding: 0 12px;
+	color: #ffffff;
+	font-family: var(--ib-num);
+	font-size: 16px;
+	clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+
+.ib-lv-EZ .ib-chip,
+.ib-lv-EZ .ib-bar-fill,
+.ib-lv-EZ .ib-lv-edge {
+	background: var(--ib-ez);
+}
+
+.ib-lv-HD .ib-chip,
+.ib-lv-HD .ib-bar-fill,
+.ib-lv-HD .ib-lv-edge {
+	background: var(--ib-hd);
+}
+
+.ib-lv-IN .ib-chip,
+.ib-lv-IN .ib-bar-fill,
+.ib-lv-IN .ib-lv-edge {
+	background: var(--ib-in);
+}
+
+.ib-lv-AT .ib-chip,
+.ib-lv-AT .ib-bar-fill,
+.ib-lv-AT .ib-lv-edge {
+	background: var(--ib-at);
+}
+
+.ib-bar {
+	display: flex;
+	height: 6px;
+	border-radius: 3px;
+	background: rgba(255, 255, 255, 0.08);
+	overflow: hidden;
+}
+
+.ib-bar-fill {
+	height: 6px;
+	border-radius: 3px;
+}
+
+.ib-bar-phi .ib-bar-fill {
+	background: var(--ib-gold);
+}
+
+/* Trend chart: SVG plot, max / min labels in a gutter, x labels under it */
+.ib-chart {
+	display: flex;
+	flex-direction: column;
+}
+
+.ib-plot-row {
+	display: flex;
+	align-items: stretch;
+}
+
+.ib-plot {
+	position: relative;
+}
+
+/* Max / min of the plotted range, level with the top and bottom grid lines */
+.ib-gutter {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 84px;
+	padding: 0 0 0 10px;
+}
+
+.ib-y {
+	color: var(--ib-text-2);
+	font-family: var(--ib-num);
+	font-size: 12px;
+	line-height: 16px;
+	white-space: nowrap;
+}
+
+.ib-x {
+	position: relative;
+	height: 22px;
+	margin-top: 6px;
+}
+
+.ib-x-t {
+	position: absolute;
+	top: 0;
+	color: var(--ib-text-3);
+	font-family: var(--ib-num);
+	font-size: 12px;
+	white-space: nowrap;
+}
+
+.ib-x-middle {
+	transform: translateX(-50%);
+}
+
+.ib-x-end {
+	transform: translateX(-100%);
+}
+
+.ib-empty {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+	color: var(--ib-text-3);
+	font-size: 15px;
+	text-align: center;
+}
+
+.ib-foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 24px;
+	color: var(--ib-text-3);
+	font-size: 13px;
+}
+
+.ib-foot-tip {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.ib-foot-mark {
+	flex-shrink: 0;
+	color: var(--ib-text-2);
+	font-family: var(--ib-num);
+	letter-spacing: 2px;
+}

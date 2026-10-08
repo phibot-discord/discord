@@ -7,4 +7,5 @@ config/local.yaml
 .DS_Store
 resources
 phi-assets/original_ill/
-phi-assets/otherill/
+plugins/phi/art-compiled.ts
+plugins/phi/css/bundle.ts

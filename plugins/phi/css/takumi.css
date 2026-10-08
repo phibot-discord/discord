@@ -1,461 +1,544 @@
-.createdbox, .phi-brand, .ver { display: none !important; }
+.createdbox,
+.phi-brand,
+.ver {
+	display: none !important;
+}
 
 .tips {
-  position: relative !important;
-  z-index: 3 !important;
-  align-self: stretch !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-  margin: var(--footer-margin-top) 0 var(--footer-margin-bottom) !important;
-  padding: 0 16px !important;
-  overflow: visible !important;
-  text-align: left !important;
+	position: relative !important;
+	z-index: 3 !important;
+	align-self: stretch !important;
+	width: 100% !important;
+	box-sizing: border-box !important;
+	margin: var(--footer-margin-top) 0 var(--footer-margin-bottom) !important;
+	padding: 0 16px !important;
+	overflow: visible !important;
+	text-align: left !important;
 }
+/* Two lines at most, so a random tip never changes the cached height
+   Takumi drops line-clamp / text-overflow marked !important */
 .tips p {
-  font-size: var(--footer-font-size) !important;
-  line-height: 1.3 !important;
-  margin: 0 !important;
-  font-family: NotoSansSC, PHI, Aldrich, NotoSansJP, sans-serif !important;
+	font-size: var(--footer-font-size) !important;
+	line-height: 1.3 !important;
+	margin: 0 !important;
+	font-family: NotoSansSC, PHI, Aldrich, NotoSansJP, sans-serif !important;
+	line-clamp: 2;
+	text-overflow: ellipsis;
+	overflow: hidden !important;
+	max-height: 2.6em !important;
 }
 
 .tips-abs {
-  position: relative !important;
-  left: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  margin: var(--footer-margin-top) 0 var(--footer-margin-bottom) !important;
-  padding: 0 16px !important;
-  width: 100% !important;
-  align-self: stretch !important;
+	position: relative !important;
+	left: auto !important;
+	right: auto !important;
+	bottom: auto !important;
+	margin: var(--footer-margin-top) 0 var(--footer-margin-bottom) !important;
+	padding: 0 16px !important;
+	width: 100% !important;
+	align-self: stretch !important;
 }
 
 body {
-  background-image: none !important;
-  background-color: #071018 !important;
-  position: relative !important;
-  padding-bottom: 40px !important;
-  box-sizing: border-box !important;
-  font-family: PHI, NotoSansSC, Aldrich, NotoSansJP, sans-serif !important;
+	background-image: none !important;
+	background-color: #071018 !important;
+	position: relative !important;
+	/* The footer's own bottom margin and the engine's measure slack space the bottom */
+	padding-bottom: 0 !important;
+	box-sizing: border-box !important;
+	font-family: PHI, NotoSansSC, Aldrich, NotoSansJP, sans-serif !important;
 }
-.clip-box, .clip-box-left, .clip-box-right { clip-path: none !important; overflow: hidden !important; }
-.dataBox.clip-box { overflow: visible !important; }
+.clip-box,
+.clip-box-left,
+.clip-box-right {
+	clip-path: none !important;
+	overflow: hidden !important;
+}
+.dataBox.clip-box {
+	overflow: visible !important;
+}
 .background {
-  position: absolute !important;
-  top: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  overflow: hidden !important;
-  z-index: 0 !important;
+	position: absolute !important;
+	top: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	left: 0 !important;
+	width: 100% !important;
+	height: 100% !important;
+	overflow: hidden !important;
+	z-index: 0 !important;
 }
 .background img.star-base {
-  position: absolute !important;
-  top: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center center !important;
-  transform: none !important;
+	position: absolute !important;
+	top: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	left: 0 !important;
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: cover !important;
+	object-position: center center !important;
+	transform: none !important;
 }
 .background img.star-overlay {
-  position: absolute !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  top: auto !important;
-  width: 100% !important;
-  height: auto !important;
-  min-height: 0 !important;
-  object-fit: contain !important;
-  object-position: bottom center !important;
-  transform: none !important;
+	position: absolute !important;
+	left: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	top: auto !important;
+	width: 100% !important;
+	height: auto !important;
+	min-height: 0 !important;
+	object-fit: contain !important;
+	object-position: bottom center !important;
+	transform: none !important;
 }
-.title, .b19, .over_flow, .b30-analysis-row { position: relative !important; z-index: 2 !important; }
-.blackBlock { height: 73px !important; overflow: hidden !important; }
-.num { height: 18px !important; overflow: visible !important; }
-.ill { height: 95px !important; overflow: hidden !important; }
-.rank-AT, .rank-IN, .rank-HD, .rank-EZ { height: 31px !important; overflow: hidden !important; }
-.dataBox, .spInfoBox {
-  height: 20px !important;
-  overflow: visible !important;
-  white-space: nowrap !important;
+.title,
+.b19,
+.over_flow,
+.b30-analysis-row {
+	position: relative !important;
+	z-index: 2 !important;
+}
+.blackBlock {
+	height: 73px !important;
+	overflow: hidden !important;
+}
+.num {
+	height: 18px !important;
+	overflow: visible !important;
+}
+.ill {
+	height: 95px !important;
+	overflow: hidden !important;
+}
+.rank-AT,
+.rank-IN,
+.rank-HD,
+.rank-EZ {
+	height: 31px !important;
+	overflow: hidden !important;
+}
+/* text-wrap-mode, not white-space: Takumi drops `white-space: nowrap !important` */
+.dataBox,
+.spInfoBox {
+	height: 20px !important;
+	overflow: visible !important;
+	text-wrap-mode: nowrap !important;
 }
 .dataBox {
-  bottom: var(--b30-databox-bottom) !important;
-  left: var(--b30-databox-left) !important;
-  padding-right: 10px !important;
-  padding-left: 8px !important;
+	bottom: var(--b30-databox-bottom) !important;
+	left: var(--b30-databox-left) !important;
+	padding-right: 10px !important;
+	padding-left: 8px !important;
 }
 .recordInfo {
-  height: 112px !important;
-  clip-path: none !important;
-  overflow: hidden !important;
-  width: 28% !important;
-  background-color: rgba(0, 0, 0, 0.62) !important;
-  padding: 8px 8px 8px 10px !important;
-  box-sizing: border-box !important;
+	height: 112px !important;
+	clip-path: none !important;
+	overflow: hidden !important;
+	width: 28% !important;
+	background-color: rgba(0, 0, 0, 0.62) !important;
+	padding: 8px 8px 8px 10px !important;
+	box-sizing: border-box !important;
 }
-.whiteLine { display: none !important; }
+.whiteLine {
+	display: none !important;
+}
 .stats-table {
-  display: flex !important;
-  flex-direction: column !important;
-  width: var(--b30-stats-table-width) !important;
-  height: var(--b30-stats-table-height) !important;
-  justify-content: space-evenly !important;
+	display: flex !important;
+	flex-direction: column !important;
+	width: var(--b30-stats-table-width) !important;
+	height: var(--b30-stats-table-height) !important;
+	justify-content: space-evenly !important;
 }
 .stats-row {
-  display: flex !important;
-  flex-direction: row !important;
-  width: var(--b30-stats-table-width) !important;
-  justify-content: center !important;
-  align-items: center !important;
-  height: 24px !important;
+	display: flex !important;
+	flex-direction: row !important;
+	width: var(--b30-stats-table-width) !important;
+	justify-content: center !important;
+	align-items: center !important;
+	height: 24px !important;
 }
-.stats-lab, .stats-val {
-  color: #fff !important;
-  text-align: center !important;
-  font-size: 15px !important;
-  line-height: 1.2 !important;
-  flex: none !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
+.stats-lab,
+.stats-val {
+	color: #fff !important;
+	text-align: center !important;
+	font-size: 15px !important;
+	line-height: 1.2 !important;
+	flex: none !important;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
 }
 .stats-lab {
-  width: var(--b30-stats-lab-width) !important;
-  flex: 0 0 var(--b30-stats-lab-width) !important;
-  color: rgba(255,255,255,0.9) !important;
+	width: var(--b30-stats-lab-width) !important;
+	flex: 0 0 var(--b30-stats-lab-width) !important;
+	color: rgba(255, 255, 255, 0.9) !important;
 }
 .stats-val {
-  width: var(--b30-stats-val-width) !important;
-  flex: 0 0 var(--b30-stats-val-width) !important;
+	width: var(--b30-stats-val-width) !important;
+	flex: 0 0 var(--b30-stats-val-width) !important;
 }
 .sheet {
-  display: flex !important;
-  flex-direction: column !important;
-  width: 100% !important;
-  height: 96px !important;
-  justify-content: space-evenly !important;
+	display: flex !important;
+	flex-direction: column !important;
+	width: 100% !important;
+	height: 96px !important;
+	justify-content: space-evenly !important;
 }
 .sheet .row {
-  display: flex !important;
-  flex-direction: row !important;
-  position: static !important;
-  left: 0 !important;
-  height: auto !important;
-  width: 100% !important;
-  align-items: center !important;
+	display: flex !important;
+	flex-direction: row !important;
+	position: static !important;
+	left: 0 !important;
+	height: auto !important;
+	width: 100% !important;
+	align-items: center !important;
 }
 .sheet .poz {
-  position: static !important;
-  width: 58px !important;
-  height: auto !important;
-  left: auto !important;
-  flex: none !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
+	position: static !important;
+	width: 58px !important;
+	height: auto !important;
+	left: auto !important;
+	flex: none !important;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
 }
-.sheet .poz.stats-lab { width: 36px !important; }
-.flow_line_box_l, .flow_line_box_r {
-  display: flex !important;
-  width: 38% !important;
-  align-items: center !important;
-  justify-content: center !important;
+.sheet .poz.stats-lab {
+	width: 36px !important;
+}
+.flow_line_box_l,
+.flow_line_box_r {
+	display: flex !important;
+	width: 38% !important;
+	align-items: center !important;
+	justify-content: center !important;
 }
 .flow_line {
-  background-color: #ffffff !important;
-  height: 15px !important;
-  flex: none !important;
-  clip-path: polygon(100% 0%, 88% 100%, 0% 100%, 12% 0%) !important;
+	background-color: #ffffff !important;
+	height: 15px !important;
+	flex: none !important;
+	clip-path: polygon(100% 0%, 88% 100%, 0% 100%, 12% 0%) !important;
 }
-.info-AT, .info-IN, .info-HD, .info-EZ {
-  filter: none !important;
-  backdrop-filter: none !important;
+.info-AT,
+.info-IN,
+.info-HD,
+.info-EZ {
+	filter: none !important;
+	backdrop-filter: none !important;
 }
-.info-AT { background-color: rgba(90, 0, 0, 0.82) !important; }
-.info-IN, .info-HD, .info-EZ { background-color: rgba(0, 50, 80, 0.82) !important; }
+.info-AT {
+	background-color: rgba(90, 0, 0, 0.82) !important;
+}
+.info-IN,
+.info-HD,
+.info-EZ {
+	background-color: rgba(0, 50, 80, 0.82) !important;
+}
 .analysis-panel {
-  height: 340px !important;
-  clip-path: none !important;
-  overflow: visible !important;
-  background: rgba(0, 0, 0, 0.72) !important;
-  padding: 15px 28px 22px !important;
+	height: 340px !important;
+	clip-path: none !important;
+	overflow: visible !important;
+	background: rgba(0, 0, 0, 0.72) !important;
+	padding: 15px 28px 22px !important;
 }
 .histogram-panel {
-  height: 340px !important;
-  clip-path: none !important;
-  overflow: hidden !important;
-  background: rgba(0, 0, 0, 0.72) !important;
-  padding: 15px 28px 22px !important;
-  display: flex !important;
-  flex-direction: column !important;
+	height: 340px !important;
+	clip-path: none !important;
+	overflow: hidden !important;
+	background: rgba(0, 0, 0, 0.72) !important;
+	padding: 15px 28px 22px !important;
+	display: flex !important;
+	flex-direction: column !important;
 }
-.histogram-wide .histogram-panel { width: 100% !important; }
+.histogram-wide .histogram-panel {
+	width: 100% !important;
+}
 .tag-analysis-panel,
 .histogram-panel {
-  width: calc(50% - 11px) !important;
-  flex: none !important;
+	width: calc(50% - 11px) !important;
+	flex: none !important;
 }
 .b30-analysis-row {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: stretch !important;
-  justify-content: space-between !important;
-  gap: 22px !important;
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: stretch !important;
+	justify-content: space-between !important;
+	gap: 22px !important;
 }
 .tag-analysis-body {
-  height: 216px !important;
-  position: relative !important;
-  padding-top: 0 !important;
-  overflow: visible !important;
+	height: 216px !important;
+	position: relative !important;
+	padding-top: 0 !important;
+	overflow: visible !important;
 }
 .tag-analysis-content {
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  gap: 24px !important;
+	height: 100% !important;
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	gap: 24px !important;
 }
 .tag-radar-column {
-  width: 280px !important;
-  flex: none !important;
-  min-width: 280px !important;
-  overflow: visible !important;
+	width: 280px !important;
+	flex: none !important;
+	min-width: 280px !important;
+	overflow: visible !important;
 }
 .tag-ranking-column {
-  flex: 1 !important;
-  min-width: 0 !important;
-  height: auto !important;
-  align-self: center !important;
-  padding-top: 4px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
+	flex: 1 !important;
+	min-width: 0 !important;
+	height: auto !important;
+	align-self: center !important;
+	padding-top: 4px !important;
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: center !important;
 }
 .tag-radar {
-  width: 200px !important;
-  height: 184px !important;
-  position: relative !important;
-  flex: none !important;
-  overflow: visible !important;
-  display: block !important;
-  margin-left: 16px !important;
+	width: 200px !important;
+	height: 184px !important;
+	position: relative !important;
+	flex: none !important;
+	overflow: visible !important;
+	display: block !important;
+	margin-left: 16px !important;
 }
 img.tag-radar-plot,
 .tag-radar-plot,
 .tag-radar img {
-  width: 200px !important;
-  height: 184px !important;
-  min-width: 200px !important;
-  min-height: 184px !important;
-  max-width: 200px !important;
-  max-height: 184px !important;
-  display: block !important;
-  flex: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  box-sizing: border-box !important;
-  object-fit: fill !important;
-  object-position: center !important;
-  position: relative !important;
-  z-index: 2 !important;
-  top: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  left: auto !important;
-  transform: none !important;
+	width: 200px !important;
+	height: 184px !important;
+	min-width: 200px !important;
+	min-height: 184px !important;
+	max-width: 200px !important;
+	max-height: 184px !important;
+	display: block !important;
+	flex: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	box-sizing: border-box !important;
+	object-fit: fill !important;
+	object-position: center !important;
+	position: relative !important;
+	z-index: 2 !important;
+	top: auto !important;
+	right: auto !important;
+	bottom: auto !important;
+	left: auto !important;
+	transform: none !important;
 }
 .tag-radar-dot {
-  position: absolute !important;
-  width: 6px !important;
-  height: 6px !important;
-  margin-left: -3px !important;
-  margin-top: -3px !important;
-  background: #ffffff !important;
-  border: 1px solid #00b7f0 !important;
-  border-radius: 50% !important;
+	position: absolute !important;
+	width: 6px !important;
+	height: 6px !important;
+	margin-left: -3px !important;
+	margin-top: -3px !important;
+	background-color: #ffffff !important;
+	border: 1px solid #00b7f0 !important;
+	border-radius: 50% !important;
 }
 .tag-radar-html-label {
-  position: absolute !important;
+	position: absolute !important;
 }
 .tag-radar-html-name {
-  margin: 0 !important;
-  color: #ffffff !important;
-  font-size: 10px !important;
-  line-height: 1.15 !important;
-  white-space: nowrap !important;
+	margin: 0 !important;
+	color: #ffffff !important;
+	font-size: 10px !important;
+	line-height: 1.15 !important;
+	text-wrap-mode: nowrap !important;
 }
 .tag-radar-html-score {
-  margin: 2px 0 0 !important;
-  color: #00b7f0 !important;
-  font-size: 8px !important;
-  line-height: 1 !important;
-  white-space: nowrap !important;
+	margin: 2px 0 0 !important;
+	color: #00b7f0 !important;
+	font-size: 8px !important;
+	line-height: 1 !important;
+	text-wrap-mode: nowrap !important;
 }
 .tag-result-row {
-  height: 20px !important;
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  gap: 6px !important;
+	height: 20px !important;
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	gap: 6px !important;
 }
 .tag-rank {
-  width: 16px !important;
-  flex: none !important;
+	width: 16px !important;
+	flex: none !important;
 }
 .tag-name {
-  flex: 1 !important;
-  min-width: 0 !important;
-  overflow: hidden !important;
-  white-space: nowrap !important;
+	flex: 1 !important;
+	min-width: 0 !important;
+	overflow: hidden !important;
+	text-wrap-mode: nowrap !important;
 }
 .tag-rks {
-  width: 37px !important;
-  flex: none !important;
-  text-align: right !important;
+	width: 37px !important;
+	flex: none !important;
+	text-align: right !important;
 }
 .tag-insufficient-message {
-  position: absolute !important;
-  inset: 15px 8px 0 !important;
+	position: absolute !important;
+	inset: 15px 8px 0 !important;
 }
 .tag-analysis-body.is-insufficient .tag-analysis-content {
-  opacity: 0.48 !important;
+	opacity: 0.48 !important;
 }
 .analysis-panel-head {
-  width: 100% !important;
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  align-items: flex-end !important;
-  justify-content: space-between !important;
-  flex: none !important;
-  min-height: 58px !important;
+	width: 100% !important;
+	display: flex !important;
+	flex-wrap: nowrap !important;
+	align-items: flex-end !important;
+	justify-content: space-between !important;
+	flex: none !important;
+	min-height: 58px !important;
 }
 .histogram-panel .analysis-title {
-  font-size: 16px !important;
-  line-height: 1.2 !important;
-  white-space: nowrap !important;
+	font-size: 16px !important;
+	line-height: 1.2 !important;
+	text-wrap-mode: nowrap !important;
 }
 .histogram-summary {
-  text-align: right !important;
-  flex: none !important;
-  min-width: 140px !important;
+	text-align: right !important;
+	flex: none !important;
+	min-width: 140px !important;
 }
 .histogram-chart {
-  height: 178px !important;
-  width: 100% !important;
-  margin-left: 0 !important;
-  padding-top: 8px !important;
-  position: relative !important;
-  overflow: hidden !important;
-  flex: none !important;
+	height: 178px !important;
+	width: 100% !important;
+	margin-left: 0 !important;
+	padding-top: 8px !important;
+	position: relative !important;
+	overflow: hidden !important;
+	flex: none !important;
 }
 .histogram-y-ticks {
-  position: absolute !important;
-  left: 0 !important;
-  top: 0 !important;
-  width: 40px !important;
-  height: 136px !important;
+	position: absolute !important;
+	left: 0 !important;
+	top: 0 !important;
+	width: 40px !important;
+	height: 136px !important;
 }
 .histogram-y-label {
-  position: absolute !important;
-  left: 0 !important;
-  top: 136px !important;
-  width: 40px !important;
-  height: 28px !important;
-  overflow: visible !important;
-  writing-mode: horizontal-tb !important;
-  font-size: 8px !important;
-  line-height: 1.15 !important;
+	position: absolute !important;
+	left: 0 !important;
+	top: 136px !important;
+	width: 40px !important;
+	height: 28px !important;
+	overflow: visible !important;
+	writing-mode: horizontal-tb !important;
+	font-size: 8px !important;
+	line-height: 1.15 !important;
 }
 .histogram-plot {
-  height: 164px !important;
-  width: 100% !important;
-  position: relative !important;
-  margin-left: 0 !important;
-  overflow: hidden !important;
+	height: 164px !important;
+	width: 100% !important;
+	position: relative !important;
+	margin-left: 0 !important;
+	overflow: hidden !important;
 }
 .histogram-scale {
-  position: absolute !important;
-  top: 0 !important;
-  right: 0 !important;
-  left: 40px !important;
-  height: 136px !important;
-  overflow: hidden !important;
+	position: absolute !important;
+	top: 0 !important;
+	right: 0 !important;
+	left: 40px !important;
+	height: 136px !important;
+	/* Takumi sizes border-box, so the axis border would cut the grid frame to 135px and float every line 1px above the bars */
+	box-sizing: content-box !important;
+	overflow: hidden !important;
 }
 .histogram-bars {
-  position: absolute !important;
-  top: 0 !important;
-  right: 3px !important;
-  left: 40px !important;
-  height: 164px !important;
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: stretch !important;
+	position: absolute !important;
+	top: 0 !important;
+	right: 3px !important;
+	left: 40px !important;
+	height: 164px !important;
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: stretch !important;
 }
 .histogram-bar-area {
-  height: 136px !important;
-  width: 100% !important;
-  display: flex !important;
-  align-items: flex-end !important;
-  justify-content: center !important;
+	height: 136px !important;
+	width: 100% !important;
+	display: flex !important;
+	align-items: flex-end !important;
+	justify-content: center !important;
 }
-.histogram-bar { width: 72% !important; min-height: 3px !important; }
+.histogram-bar {
+	width: 72% !important;
+	min-height: 3px !important;
+}
 .histogram-slot-label {
-  font-size: 7px !important;
-  height: 24px !important;
-  width: 100% !important;
-  text-align: center !important;
-  padding: 2px 0 0 !important;
-  margin: 0 !important;
-  transform: none !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
+	font-size: 7px !important;
+	height: 24px !important;
+	width: 100% !important;
+	text-align: center !important;
+	padding: 2px 0 0 !important;
+	margin: 0 !important;
+	transform: none !important;
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: center !important;
 }
 .histogram-legend {
-  flex: none !important;
-  height: 22px !important;
+	flex: none !important;
+	height: 22px !important;
 }
 .average-marker p {
-  font-size: 9px !important;
-  white-space: nowrap !important;
+	font-size: 9px !important;
+	text-wrap-mode: nowrap !important;
 }
-.histogram-legend p { font-size: 11px !important; }
-.svg-box .line, .line-box .line, .rks_line .line { filter: none !important; transform: none !important; }
-.svg-box svg, .line svg, .rks_line svg {
-  width: 100% !important;
-  height: 100% !important;
-  display: block !important;
-  overflow: visible !important;
-  transform: none !important;
+.histogram-legend p {
+	font-size: 11px !important;
 }
-.chart-container, .chart-container svg {
-  width: 800px !important;
-  height: 250px !important;
-  overflow: visible !important;
+.svg-box .line,
+.line-box .line,
+.rks_line .line {
+	filter: none !important;
+	transform: none !important;
 }
-.main-box { filter: none !important; }
-.descTip, .main-box, .s-song { position: relative !important; z-index: 2 !important; }
-.s-song .ill { height: 90px !important; }
-.levelKind { height: 20px !important; }
-.changeTag {
-  position: absolute !important;
-  height: 25px !important;
-  width: 43px !important;
+.svg-box svg,
+.line svg,
+.rks_line svg {
+	width: 100% !important;
+	height: 100% !important;
+	display: block !important;
+	overflow: visible !important;
+	transform: none !important;
 }
-.changeTagLine { height: 25px !important; width: 11px !important; }
-.upLine, .downLine, .underLine, .circInner { width: 5px !important; }
-.upLine { height: 30px !important; }
-.midCirc, .circInner { height: 5px !important; }
-.title, .record_box, .rks_line, .box_title { position: relative !important; z-index: 2 !important; }
-.words, .words svg { overflow: visible !important; }
-.bar-box { height: 180px !important; align-items: flex-end !important; }
-.bar { height: 180px !important; justify-content: flex-end !important; }
-.left, .right, .left-up { transform: none !important; }
-canvas, .snow-box, .topTextBox { display: none !important; }
+.chart-container,
+.chart-container svg {
+	width: 800px !important;
+	height: 250px !important;
+	overflow: visible !important;
+}
+.title,
+.record_box,
+.rks_line,
+.box_title {
+	position: relative !important;
+	z-index: 2 !important;
+}
+.words,
+.words svg {
+	overflow: visible !important;
+}
+.bar-box {
+	height: 180px !important;
+	align-items: flex-end !important;
+}
+.bar {
+	height: 180px !important;
+	justify-content: flex-end !important;
+}
+.left,
+.right,
+.left-up {
+	transform: none !important;
+}
+canvas,
+.snow-box,
+.topTextBox {
+	display: none !important;
+}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+<head>
+	<meta charset="utf-8">
+	<title>phi</title>
+	<link rel="stylesheet" href="phi-css://info-base.css">
+</head>
+<body>
+	<div class="ib-bg">
+		{{if background}}<img src="{{background}}">{{/if}}
+		<div class="ib-shade"></div>
+	</div>
+	<div class="ib-root ic">
+		<header class="ic-hero">
+			<div class="ic-id">
+				<div class="ib-kicker"><div class="ib-kicker-bar"></div><p>{{iv.copy.kicker}}</p></div>
+				<div class="ic-name-row">
+					<img class="ic-avatar" src="{{_res_path}}html/avatar/{{iv.avatar}}.png">
+					<p class="ic-name" style="font-size:{{iv.namePx}}px;">{{@iv.nameHtml}}</p>
+				</div>
+				<div class="ic-metrics">
+					<div class="ic-metric ic-metric-rks">
+						<p class="ic-metric-l">{{iv.copy.rks}}</p>
+						<p class="ic-rks">{{iv.rks}}</p>
+					</div>
+					{{if iv.challenge}}
+					<div class="ic-metric">
+						<p class="ic-metric-l">{{iv.copy.challenge}}</p>
+						<div class="ic-clg">
+							<img src="{{_res_path}}html/otherimg/{{iv.challenge.mode}}.png">
+							<p class="ic-clg-n">{{iv.challenge.rank}}</p>
+						</div>
+					</div>
+					{{/if}}
+					{{if iv.dataText}}
+					<div class="ic-metric">
+						<p class="ic-metric-l">{{iv.copy.data}}</p>
+						<p class="ic-data">{{iv.dataText}}</p>
+					</div>
+					{{/if}}
+				</div>
+			</div>
+			<div class="ic-banner">
+				{{if iv.banner}}<img src="{{iv.banner}}">{{/if}}
+			</div>
+		</header>
+
+		{{if iv.intro}}
+		<section class="ib-panel ic-intro">
+			<p class="ic-intro-l">{{iv.copy.intro}}</p>
+			<p class="ic-intro-t" style="font-size:{{iv.intro.px}}px;line-height:{{Math.round(iv.intro.px * 1.5)}}px;">{{@iv.intro.html}}</p>
+		</section>
+		{{/if}}
+
+		<section class="ic-block">
+			<div class="ib-section"><div class="ib-section-mark"></div><p>{{iv.copy.levels}}</p></div>
+			<div class="ic-levels">
+				{{each iv.levels lv}}
+				<div class="ib-panel ic-level ib-lv-{{lv.key}}{{lv.empty ? ' is-empty' : ''}}">
+					<div class="ib-lv-edge"></div>
+					<div class="ic-lv-head">
+						<p class="ib-chip">{{lv.key}}</p>
+						{{if lv.rating}}<img class="ic-lv-rating" src="{{_res_path}}html/otherimg/{{lv.rating}}.png">{{/if}}
+						<div class="ic-lv-unlock">
+							<p class="ic-lv-unlock-l">{{iv.copy.unlocked}}</p>
+							<div class="ic-lv-unlock-v"><p>{{lv.unlocked}}</p><p class="ic-dim">/ {{lv.total}}</p></div>
+						</div>
+					</div>
+					<div class="ic-lv-main">
+						<p class="ic-lv-big">{{lv.cleared}}</p>
+						<div class="ic-lv-big-side">
+							<p class="ic-lv-big-l">{{iv.copy.cleared}}</p>
+							<p class="ic-lv-big-r">{{lv.clearRate}}</p>
+						</div>
+					</div>
+					<div class="ib-bar ic-lv-bar"><div class="ib-bar-fill" style="width:{{lv.clearedPct}}%;"></div></div>
+					<div class="ic-lv-rows">
+						<div class="ic-lv-row">
+							<p>{{iv.copy.fc}}</p><p class="ic-num">{{lv.fc}}</p>
+						</div>
+						<div class="ib-bar"><div class="ib-bar-fill" style="width:{{lv.fcPct}}%;"></div></div>
+						<div class="ic-lv-row">
+							<p>{{iv.copy.phi}}</p><p class="ic-num ic-gold">{{lv.phi}}</p>
+						</div>
+						<div class="ib-bar ib-bar-phi"><div class="ib-bar-fill" style="width:{{lv.phiPct}}%;"></div></div>
+					</div>
+					<div class="ic-lv-foot">
+						<div class="ic-lv-stat">
+							<p class="ic-lv-stat-l">{{iv.copy.score}}</p>
+							<p class="ic-lv-stat-v">{{lv.scorePct}}</p>
+						</div>
+						<div class="ic-lv-stat">
+							<p class="ic-lv-stat-l">{{iv.copy.best}}</p>
+							<p class="ic-lv-stat-v">{{lv.best}}</p>
+						</div>
+						<div class="ic-lv-stat">
+							<p class="ic-lv-stat-l">{{iv.copy.lowest}}</p>
+							<p class="ic-lv-stat-v">{{lv.lowest}}</p>
+						</div>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</section>
+
+		<section class="ic-block">
+			<div class="ib-section"><div class="ib-section-mark"></div><p>{{iv.copy.charts}}</p></div>
+			<div class="ic-trends">
+				{{each iv.trends tr}}
+				<div class="ib-panel ic-trend">
+					<div class="ic-trend-head">
+						<p class="ic-trend-t">{{tr.title}}</p>
+						<p class="ic-trend-v">{{tr.value}}</p>
+					</div>
+					{{if tr.chart}}
+					<div class="ib-chart">
+						<div class="ib-plot-row">
+							<div class="ib-plot" style="width:{{tr.chart.w}}px;height:{{tr.chart.h}}px;">
+							<svg width="{{tr.chart.w}}" height="{{tr.chart.h}}" viewBox="0 0 {{tr.chart.w}} {{tr.chart.h}}" xmlns="http://www.w3.org/2000/svg">
+								<defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6fd6e8" stop-opacity="0.32"/><stop offset="1" stop-color="#6fd6e8" stop-opacity="0"/></linearGradient></defs>
+								{{each tr.chart.grid y}}<line x1="0" x2="{{tr.chart.w}}" y1="{{y}}" y2="{{y}}" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>{{/each}}
+								<path d="{{tr.chart.area}}" fill="url(#fill)"/>
+								<path d="{{tr.chart.line}}" fill="none" stroke="#6fd6e8" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+								{{each tr.chart.dots d}}<circle cx="{{d.x}}" cy="{{d.y}}" r="3" fill="#0b1018" stroke="#6fd6e8" stroke-width="2"/>{{/each}}
+								<circle cx="{{tr.chart.last.x}}" cy="{{tr.chart.last.y}}" r="5" fill="#6fd6e8"/>
+							</svg>
+							</div>
+							<div class="ib-gutter" style="height:{{tr.chart.h}}px;"><p class="ib-y">{{tr.chart.yTop}}</p><p class="ib-y">{{tr.chart.yBottom}}</p></div>
+						</div>
+						<div class="ib-x" style="width:{{tr.chart.w}}px;">
+							{{each tr.chart.xTicks t}}<p class="ib-x-t ib-x-{{t.anchor}}" style="left:{{t.x}}px;">{{t.label}}</p>{{/each}}
+						</div>
+					</div>
+					{{else}}
+					<p class="ib-empty ic-trend-empty">{{iv.copy.noTrend}}</p>
+					{{/if}}
+				</div>
+				{{/each}}
+			</div>
+			{{if iv.charts.acc}}
+			<div class="ib-panel ic-acc">
+				<div class="ic-trend-head">
+					<div>
+						<p class="ic-trend-t">{{iv.copy.accTitle}}</p>
+						<p class="ic-acc-note">{{iv.copy.accNote}}</p>
+					</div>
+				</div>
+				<div class="ib-chart">
+					<div class="ib-plot-row">
+						<div class="ib-plot" style="width:{{iv.charts.acc.w}}px;height:{{iv.charts.acc.h}}px;">
+						<svg width="{{iv.charts.acc.w}}" height="{{iv.charts.acc.h}}" viewBox="0 0 {{iv.charts.acc.w}} {{iv.charts.acc.h}}" xmlns="http://www.w3.org/2000/svg">
+							<defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2c45a" stop-opacity="0.28"/><stop offset="1" stop-color="#f2c45a" stop-opacity="0"/></linearGradient></defs>
+							{{each iv.charts.acc.grid y}}<line x1="0" x2="{{iv.charts.acc.w}}" y1="{{y}}" y2="{{y}}" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>{{/each}}
+							<path d="{{iv.charts.acc.area}}" fill="url(#fill)"/>
+							<path d="{{iv.charts.acc.line}}" fill="none" stroke="#f2c45a" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+							{{each iv.charts.acc.dots d}}<circle cx="{{d.x}}" cy="{{d.y}}" r="3.5" fill="#0b1018" stroke="#f2c45a" stroke-width="2"/>{{/each}}
+						</svg>
+						</div>
+						<div class="ib-gutter" style="height:{{iv.charts.acc.h}}px;"><p class="ib-y">{{iv.charts.acc.yTop}}</p><p class="ib-y">{{iv.charts.acc.yBottom}}</p></div>
+					</div>
+					<div class="ib-x" style="width:{{iv.charts.acc.w}}px;">
+						{{each iv.charts.acc.xTicks t}}<p class="ib-x-t ib-x-{{t.anchor}}" style="left:{{t.x}}px;">{{t.label}}</p>{{/each}}
+					</div>
+				</div>
+			</div>
+			{{/if}}
+		</section>
+
+		<footer class="ib-foot ic-foot">
+			<p class="ib-foot-tip">{{if iv.tip}}{{iv.copy.tip}} · {{iv.tip}}{{/if}}</p>
+			<p>{{iv.copy.generated}} {{iv.generated}}</p>
+			<p class="ib-foot-mark">PHIBOT</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,17 +1,11 @@
 <!DOCTYPE html>
-<html lang="{{lang || 'en'}}">
+<html lang="zh-cn">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="#" />
     <link rel="stylesheet" type="text/css" href="{{_res_path}}html/common/common.css" />
-    
-    {{if theme == "snow"}}
-    <link rel="stylesheet" href="{{_res_path}}html/common/theme/snow/snow.css">
-    {{else if theme == "topText" || theme == "foolsDay"}}
-    <link rel="stylesheet" href="{{_res_path}}html/common/theme/topText/topText.css">
-    {{/if}}
 
     {{block 'css'}}
     {{/block}}
@@ -42,7 +36,7 @@
         {{/if}}
     </style>
     {{/if}}
-    <title>phi</title>
+    <title>phi-plugin</title>
 </head>
 
 <body class="elem-{{element || elem || `hydro`}} {{displayMode || mode || `default`}}-mode  {{bodyClass}}" {{@sys.scale}}>
@@ -68,14 +62,6 @@
     <script>
         var _res_path = "{{_res_path}}";
     </script>
-
-    {{if theme == "snow"}}
-    <script src="{{_res_path}}html/common/theme/snow/snow.js"></script>
-    {{else if theme == "topText" || theme == "foolsDay"}}
-    <script src="{{_res_path}}html/common/theme/topText/topText.js"></script>
-    {{else if theme == "star"}}
-    <script src="{{_res_path}}html/common/theme/star/star.js"></script>
-    {{/if}}
 
     <!-- <div class="container" id="container"> -->
     {{block 'main'}}{{/block}}

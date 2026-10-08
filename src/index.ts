@@ -43,6 +43,13 @@ async function boot() {
 
 const isDirect = process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href
 if (isDirect) {
+  // A stalled TapTap / Cloudflare request that escapes a handler must not take the gateway down.
+  process.on("unhandledRejection", reason => {
+    logger.error("unhandled rejection", reason instanceof Error ? (reason.stack ?? reason.message) : reason)
+  })
+  process.on("uncaughtException", (err, origin) => {
+    logger.error(`uncaught exception (${origin})`, err.stack ?? err.message)
+  })
   boot().catch(err => {
     logger.error(err)
     process.exit(1)

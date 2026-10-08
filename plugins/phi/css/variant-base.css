@@ -1,0 +1,27 @@
+/* Reset shared by the alternative card layouts (each also links its own <tpl>.css) */
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	background: #0a0e14;
+	color: #f2f5f8;
+	font-family:
+		NotoSansSC, PHI, Aldrich, NotoSansJP, NotoSansSymbols2,
+		NotoSansMath-Regular, sans-serif;
+}
+
+p,
+h1,
+h2,
+h3,
+ul,
+ol,
+dl,
+dd {
+	margin: 0;
+	padding: 0;
+}

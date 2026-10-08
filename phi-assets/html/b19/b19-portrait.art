@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+<head><meta charset="utf-8"><title>phi</title></head>
+<body>
+<div class="b19p-card b19p-kind-{{pv.kind}}{{if pv.compact}} is-compact{{/if}}">
+	{{if background}}
+	<div class="b19p-hero-bg"><img src="{{background}}" alt=""></div>
+	{{/if}}
+	<div class="b19p-hero-shade"></div>
+	<div class="b19p-hero-band"></div>
+	<div class="b19p-hero-line"></div>
+
+	<header class="b19p-head">
+		<div class="b19p-kicker">
+			<div class="b19p-kind"><p>{{pv.title}}</p></div>
+			{{each pv.chips chip}}
+			<div class="b19p-chip" style="font-size:{{chip.px}}px;">{{each chip.lines line}}<p>{{line}}</p>{{/each}}</div>
+			{{/each}}
+		</div>
+
+		<div class="b19p-id">
+			<div class="b19p-avatar">
+				{{if pv.avatar}}<img src="{{_res_path}}html/avatar/{{pv.avatar}}.png" alt="">{{/if}}
+			</div>
+			<div class="b19p-id-text">
+				<div class="b19p-name{{if pv.nameMulti}} is-multi{{/if}}" style="font-size:{{pv.namePx}}px;">
+					<p>{{@ pv.nameHtml}}</p>
+				</div>
+				<div class="b19p-rks-line">
+					<p class="b19p-rks">{{pv.rks}}</p>
+					<div class="b19p-rks-side">
+						<p class="b19p-rks-cap">{{vt.rks}}</p>
+						{{if pv.sd}}<p class="b19p-rks-sd">{{pv.sd}}</p>{{/if}}
+					</div>
+					{{if pv.challenge}}
+					<div class="b19p-clg">
+						<img src="{{_imgPath}}{{pv.challenge.mode}}.png" alt="">
+						<p>{{pv.challenge.level}}</p>
+					</div>
+					{{/if}}
+				</div>
+			</div>
+		</div>
+
+		{{if pv.date || pv.dataSize}}
+		<div class="b19p-meta">
+			<p class="b19p-date">{{pv.date}}</p>
+			{{if pv.dataSize}}
+			<div class="b19p-data">
+				<img src="{{_imgPath}}data.png" alt="">
+				<p>{{pv.dataSize}}</p>
+			</div>
+			{{/if}}
+		</div>
+		{{/if}}
+
+		{{if pv.stats}}
+		<div class="b19p-stats">
+			<div class="b19p-stats-row b19p-stats-headrow">
+				<div class="b19p-stats-lab"></div>
+				{{each pv.stats.cols col}}
+				<div class="b19p-stats-cell"><div class="b19p-diff b19p-diff-{{col.cls}}"><p>{{col.title}}</p></div></div>
+				{{/each}}
+			</div>
+			{{each pv.stats.rows srow}}
+			<div class="b19p-stats-row b19p-stats-{{srow.cls}}">
+				<p class="b19p-stats-lab">{{srow.label}}</p>
+				{{each srow.cells cell}}
+				<div class="b19p-stats-cell"><p class="b19p-stats-val">{{cell}}</p></div>
+				{{/each}}
+			</div>
+			{{/each}}
+		</div>
+		{{/if}}
+	</header>
+
+	<section class="b19p-list">
+		{{if !pv.noCharts}}
+		<div class="b19p-legend">
+			<p class="b19p-legend-score">{{pv.legendScore}}</p>
+			<p class="b19p-legend-rks">{{pv.legendRks}}</p>
+		</div>
+		{{/if}}
+		{{each pv.rows r}}
+		{{if r.type == 'overflow'}}
+		<div class="b19p-over">
+			<div class="b19p-over-bar"></div>
+			<div class="b19p-over-text">
+				<p class="b19p-over-title">{{vt.overflow}}</p>
+				<p class="b19p-over-note">{{r.note}}</p>
+			</div>
+			<div class="b19p-over-bar"></div>
+		</div>
+		{{else if r.type == 'empty'}}
+		<div class="b19p-row b19p-empty">
+			<div class="b19p-tag is-gold"><p>{{r.label}}</p></div>
+			<p class="b19p-empty-text">{{vt.emptySlot}}</p>
+		</div>
+		{{else}}
+		<div class="b19p-row{{if r.gold}} is-gold{{/if}}{{if r.over}} is-over{{/if}}{{if r.ap}} is-ap{{/if}}">
+			<div class="b19p-spine b19p-diff-{{r.rankCls}}">
+				<div class="b19p-jacket">
+					{{if r.ill}}<img class="b19p-ill" src="{{r.ill}}" alt="">{{/if}}
+					<div class="b19p-jacket-fade"></div>
+					<div class="b19p-tag{{if r.gold}} is-gold{{/if}}"><p>{{r.label}}</p></div>
+					<div class="b19p-diff b19p-diff-{{r.rankCls}} b19p-jacket-diff{{if r.chipThin}} is-thin{{/if}}"><p style="font-size:{{r.chipPx}}px;">{{r.rankText}}&nbsp;{{r.constText}}</p></div>
+				</div>
+			</div>
+			<div class="b19p-info">
+				<div class="b19p-title" style="font-size:{{r.titlePx}}px;">
+					{{each r.titleLines line}}<p>{{line}}</p>{{/each}}
+				</div>
+				<div class="b19p-line b19p-line-score">
+					<div class="b19p-score">
+						<div class="b19p-grade">{{if r.rating}}<img src="{{_imgPath}}{{r.rating}}.png" alt="">{{/if}}</div>
+						{{if r.digits.length}}
+						<div class="b19p-digits">{{each r.digits d}}<p{{if d.pad}} class="is-pad"{{/if}}>{{d.c}}</p>{{/each}}</div>
+						{{else}}
+						<p class="b19p-digits b19p-no-score">{{r.score}}</p>
+						{{/if}}
+					</div>
+					<p class="b19p-rks-val">{{r.rks}}</p>
+				</div>
+				<div class="b19p-line b19p-line-meta">
+					<div class="b19p-accs">
+						<p class="b19p-acc">{{r.acc}}</p>
+						{{if r.peer}}
+						<div class="b19p-peer{{if r.peerDir}} is-{{r.peerDir}}{{/if}}">
+							{{if r.peerDir}}<div class="b19p-peer-arrow"></div>{{/if}}
+							<p style="font-size:{{r.peerPx}}px;">{{r.peer}}</p>
+						</div>
+						{{/if}}
+					</div>
+					{{if r.push}}
+					<div class="b19p-push{{if r.pushMuted}} is-muted{{/if}}">
+						{{if !r.pushMuted}}<div class="b19p-push-mark"></div>{{/if}}
+						<p>{{r.push}}</p>
+					</div>
+					{{/if}}
+				</div>
+				{{each r.peerRanks pr}}
+				<div class="b19p-line b19p-line-rank{{if pr.ap}} is-ap{{/if}}" style="font-size:{{pr.px}}px;">
+					{{if pr.tag}}<p class="b19p-rank-tag">{{pr.tag}}</p>{{/if}}
+					{{if pr.pos}}<p class="b19p-rank-pos">{{pr.pos}}</p>{{/if}}
+					{{if pr.showOf}}<p class="b19p-rank-of">{{pr.of}}</p>{{/if}}
+					{{if pr.pct}}<p class="b19p-rank-pct{{if !pr.pos}} is-lead{{/if}}">{{pr.pct}}</p>{{/if}}
+				</div>
+				{{/each}}
+			</div>
+		</div>
+		{{/if}}
+		{{/each}}
+		{{if pv.noCharts}}
+		<div class="b19p-none"><p>{{vt.noCharts}}</p></div>
+		{{/if}}
+	</section>
+
+
+	{{if pv.analysis}}
+	<section class="b19p-analysis">
+		<div class="b19p-sec-head">
+			<div class="b19p-sec-mark"></div>
+			<p>{{pv.analysis.title}}</p>
+		</div>
+		<div class="b19p-panel">
+			<div class="b19p-sum">
+				<div class="b19p-sum-main">
+					<p class="b19p-sum-lab">{{vt.average}}</p>
+					<p class="b19p-sum-big">{{pv.analysis.average}}</p>
+				</div>
+				<div class="b19p-sum-cell">
+					<p class="b19p-sum-lab">{{vt.stddev}}</p>
+					<p class="b19p-sum-val">{{pv.analysis.stddev}}</p>
+				</div>
+				<div class="b19p-sum-cell">
+					<p class="b19p-sum-lab">{{vt.charts}}</p>
+					<p class="b19p-sum-val">{{pv.analysis.count}}</p>
+				</div>
+			</div>
+			{{if pv.analysis.hist}}
+			<div class="b19p-hist">
+				<div class="b19p-hist-y">
+					{{each pv.analysis.hist.ticks tick}}
+					<p style="bottom:{{tick.labelBottom}}px;">{{tick.label}}</p>
+					{{/each}}
+				</div>
+				<div class="b19p-hist-plot">
+					{{each pv.analysis.hist.ticks tick}}
+					<div class="b19p-hist-grid" style="bottom:{{tick.bottom}}px;"></div>
+					{{/each}}
+					{{each pv.analysis.hist.bars bar}}
+					<div class="b19p-hist-bar{{if bar.gold}} is-gold{{/if}}" style="left:{{bar.left}}px;width:{{bar.width}}px;height:{{bar.height}}px;"></div>
+					{{/each}}
+					<div class="b19p-hist-avg" style="bottom:{{pv.analysis.hist.avgBottom}}px;"></div>
+				</div>
+				<div class="b19p-hist-x">
+					{{each pv.analysis.hist.xLabels xl}}
+					<p class="is-{{xl.align}}{{if xl.gold}} is-gold{{/if}}" style="left:{{xl.left}}px;">{{xl.text}}</p>
+					{{/each}}
+				</div>
+			</div>
+			<div class="b19p-hist-legend">
+				{{if pv.analysis.hist.legendPhi}}
+				<div class="b19p-key"><div class="b19p-key-dot is-gold"></div><p>{{pv.analysis.hist.legendPhi}}</p></div>
+				{{/if}}
+				{{if pv.analysis.hist.legendBest}}
+				<div class="b19p-key"><div class="b19p-key-dot"></div><p>{{pv.analysis.hist.legendBest}}</p></div>
+				{{/if}}
+				<div class="b19p-key"><div class="b19p-key-line"></div><p>{{vt.legendAvg}}</p></div>
+			</div>
+			{{/if}}
+		</div>
+
+		{{if pv.analysis.showTags}}
+		<div class="b19p-panel b19p-tags">
+			<div class="b19p-tags-head">
+				<p class="b19p-tags-title">{{t.tagAbility}}</p>
+				{{if pv.analysis.tagMeta}}<p class="b19p-tags-meta">{{pv.analysis.tagMeta}}</p>{{/if}}
+			</div>
+			{{if pv.analysis.tagsOk}}
+			<div class="b19p-tags-grid">
+				<div class="b19p-tag-pair b19p-tag-heads">
+					<div class="b19p-tags-col-title is-strong"><p>{{t.strongTags}}</p></div>
+					<div class="b19p-tags-col-title is-weak"><p>{{t.weakTags}}</p></div>
+				</div>
+				{{each pv.analysis.tagPairs pair}}
+				<div class="b19p-tag-pair">
+					{{if pair.strong}}
+					<div class="b19p-tag-row is-strong">
+						<p class="b19p-tag-rank">{{pair.strong.rank}}</p>
+						<div class="b19p-tag-name" style="font-size:{{pv.analysis.tagPx}}px;">{{each pair.strong.lines line}}<p>{{line}}</p>{{/each}}</div>
+						<p class="b19p-tag-rks">{{pair.strong.rks}}</p>
+					</div>
+					{{else}}
+					<div class="b19p-tag-row"></div>
+					{{/if}}
+					{{if pair.weak}}
+					<div class="b19p-tag-row is-weak">
+						<p class="b19p-tag-rank">{{pair.weak.rank}}</p>
+						<div class="b19p-tag-name" style="font-size:{{pv.analysis.tagPx}}px;">{{each pair.weak.lines line}}<p>{{line}}</p>{{/each}}</div>
+						<p class="b19p-tag-rks">{{pair.weak.rks}}</p>
+					</div>
+					{{else}}
+					<div class="b19p-tag-row"></div>
+					{{/if}}
+				</div>
+				{{/each}}
+			</div>
+			{{if pv.analysis.tagNote}}<p class="b19p-tags-note">{{pv.analysis.tagNote}}</p>{{/if}}
+			{{else}}
+			<p class="b19p-tags-empty">{{pv.analysis.tagMessage || t.tagInsufficient}}</p>
+			{{/if}}
+		</div>
+		{{/if}}
+	</section>
+	{{/if}}
+
+	<footer class="b19p-foot">
+		<div class="b19p-foot-lab"><p>{{vt.tip}}</p></div>
+		<div class="b19p-foot-tip" style="font-size:{{pv.tip.px}}px;">{{each pv.tip.lines line}}<p>{{line}}</p>{{/each}}</div>
+	</footer>
+</div>
+</body>
+</html>

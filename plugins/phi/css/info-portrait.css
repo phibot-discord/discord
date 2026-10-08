@@ -1,0 +1,361 @@
+/*
+ * Player info, phone layout (720 px). Shown 390 px wide (≈0.54×): main
+ * numbers ≥ 28 px, labels ≥ 20 px, nothing under 18 px
+ */
+.ip {
+	gap: 24px;
+	padding: 0 32px 32px;
+}
+
+.ip-banner {
+	position: relative;
+	height: 300px;
+	margin: 0 -32px;
+	overflow: hidden;
+	background: rgba(255, 255, 255, 0.05);
+}
+
+.ip-banner img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.ip-banner-fade {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 160px;
+	background: linear-gradient(
+		180deg,
+		rgba(10, 14, 20, 0),
+		rgba(10, 14, 20, 0.96)
+	);
+}
+
+.ip-id {
+	display: flex;
+	align-items: flex-end;
+	gap: 22px;
+	margin-top: -84px;
+}
+
+.ip-avatar {
+	position: relative;
+	width: 136px;
+	height: 136px;
+	flex-shrink: 0;
+	border-radius: 12px;
+	border: 3px solid rgba(255, 255, 255, 0.22);
+	object-fit: cover;
+}
+
+.ip-id-t {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	flex: 1;
+	min-width: 0;
+}
+
+.ip-kicker {
+	font-size: 20px;
+}
+
+.ip-name {
+	line-height: 1.2;
+	font-weight: 700;
+	overflow: hidden;
+}
+
+.ip-metrics {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.ip-rks {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px 26px;
+	border-color: rgba(111, 214, 232, 0.45);
+	background: linear-gradient(
+		135deg,
+		rgba(111, 214, 232, 0.16),
+		rgba(12, 18, 27, 0.9) 60%
+	);
+}
+
+.ip-rks-v {
+	font-family: var(--ib-num);
+	font-size: 72px;
+	line-height: 1;
+}
+
+.ip-metrics-row {
+	display: flex;
+	gap: 14px;
+}
+
+.ip-metric {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 16px 22px 18px;
+}
+
+.ip-metric-grow {
+	flex: 1;
+}
+
+.ip-l {
+	color: var(--ib-text-2);
+	font-size: 20px;
+	letter-spacing: 1px;
+}
+
+.ip-clg {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 132px;
+	height: 56px;
+}
+
+.ip-clg img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 132px;
+	height: 56px;
+	object-fit: contain;
+}
+
+.ip-clg-n {
+	position: relative;
+	font-family: var(--ib-num);
+	font-size: 36px;
+	line-height: 1;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.ip-data {
+	font-family: var(--ib-num);
+	font-size: 32px;
+	line-height: 56px;
+	white-space: nowrap;
+}
+
+.ip-intro {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 20px 24px 22px;
+	border-left: 5px solid var(--ib-accent);
+}
+
+.ip-intro-t {
+	overflow-wrap: break-word;
+}
+
+.ip-block {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.ip-section {
+	margin: 0;
+	font-size: 22px;
+}
+
+.ip-levels {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 16px;
+}
+
+.ip-level {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 22px 22px 20px;
+	overflow: hidden;
+}
+
+.ip-level.is-empty {
+	opacity: 0.62;
+}
+
+.ip-lv-head {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.ip-chip {
+	height: 36px;
+	padding: 0 16px;
+	font-size: 22px;
+	clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+}
+
+.ip-lv-rating {
+	width: 38px;
+	height: 38px;
+	object-fit: contain;
+}
+
+.ip-lv-unlock {
+	display: flex;
+	align-items: baseline;
+	gap: 4px;
+	margin-left: auto;
+	font-family: var(--ib-num);
+	font-size: 22px;
+}
+
+.ip-dim {
+	color: var(--ib-text-3);
+	font-size: 20px;
+}
+
+.ip-lv-main {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+}
+
+.ip-lv-big {
+	font-family: var(--ib-num);
+	font-size: 56px;
+	line-height: 1;
+}
+
+.ip-lv-rate {
+	font-family: var(--ib-num);
+	font-size: 26px;
+}
+
+.ip-bar {
+	height: 10px;
+	border-radius: 5px;
+}
+
+.ip-bar .ib-bar-fill {
+	height: 10px;
+	border-radius: 5px;
+}
+
+.ip-lv-row {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	color: var(--ib-text-2);
+	font-size: 22px;
+}
+
+.ip-num {
+	font-family: var(--ib-num);
+	font-size: 26px;
+	color: var(--ib-text);
+}
+
+.ip-gold {
+	color: var(--ib-gold);
+}
+
+.ip-lv-foot {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 8px;
+	padding-top: 12px;
+	border-top: 1px solid var(--ib-line);
+}
+
+.ip-lv-stat-l {
+	color: var(--ib-text-3);
+	font-size: 18px;
+}
+
+.ip-lv-stat-v {
+	font-family: var(--ib-num);
+	font-size: 24px;
+}
+
+.ip-chart {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	padding: 20px 16px 14px;
+}
+
+.ip-chart-head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 0 8px;
+}
+
+.ip-chart-t {
+	font-size: 24px;
+	font-weight: 600;
+}
+
+.ip-chart-v {
+	font-family: var(--ib-num);
+	font-size: 28px;
+	color: var(--ib-accent);
+	white-space: nowrap;
+}
+
+.ip-gutter .ib-y {
+	font-size: 18px;
+	line-height: 22px;
+}
+
+.ip-x {
+	height: 28px;
+}
+
+.ip-x .ib-x-t {
+	font-size: 18px;
+}
+
+.ip-empty {
+	height: 200px;
+	font-size: 22px;
+}
+
+.ip-foot {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding-top: 4px;
+	color: var(--ib-text-3);
+	font-size: 18px;
+}
+
+.ip-tip {
+	color: var(--ib-text-2);
+	font-size: 20px;
+	line-height: 28px;
+	/* Two lines at most; no -webkit-box clamp, which breaks on colour emoji */
+	max-height: 56px;
+	overflow: hidden;
+}
+
+.ip-foot-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}

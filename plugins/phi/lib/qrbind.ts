@@ -27,7 +27,7 @@ export async function bindViaQr(ctx: Context, rt: PhiRuntime, global: boolean) {
     return
   }
   const lockKey = kvKey("qrbind", ctx.userId)
-  const locked = await ctx.db.setNx(lockKey, "1", 15 * 60 * 1000)
+  const locked = ctx.db.setNx ? await ctx.db.setNx(lockKey, "1", 15 * 60 * 1000) : true
   if (!locked) {
     await ctx.reply({ content: "A QR bind is already running for you.", ephemeral: true })
     return

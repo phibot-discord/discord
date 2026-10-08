@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+<head><meta charset="utf-8"><title>phi</title></head>
+<body>
+<div class="tl-card tl-{{locale}}">
+	{{if background}}
+	<div class="background tl-bg"><img src="{{background}}" alt=""></div>
+	{{/if}}
+	<div class="tl-veil"></div>
+	<div class="tl-deco"></div>
+	<div class="tl-inner">
+		<section class="tl-head">
+			<div class="tl-head-bar"></div>
+			<div class="tl-id">
+				<p class="tl-over">{{vt.overline}}</p>
+				<div class="tl-name" style="font-size:{{tl.namePx}}px">
+					{{each tl.nameLines line}}<div class="tl-name-line">{{@ line}}</div>{{/each}}
+				</div>
+				<div class="tl-save">
+					<p class="tl-k">{{vt.save}}</p>
+					<p class="tl-save-v">{{tl.saveDate}}</p>
+				</div>
+			</div>
+			<div class="tl-score">
+				<p class="tl-k">{{vt.rks}}</p>
+				<p class="tl-rks">{{tl.rks}}</p>
+				<div class="tl-rks-row">
+					{{if tl.rksDelta.text}}
+					<p class="tl-rks-delta tl-num {{tl.rksDelta.cls}}">{{tl.rksDelta.text}}</p>
+					{{/if}}
+					{{if tl.challenge}}
+					<div class="tl-clg">
+						<img src="{{_imgPath}}{{tl.challenge.mode}}.png" alt="">
+						<p>{{tl.challenge.rank}}</p>
+					</div>
+					{{/if}}
+				</div>
+			</div>
+		</section>
+
+		{{if tl.chart && tl.chart.single}}
+		<section class="tl-panel tl-trend">
+			<div class="tl-sec-head">
+				<p class="tl-over">{{vt.trend}}</p>
+				<p class="tl-sec-meta">{{vt.firstHint}}</p>
+			</div>
+			<div class="tl-first">
+				<div class="tl-first-node"></div>
+				<p class="tl-first-k">{{vt.firstRecord}}</p>
+				<p class="tl-first-v">{{tl.chart.last}}</p>
+				<p class="tl-first-d">{{tl.chart.to}}</p>
+				<div class="tl-first-track"></div>
+			</div>
+		</section>
+		{{else if tl.chart}}
+		<section class="tl-panel tl-trend">
+			<div class="tl-sec-head">
+				<p class="tl-over">{{vt.trend}}</p>
+				<div class="tl-trend-sum">
+					<p class="tl-trend-was">{{tl.chart.first}}</p>
+					<p class="tl-arrow">→</p>
+					<p class="tl-trend-now">{{tl.chart.last}}</p>
+					{{if tl.chart.change.text}}
+					<p class="tl-trend-delta tl-num {{tl.chart.change.cls}}">{{tl.chart.change.text}}</p>
+					{{/if}}
+				</div>
+			</div>
+			<div class="tl-chart">
+				<div class="tl-yaxis">
+					<p>{{tl.chart.max}}</p>
+					<p>{{tl.chart.mid}}</p>
+					<p>{{tl.chart.min}}</p>
+				</div>
+				<div class="tl-plot">{{@ tl.chart.svg}}</div>
+			</div>
+			<div class="tl-xaxis">
+				<p>{{tl.chart.from}}</p>
+				<p>{{tl.chart.to}}</p>
+			</div>
+		</section>
+		{{/if}}
+
+		{{if tl.tasks.length}}
+		<section class="tl-panel tl-tasks">
+			<div class="tl-sec-head">
+				<p class="tl-over">{{vt.tasks}}</p>
+				<p class="tl-sec-meta">{{tl.taskTime}}</p>
+			</div>
+			<div class="tl-task-grid">
+				{{each tl.tasks task}}
+				<div class="tl-task">
+					<div class="tl-task-ill">
+						{{if task.ill}}<img src="{{task.ill}}" alt="">{{/if}}
+						<p class="tl-task-state {{task.done ? 'tl-task-done' : ''}}">{{task.status}}</p>
+					</div>
+					<div class="tl-task-body">
+						<div class="tl-title" style="font-size:{{task.titlePx}}px">
+							{{each task.titleLines line}}<p>{{line}}</p>{{/each}}
+						</div>
+						<div class="tl-task-req">
+							<div class="tl-chip {{task.rankCls}}"><p>{{task.rank}}</p></div>
+							<p class="tl-task-goal">{{task.request}}</p>
+						</div>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</section>
+		{{/if}}
+
+		<section class="tl-updates">
+			<div class="tl-updates-head">
+				<div class="tl-sec-title">
+					<p class="tl-over">{{vt.updates}}</p>
+					{{if !tl.empty}}<p class="tl-sec-meta">{{tl.total}}</p>{{/if}}
+				</div>
+				{{if !tl.empty}}
+				<div class="tl-legend">
+					<p class="tl-legend-now">{{vt.legendNow}}</p>
+					<p class="tl-legend-sep">·</p>
+					<p class="tl-legend-was">{{vt.legendWas}}</p>
+					<p class="tl-legend-sep">·</p>
+					<p class="tl-legend-delta">{{vt.legendDelta}}</p>
+				</div>
+				{{/if}}
+			</div>
+
+			{{if tl.empty}}
+			<div class="tl-empty">
+				<div class="tl-empty-line"></div>
+				<p class="tl-empty-title">{{vt.emptyTitle}}</p>
+				<div class="tl-empty-body">{{each vt.emptyBody line}}<p>{{line}}</p>{{/each}}</div>
+			</div>
+			{{else}}
+			{{each tl.days day}}
+			<div class="tl-day {{day.latest ? 'tl-day-first' : ''}}">
+				<div class="tl-rail"></div>
+				<div class="tl-day-head">
+					<div class="tl-node {{day.latest ? 'tl-node-latest' : ''}}"></div>
+					<div class="tl-day-id">
+						<div class="tl-day-row">
+							<p class="tl-day-date">{{day.date}}</p>
+							{{if day.weekday}}<p class="tl-day-wd">{{day.weekday}}</p>{{/if}}
+							{{if day.latest}}<p class="tl-latest">{{vt.latest}}</p>{{/if}}
+						</div>
+						<div class="tl-day-meta">
+							<p class="tl-day-n">{{day.count}}</p>
+							{{if day.shown}}<p class="tl-dot">·</p><p>{{day.shown}}</p>{{/if}}
+							{{if day.times}}<p class="tl-dot">·</p><p>{{day.times}}</p>{{/if}}
+						</div>
+					</div>
+					<p class="tl-col tl-c-score">{{vt.colScore}}</p>
+					<p class="tl-col tl-c-acc">{{vt.colAcc}}</p>
+					<p class="tl-col tl-c-rks">{{vt.colRks}}</p>
+				</div>
+				{{each day.entries e}}
+				<div class="tl-entry">
+					<div class="tl-jacket">{{if e.ill}}<img src="{{e.ill}}" alt="">{{/if}}</div>
+					<div class="tl-info {{e.twoLine ? 'tl-2l' : ''}}">
+						<div class="tl-title" style="font-size:{{e.titlePx}}px">
+							{{each e.titleLines line}}<p>{{line}}</p>{{/each}}
+						</div>
+						<div class="tl-tags">
+							<div class="tl-chip {{e.rankCls}}">
+								<p>{{e.rank}}</p>
+								{{if e.constText}}<p class="tl-const">{{e.constText}}</p>{{/if}}
+							</div>
+							{{if e.grade}}<img class="tl-grade" src="{{_imgPath}}{{e.grade}}.png" alt="">{{/if}}
+							{{if e.inB30}}<p class="tl-tag">{{vt.inB30}}</p>{{/if}}
+						</div>
+					</div>
+					<div class="tl-cell tl-c-score">
+						<div class="tl-now tl-now-score {{e.ap ? 'tl-ap' : ''}}">
+							{{if e.scoreLead}}<p class="tl-lead">{{e.scoreLead}}</p>{{/if}}
+							<p>{{e.scoreMain}}</p>
+						</div>
+						<div class="tl-was-row" style="font-size:{{e.scoreWasPx}}px">
+							{{if e.scoreOld}}
+							<p class="tl-was tl-was-score">{{e.scoreOld}}</p>
+							<p class="tl-d tl-d-score {{e.scoreDelta.cls}}">{{e.scoreDelta.text}}</p>
+							{{else if e.isNew}}
+							<p class="tl-tag tl-tag-new">{{vt.isNew}}</p>
+							{{/if}}
+						</div>
+					</div>
+					<div class="tl-cell tl-c-acc">
+						<div class="tl-now"><p>{{e.acc}}</p></div>
+						<div class="tl-was-row" style="font-size:{{e.accWasPx}}px">
+							{{if e.accOld}}
+							<p class="tl-was tl-was-acc">{{e.accOld}}</p>
+							<p class="tl-d tl-d-acc {{e.accDelta.cls}}">{{e.accDelta.text}}</p>
+							{{/if}}
+						</div>
+					</div>
+					<div class="tl-cell tl-c-rks">
+						<div class="tl-now">
+							{{if e.rks}}<p>{{e.rks}}</p>{{else}}<div class="tl-none"></div>{{/if}}
+						</div>
+						<div class="tl-was-row" style="font-size:{{e.rksWasPx}}px">
+							{{if e.rksDelta.text}}<p class="tl-d {{e.rksDelta.cls}}">{{e.rksDelta.text}}</p>{{/if}}
+						</div>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+			{{/each}}
+			{{/if}}
+		</section>
+
+		<footer class="tl-foot">
+			<p class="tl-tip-k">{{vt.tip}}</p>
+			<p class="tl-tip">{{tips}}</p>
+		</footer>
+	</div>
+</div>
+</body>
+</html>

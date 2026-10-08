@@ -39,7 +39,7 @@
 </div>
 
 <div class="descTip">
-  <p>{{t.hisb30Tip}}</p>
+  <p>*B30变化仅以当前定数为准，实际历史定数敬请期待</p>
 </div>
 
 <div class="main-box">
@@ -115,29 +115,12 @@
 </div>
 
 <div class="createdbox">
-  <div class="phi-brand">
+  <div class="phi-plugin">
     <p>{{_plugin}}</p>
   </div>
   <div class="ver">
     <p>{{Version.ver}}</p>
   </div>
 </div>
-
-{{if theme == "snow"}}
-<div class="snow-box"></div>
-<script>
-  themeSnow()
-</script>
-{{else if theme == "topText" || theme == "foolsDay"}}
-<div class="topTextBox" id="topTextBox"></div>
-<script>
-  themeTopText()
-</script>
-{{else if theme == "star"}}
-<canvas id="stars"></canvas>
-<script>
-  themeStar()
-</script>
-{{/if}}
 
 {{/block}}

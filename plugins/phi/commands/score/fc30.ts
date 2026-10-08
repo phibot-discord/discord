@@ -1,17 +1,18 @@
 import { defineCommand } from "../../../../src/sdk/index.ts"
-import { b19Card } from "../../lib/cards.ts"
-import type { Catalog } from "../../lib/catalog.ts"
-import { isBanned, needSave, replyCard } from "../../lib/util.ts"
+import { STYLE_OPTION_DESC, sendCard, styleChoices } from "../../lib/send-card.ts"
+import { isBanned } from "../../lib/util.ts"
 
 export default defineCommand({
   description: "Full Combo B30 (fc30)",
-  options: [{ name: "count", description: "How many best charts (min 33)", type: "integer" }],
+  options: [
+    { name: "count", description: "How many best charts (min 33)", type: "integer" },
+    { name: "style", description: STYLE_OPTION_DESC, type: "string", choices: styleChoices("fc30") },
+  ],
   async execute(ctx, options) {
     if (await isBanned(ctx, "b19")) return
-    const got = await needSave(ctx)
-    if (!got) return
-    const nnum = Math.max(33, Math.min(99, Number(options.count) || 33))
-    const data = await b19Card(got.rt, got.save, ctx.db, ctx.userId, ctx.service<Catalog>("phi.catalog"), { nnum, mode: "fc30", locale: ctx.locale })
-    await replyCard(ctx, "phi/b19/b19", data, "fc30")
+    await sendCard(ctx, "fc30", {
+      count: Number(options.count) || undefined,
+      style: options.style ? String(options.style) : undefined,
+    })
   },
 })

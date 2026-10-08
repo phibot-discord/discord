@@ -1,0 +1,1203 @@
+/* "Phone" layout for b30 / x30 / fc30, 640 px wide: text ≥ 18 px, main numbers ≥ 28 px
+   Geometry shared with prepare() is in src/phi/lib/variants/b19-portrait.ts */
+:root {
+	--b19p-bg: #0b111a;
+	--b19p-panel: #121a27;
+	--b19p-row: #161f2e;
+	--b19p-row-end: #111925;
+	--b19p-line: rgba(255, 255, 255, 0.08);
+	--b19p-text: #f2f5f9;
+	--b19p-text-2: #c3ccd8;
+	--b19p-muted: #8f9db1;
+	--b19p-accent: #6fd6ff;
+	--b19p-gold: #ffd36b;
+	--b19p-down: #ff9a8b;
+	--b19p-up: #7ee0a1;
+	--b19p-ez: #23804a;
+	--b19p-hd: #2f6ccc;
+	--b19p-in: #c9333f;
+	--b19p-at: #2c2f38;
+	--b19p-at-spine: #b8bfca;
+	--b19p-legacy: #7247c8;
+}
+
+html,
+body {
+	background: var(--b19p-bg);
+}
+
+.b19p-card {
+	position: relative;
+	width: 640px;
+	padding: 0 20px 40px;
+	display: flex;
+	flex-direction: column;
+	background: var(--b19p-bg);
+	color: var(--b19p-text);
+	font-family:
+		PHI, NotoSansSC, NotoSansJP, Aldrich, NotoSansSymbols2,
+		NotoSansMath-Regular, sans-serif;
+	overflow: hidden;
+}
+
+.b19p-card p {
+	margin: 0;
+	line-height: 1.2;
+	white-space: nowrap;
+}
+
+/* ---------- hero backdrop: the blurred art, held well under the text ---------- */
+
+.b19p-hero-bg {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 640px;
+	height: 440px;
+	overflow: hidden;
+}
+
+.b19p-hero-bg img {
+	width: 640px;
+	height: 440px;
+	object-fit: cover;
+	opacity: 0.8;
+}
+
+.b19p-hero-shade {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 640px;
+	height: 444px;
+	background: linear-gradient(
+		180deg,
+		rgba(11, 17, 26, 0.72) 0%,
+		rgba(11, 17, 26, 0.84) 45%,
+		rgba(11, 17, 26, 0.96) 80%,
+		rgba(11, 17, 26, 1) 100%
+	);
+}
+
+.b19p-hero-band {
+	position: absolute;
+	left: 330px;
+	top: 0;
+	width: 310px;
+	height: 300px;
+	background: linear-gradient(
+		180deg,
+		rgba(111, 214, 255, 0.1),
+		rgba(111, 214, 255, 0)
+	);
+	clip-path: polygon(46% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.b19p-hero-line {
+	position: absolute;
+	left: 556px;
+	top: 0;
+	width: 84px;
+	height: 150px;
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.22),
+		rgba(255, 255, 255, 0)
+	);
+	clip-path: polygon(92% 0, 100% 0, 8% 100%, 0 100%);
+}
+
+/* ---------- header ---------- */
+
+.b19p-head {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	padding-top: 28px;
+}
+
+.b19p-kicker {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px 12px;
+	min-height: 36px;
+}
+
+.b19p-kind {
+	padding: 3px 24px 4px 16px;
+	background: var(--b19p-text);
+	box-shadow: inset 6px 0 0 var(--b19p-accent);
+	clip-path: polygon(0 0, 100% 0, calc(100% - 11px) 100%, 0 100%);
+}
+
+.b19p-kind p {
+	font-size: 22px;
+	font-weight: 700;
+	letter-spacing: 3px;
+	color: #0b111a;
+}
+
+.b19p-chip {
+	display: flex;
+	flex-direction: column;
+	padding: 3px 18px 4px;
+	background: var(--b19p-accent);
+	clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+}
+
+.b19p-chip p {
+	color: #08121c;
+}
+
+.b19p-id {
+	display: flex;
+	align-items: center;
+	margin-top: 20px;
+	gap: 20px;
+}
+
+.b19p-avatar {
+	width: 132px;
+	height: 132px;
+	flex-shrink: 0;
+	overflow: hidden;
+	background: var(--b19p-panel);
+	clip-path: polygon(
+		0 0,
+		100% 0,
+		100% calc(100% - 20px),
+		calc(100% - 20px) 100%,
+		0 100%
+	);
+}
+
+.b19p-avatar img {
+	width: 132px;
+	height: 132px;
+	object-fit: cover;
+}
+
+.b19p-id-text {
+	display: flex;
+	flex-direction: column;
+	width: 448px;
+	gap: 2px;
+}
+
+.b19p-name {
+	width: 448px;
+	font-weight: 700;
+	line-height: 1.15;
+	color: var(--b19p-text);
+	overflow: hidden;
+}
+
+.b19p-name p {
+	line-height: 1.15;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.b19p-name.is-multi p {
+	white-space: pre-line;
+}
+
+.b19p-rks-line {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.b19p-rks {
+	font-size: 66px;
+	font-weight: 700;
+	line-height: 1;
+	color: #ffffff;
+	text-shadow: 0 0 22px rgba(111, 214, 255, 0.35);
+}
+
+.b19p-rks-side {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.b19p-rks-cap {
+	font-size: 20px;
+	font-weight: 700;
+	letter-spacing: 3px;
+	color: var(--b19p-accent);
+}
+
+.b19p-rks-sd {
+	font-size: 24px;
+	color: var(--b19p-text-2);
+}
+
+.b19p-clg {
+	position: relative;
+	width: 100px;
+	height: 49px;
+	margin-left: auto;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.b19p-clg img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100px;
+	height: 49px;
+}
+
+.b19p-clg p {
+	position: relative;
+	font-size: 30px;
+	font-weight: 700;
+	color: #ffffff;
+	text-shadow: 0 0 6px rgba(0, 0, 0, 0.9);
+}
+
+.b19p-meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 50px;
+	margin-top: 18px;
+	padding: 0 18px;
+	background: rgba(8, 12, 19, 0.72);
+	box-shadow: inset 0 0 0 1px var(--b19p-line);
+	clip-path: polygon(
+		0 0,
+		100% 0,
+		100% calc(100% - 10px),
+		calc(100% - 10px) 100%,
+		0 100%
+	);
+}
+
+.b19p-date {
+	font-size: 22px;
+	color: var(--b19p-text-2);
+}
+
+.b19p-data {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.b19p-data img {
+	width: 30px;
+	height: 18px;
+	opacity: 0.85;
+}
+
+.b19p-data p {
+	font-size: 22px;
+	color: var(--b19p-text-2);
+}
+
+/* C / FC / Phi counts */
+.b19p-stats {
+	display: flex;
+	flex-direction: column;
+	margin-top: 12px;
+	padding: 12px 18px 10px;
+	background: rgba(18, 26, 39, 0.92);
+	box-shadow: inset 0 0 0 1px var(--b19p-line);
+	clip-path: polygon(
+		0 0,
+		100% 0,
+		100% calc(100% - 14px),
+		calc(100% - 14px) 100%,
+		0 100%
+	);
+}
+
+.b19p-stats-row {
+	display: flex;
+	align-items: center;
+	height: 32px;
+}
+
+.b19p-stats-headrow {
+	height: 38px;
+	margin-bottom: 2px;
+}
+
+.b19p-stats-lab {
+	width: 92px;
+	flex-shrink: 0;
+	font-size: 22px;
+	color: var(--b19p-muted);
+}
+
+.b19p-stats-cell {
+	width: 118px;
+	display: flex;
+	justify-content: center;
+}
+
+.b19p-stats-val {
+	width: 100px;
+	text-align: center;
+	font-size: 26px;
+	color: var(--b19p-text);
+}
+
+.b19p-stats-phi .b19p-stats-val,
+.b19p-stats-phi .b19p-stats-lab {
+	color: var(--b19p-gold);
+}
+
+/* Difficulty chips (stats header and jackets) and the row spines */
+.b19p-diff {
+	padding: 1px 14px 2px;
+	background: var(--b19p-at);
+	clip-path: polygon(7px 0, 100% 0, calc(100% - 7px) 100%, 0 100%);
+}
+
+.b19p-diff p {
+	font-size: 22px;
+	font-weight: 700;
+	color: #ffffff;
+}
+
+.b19p-diff-ez {
+	background: var(--b19p-ez);
+}
+
+.b19p-diff-hd {
+	background: var(--b19p-hd);
+}
+
+.b19p-diff-in {
+	background: var(--b19p-in);
+}
+
+.b19p-diff-at {
+	background: var(--b19p-at);
+	box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.6);
+}
+
+.b19p-diff-legacy {
+	background: var(--b19p-legacy);
+}
+
+/* ---------- chart list ---------- */
+
+.b19p-list {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	margin-top: 24px;
+}
+
+.b19p-legend {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	padding: 0 18px 0 172px;
+	height: 28px;
+}
+
+.b19p-legend p {
+	font-size: 20px;
+	letter-spacing: 1px;
+	color: var(--b19p-muted);
+}
+
+.b19p-row {
+	position: relative;
+	display: flex;
+	min-height: 112px;
+	background: linear-gradient(
+		90deg,
+		var(--b19p-row) 0%,
+		var(--b19p-row-end) 100%
+	);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+	clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+}
+
+.b19p-row.is-gold {
+	background: linear-gradient(
+		90deg,
+		#3b3220 0%,
+		#2a2822 32%,
+		#1b2130 72%,
+		var(--b19p-row-end) 100%
+	);
+	box-shadow:
+		inset 0 0 0 1px rgba(255, 211, 107, 0.42),
+		inset 0 2px 0 rgba(255, 211, 107, 0.6);
+}
+
+.b19p-row.is-over {
+	background: linear-gradient(90deg, #111824 0%, #0e1520 100%);
+}
+
+/* The jacket sits on a strip of its difficulty colour that shows along the slant */
+.b19p-spine {
+	position: relative;
+	display: flex;
+	width: 156px;
+	flex-shrink: 0;
+	clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+}
+
+.b19p-spine.b19p-diff-at {
+	background: var(--b19p-at-spine);
+	box-shadow: none;
+}
+
+.b19p-jacket {
+	position: relative;
+	width: 150px;
+	flex-shrink: 0;
+	overflow: hidden;
+	background: #0a0f17;
+	clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+}
+
+.b19p-ill {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.b19p-jacket-fade {
+	display: none;
+}
+
+.b19p-row.is-over .b19p-jacket-fade {
+	display: flex;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(11, 17, 26, 0.32);
+}
+
+.b19p-tag {
+	position: absolute;
+	left: 0;
+	top: 0;
+	padding: 1px 18px 2px 10px;
+	background: #f2f5f9;
+	clip-path: polygon(0 0, 100% 0, calc(100% - 9px) 100%, 0 100%);
+}
+
+.b19p-tag p {
+	font-size: 22px;
+	font-weight: 700;
+	color: #0b111a;
+}
+
+.b19p-tag.is-gold {
+	background: var(--b19p-gold);
+}
+
+.b19p-tag.is-gold p {
+	color: #241a00;
+}
+
+.b19p-row.is-over .b19p-tag {
+	background: #9aa7b9;
+}
+
+.b19p-jacket-diff {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	padding: 1px 14px 2px 8px;
+	clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+
+.b19p-jacket-diff.is-thin p {
+	font-weight: 400;
+}
+
+.b19p-info {
+	display: flex;
+	flex-direction: column;
+	width: 444px;
+	padding: 6px 18px 6px 16px;
+	justify-content: center;
+}
+
+.b19p-title {
+	display: flex;
+	flex-direction: column;
+	color: var(--b19p-text);
+}
+
+.b19p-title p {
+	line-height: 1.1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.b19p-line {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+/* Score and chart RKS share a baseline: both bottom-aligned */
+.b19p-line-score {
+	height: 41px;
+	align-items: flex-end;
+}
+
+.b19p-line-meta {
+	height: 27px;
+}
+
+.b19p-score {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.b19p-grade {
+	display: flex;
+	width: 38px;
+	height: 38px;
+	flex-shrink: 0;
+}
+
+.b19p-grade img {
+	width: 38px;
+	height: 38px;
+	object-fit: contain;
+}
+
+/* One fixed cell per digit, so place values line up down the list */
+.b19p-digits {
+	display: flex;
+	width: 161px;
+}
+
+.b19p-digits p {
+	width: 23px;
+	text-align: center;
+	font-size: 36px;
+	line-height: 1;
+	color: #ffffff;
+}
+
+.b19p-digits p.is-pad {
+	color: rgba(242, 245, 249, 0.3);
+}
+
+.b19p-row.is-ap .b19p-digits p {
+	color: #ffe9b0;
+}
+
+.b19p-card .b19p-no-score {
+	text-align: right;
+	font-size: 36px;
+	line-height: 1;
+	color: var(--b19p-muted);
+}
+
+/* line-height 1 plus 2.5 px puts its baseline on the 36 px score's (measured) */
+.b19p-card .b19p-rks-val {
+	width: 124px;
+	padding-bottom: 2.5px;
+	line-height: 1;
+	text-align: right;
+	font-size: 28px;
+	color: var(--b19p-accent);
+}
+
+.b19p-row.is-gold .b19p-rks-val {
+	color: var(--b19p-gold);
+}
+
+.b19p-row.is-over .b19p-rks-val {
+	color: #9fc9dc;
+}
+
+.b19p-accs {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-grow: 1;
+	min-width: 0;
+}
+
+.b19p-acc {
+	flex-shrink: 0;
+	font-size: 22px;
+	color: var(--b19p-text-2);
+}
+
+/* Peer average: a badge, so a bare "99.99%" never reads as a second accuracy */
+.b19p-peer {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	height: 26px;
+	padding: 0 8px;
+	background: rgba(255, 255, 255, 0.08);
+	clip-path: polygon(5px 0, 100% 0, calc(100% - 5px) 100%, 0 100%);
+	color: #aab6c7;
+}
+
+.b19p-peer-arrow {
+	flex-shrink: 0;
+	width: 12px;
+	height: 10px;
+	background: var(--b19p-up);
+	clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.b19p-peer.is-down .b19p-peer-arrow {
+	background: var(--b19p-down);
+	clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.b19p-push {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	flex-shrink: 0;
+	gap: 7px;
+	margin-left: 12px;
+}
+
+.b19p-push p {
+	font-size: 20px;
+	color: var(--b19p-text-2);
+}
+
+.b19p-push.is-muted p {
+	color: var(--b19p-muted);
+}
+
+.b19p-push-mark {
+	flex-shrink: 0;
+	width: 9px;
+	height: 12px;
+	background: var(--b19p-accent);
+	clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+/* Peer rank ("rank" mode): "#3,611 / 70,388  Top 5.1%"; sized in prepare() (fitRank) */
+.b19p-line.b19p-line-rank {
+	height: 26px;
+	justify-content: flex-start;
+}
+
+/* Beats `.b19p-card p { margin: 0 }` */
+.b19p-line-rank .b19p-rank-tag {
+	margin-right: 8px;
+	color: var(--b19p-muted);
+}
+
+.b19p-rank-pos {
+	font-weight: 700;
+	color: var(--b19p-text);
+}
+
+/* Beats `.b19p-card p { margin: 0 }` */
+.b19p-line-rank .b19p-rank-of {
+	margin-left: 6px;
+	color: var(--b19p-muted);
+}
+
+.b19p-line-rank .b19p-rank-pct {
+	margin-left: 14px;
+	color: var(--b19p-accent);
+}
+
+/* A ±0.05 badge showing only its share: right after the tag */
+.b19p-line-rank .b19p-rank-pct.is-lead {
+	margin-left: 0;
+}
+
+.b19p-line-rank.is-ap .b19p-rank-pos,
+.b19p-line-rank.is-ap .b19p-rank-pct {
+	color: var(--b19p-gold);
+}
+
+/* Empty P slot */
+.b19p-row.b19p-empty {
+	min-height: 64px;
+	align-items: center;
+	background: rgba(255, 211, 107, 0.05);
+	box-shadow: inset 0 0 0 1px rgba(255, 211, 107, 0.28);
+}
+
+.b19p-empty .b19p-tag {
+	position: relative;
+	margin-right: 18px;
+}
+
+.b19p-empty-text {
+	font-size: 22px;
+	color: var(--b19p-muted);
+}
+
+/* Compact rows: only when they keep a tall card at 2x paint (see wantsCompact) */
+.b19p-card.is-compact .b19p-list {
+	gap: 3px;
+}
+
+.b19p-card.is-compact .b19p-row {
+	min-height: 104px;
+}
+
+.b19p-card.is-compact .b19p-row.b19p-empty {
+	min-height: 64px;
+}
+
+.b19p-card.is-compact .b19p-info {
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+.b19p-card.is-compact .b19p-title p {
+	line-height: 1.05;
+}
+
+.b19p-card.is-compact .b19p-line-score {
+	height: 36px;
+}
+
+.b19p-card.is-compact .b19p-grade,
+.b19p-card.is-compact .b19p-grade img {
+	width: 36px;
+	height: 36px;
+}
+
+.b19p-card.is-compact .b19p-line-meta,
+.b19p-card.is-compact .b19p-line-rank {
+	height: 24px;
+}
+
+/* No chart matches the mode filter */
+.b19p-none {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 120px;
+	background: var(--b19p-panel);
+	box-shadow: inset 0 0 0 1px var(--b19p-line);
+	clip-path: polygon(
+		0 0,
+		100% 0,
+		100% calc(100% - 14px),
+		calc(100% - 14px) 100%,
+		0 100%
+	);
+}
+
+.b19p-none p {
+	font-size: 24px;
+	color: var(--b19p-muted);
+}
+
+/* OVERFLOW divider */
+.b19p-over {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	height: 76px;
+	margin: 6px 0;
+}
+
+.b19p-over-bar {
+	flex-grow: 1;
+	height: 14px;
+	background: repeating-linear-gradient(
+		-60deg,
+		rgba(242, 245, 249, 0.55) 0px,
+		rgba(242, 245, 249, 0.55) 6px,
+		rgba(242, 245, 249, 0) 6px,
+		rgba(242, 245, 249, 0) 14px
+	);
+}
+
+.b19p-over-text {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+}
+
+.b19p-over-title {
+	font-size: 26px;
+	font-weight: 700;
+	letter-spacing: 6px;
+	color: var(--b19p-text);
+}
+
+.b19p-over-note {
+	font-size: 20px;
+	color: var(--b19p-muted);
+}
+
+/* ---------- analysis ---------- */
+
+.b19p-analysis {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	margin-top: 32px;
+}
+
+.b19p-sec-head {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.b19p-sec-mark {
+	width: 22px;
+	height: 26px;
+	background: var(--b19p-accent);
+	clip-path: polygon(40% 0, 100% 0, 60% 100%, 0 100%);
+}
+
+.b19p-sec-head p {
+	font-size: 26px;
+	font-weight: 700;
+	letter-spacing: 2px;
+}
+
+.b19p-panel {
+	display: flex;
+	flex-direction: column;
+	padding: 18px 20px 16px;
+	background: var(--b19p-panel);
+	box-shadow: inset 0 0 0 1px var(--b19p-line);
+	clip-path: polygon(
+		0 0,
+		100% 0,
+		100% calc(100% - 14px),
+		calc(100% - 14px) 100%,
+		0 100%
+	);
+}
+
+.b19p-sum {
+	display: flex;
+	align-items: flex-end;
+}
+
+.b19p-sum-main {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+.b19p-sum-cell {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	width: 128px;
+}
+
+.b19p-sum-lab {
+	font-size: 20px;
+	color: var(--b19p-muted);
+}
+
+.b19p-sum-big {
+	font-size: 46px;
+	font-weight: 700;
+	line-height: 1.05;
+	color: #ffffff;
+}
+
+.b19p-sum-val {
+	font-size: 28px;
+	color: var(--b19p-text);
+}
+
+.b19p-hist {
+	position: relative;
+	width: 560px;
+	height: 226px;
+	margin-top: 16px;
+}
+
+.b19p-hist-y {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 56px;
+	height: 184px;
+}
+
+.b19p-hist-y p {
+	position: absolute;
+	right: 0;
+	height: 22px;
+	font-size: 18px;
+	line-height: 22px;
+	color: var(--b19p-muted);
+}
+
+.b19p-hist-plot {
+	position: absolute;
+	left: 64px;
+	top: 0;
+	width: 496px;
+	height: 184px;
+	box-shadow: inset 0 -2px 0 rgba(255, 255, 255, 0.28);
+}
+
+.b19p-hist-grid {
+	position: absolute;
+	left: 0;
+	width: 496px;
+	height: 1px;
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.b19p-hist-bar {
+	position: absolute;
+	bottom: 0;
+	background: linear-gradient(180deg, #8fe0ff 0%, #3b9fd0 100%);
+	border-radius: 3px 3px 0 0;
+}
+
+.b19p-hist-bar.is-gold {
+	background: linear-gradient(180deg, #ffe08f 0%, #e0a93a 100%);
+}
+
+.b19p-hist-avg {
+	position: absolute;
+	left: 0;
+	width: 496px;
+	height: 2px;
+	background: #ffffff;
+	box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+.b19p-hist-x {
+	position: absolute;
+	left: 64px;
+	top: 192px;
+	width: 496px;
+	height: 26px;
+}
+
+.b19p-hist-x p {
+	position: absolute;
+	top: 0;
+	width: 60px;
+	text-align: center;
+	font-size: 18px;
+	color: var(--b19p-muted);
+}
+
+.b19p-hist-x p.is-start {
+	text-align: left;
+}
+
+.b19p-hist-x p.is-end {
+	text-align: right;
+}
+
+.b19p-hist-x p.is-gold {
+	color: var(--b19p-gold);
+}
+
+.b19p-hist-legend {
+	display: flex;
+	align-items: center;
+	gap: 26px;
+	padding-left: 64px;
+}
+
+.b19p-key {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.b19p-key p {
+	font-size: 20px;
+	color: var(--b19p-text-2);
+}
+
+.b19p-key-dot {
+	width: 14px;
+	height: 14px;
+	border-radius: 2px;
+	background: var(--b19p-accent);
+}
+
+.b19p-key-dot.is-gold {
+	background: var(--b19p-gold);
+}
+
+.b19p-key-line {
+	width: 22px;
+	height: 2px;
+	background: #ffffff;
+}
+
+/* Tag profile */
+.b19p-tags-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 4px 16px;
+}
+
+.b19p-tags-title {
+	font-size: 24px;
+	font-weight: 700;
+}
+
+.b19p-tags-meta {
+	font-size: 20px;
+	color: var(--b19p-muted);
+}
+
+/* One row per rank holds both columns, so a wrapped name keeps them level */
+.b19p-tags-grid {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin-top: 14px;
+}
+
+.b19p-tag-pair {
+	display: flex;
+	gap: 32px;
+}
+
+.b19p-tag-heads {
+	margin-bottom: 2px;
+}
+
+.b19p-tags-col-title {
+	display: flex;
+	width: 264px;
+	padding-top: 10px;
+	box-shadow: inset 0 3px 0 var(--b19p-accent);
+}
+
+.b19p-tags-col-title.is-weak {
+	box-shadow: inset 0 3px 0 var(--b19p-down);
+}
+
+.b19p-tags-col-title p {
+	font-size: 22px;
+	color: var(--b19p-text-2);
+}
+
+.b19p-tag-row {
+	display: flex;
+	align-items: center;
+	width: 264px;
+	min-height: 32px;
+}
+
+.b19p-tag-rank {
+	width: 24px;
+	font-size: 20px;
+	color: var(--b19p-muted);
+}
+
+.b19p-tag-name {
+	display: flex;
+	flex-direction: column;
+	width: 176px;
+	color: var(--b19p-text);
+}
+
+.b19p-tag-name p {
+	line-height: 1.2;
+	overflow: hidden;
+}
+
+.b19p-tag-rks {
+	width: 64px;
+	text-align: right;
+	font-size: 22px;
+	color: var(--b19p-accent);
+}
+
+.b19p-tag-row.is-weak .b19p-tag-rks {
+	color: var(--b19p-down);
+}
+
+.b19p-card .b19p-tags-note,
+.b19p-card .b19p-tags-empty {
+	margin-top: 12px;
+	font-size: 20px;
+	line-height: 1.35;
+	color: var(--b19p-muted);
+	white-space: normal;
+}
+
+.b19p-card .b19p-tags-empty {
+	font-size: 22px;
+}
+
+/* ---------- footer ---------- */
+
+.b19p-foot {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin-top: 28px;
+	padding: 14px 18px;
+	height: 90px;
+	background: rgba(255, 255, 255, 0.03);
+	box-shadow: inset 0 1px 0 var(--b19p-line);
+	clip-path: polygon(
+		0 0,
+		100% 0,
+		100% calc(100% - 14px),
+		calc(100% - 14px) 100%,
+		0 100%
+	);
+}
+
+.b19p-foot-lab {
+	flex-shrink: 0;
+	padding: 1px 16px 2px 10px;
+	background: var(--b19p-accent);
+	clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+
+.b19p-foot-lab p {
+	font-size: 20px;
+	font-weight: 700;
+	color: #08121c;
+}
+
+/* Two lines at most, broken in prepare(): a CSS clamp breaks on colour emoji */
+.b19p-foot-tip {
+	display: flex;
+	flex-direction: column;
+	width: 480px;
+	overflow: hidden;
+	color: var(--b19p-text-2);
+}
+
+.b19p-card .b19p-foot-tip p {
+	line-height: 1.4;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

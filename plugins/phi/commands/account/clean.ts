@@ -9,7 +9,7 @@ export default defineCommand({
   async execute(ctx) {
     if (await isBanned(ctx, "bind")) return
     const rt = ctx.service<PhiRuntime>("phi.runtime")
-    const hadBind = await clearUser(rt, ctx.db, ctx.userId)
+    const hadBind = await clearUser(rt, ctx.userId)
     const notesKey = kvKey("notes", ctx.userId)
     const jrrpKey = kvKey("jrrp", ctx.userId)
     const hadNotes = Boolean(await ctx.db.get(notesKey))

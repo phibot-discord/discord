@@ -76,11 +76,11 @@
             {{if gameuser.selfIntro}}
             <p color='white' name="pvis">{{#gameuser.selfIntro}}</p>
             {{else}}
-            <p color='skyblue' name="pvis">{{t.emptyBio}}</p>
+            <p color='skyblue' name="pvis">{{'介个人的简介被胡桃吃掉惹……'}}</p>
             {{/if}}
         </div>
         <div class="createdbox">
-            <div class="phi-brand">
+            <div class="phi-plugin">
                 <p>{{_plugin}}</p>
             </div>
             <div class="ver">
@@ -166,7 +166,7 @@
             <div class="data_title-left">
                 <p>Limit-ACC_RKS</p>
             </div>
-            <p>{{t.accFilterHint}}</p>
+            <p>将您的成绩中所有 ACC【小于某一值(横坐标)】的成绩筛去后计算得到的 RKS 值</p>
         </div>
         <div class="svg-box">
             {{if acc_rks_data[0]}}

@@ -9,29 +9,29 @@
     "node": ">=22.11"
   },
   "scripts": {
-    "start": "tsx src/index.ts",
-    "dev": "tsx watch src/index.ts",
-    "check": "tsx scripts/self-check.ts",
-    "typecheck": "tsc --noEmit",
-    "sync-assets": "node scripts/sync-phi-assets.mjs"
+    "prepare-render": "node scripts/precompile-art.mjs && node scripts/bundle-css.mjs",
+    "start": "pnpm prepare-render && tsx src/index.ts",
+    "dev": "pnpm prepare-render && tsx watch src/index.ts",
+    "typecheck": "pnpm prepare-render && tsc --noEmit",
+    "test": "pnpm prepare-render && node --import tsx --test 'src/**/*.test.ts' 'plugins/**/*.test.ts'",
+    "sync-assets": "node scripts/sync-phi-assets.mjs && pnpm prepare-render",
+    "fmt": "pnpx @biomejs/biome format --write"
   },
   "dependencies": {
+    "@takumi-rs/core": "2.14.0",
     "art-template": "^4.13.4",
-    "discord.js": "^14.22.1",
-    "jszip": "^3.10.1",
+    "discord.js": "^14.27.0",
+    "jszip": "^3.10.2",
     "qrcode": "^1.5.4",
-    "sharp": "^0.34.5",
-    "takumi-js": "^2.12.0",
-    "yaml": "^2.8.1"
+    "sharp": "^0.35.5",
+    "takumi-js": "^2.14.0",
+    "undici": "^8.11.2",
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
-    "@types/node": "^22.18.12",
-    "tsx": "^4.20.6",
-    "typescript": "^5.9.3"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "sharp"
-    ]
+    "@biomejs/biome": "2.5.15",
+    "@types/node": "^26.6.4",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
   }
 }

@@ -19,10 +19,18 @@ kv:
   namespaceId: ""
   apiToken: ""
 
+# Jackets come from the local clone made by `/phi admin downill`
+# (phi-assets/original_ill); avatars and icons are bundled in phi-assets/html.
+# Optional: set bucket (and its public domain) to fill in anything missing
+# locally from the WebUI's R2 bucket, and to share finished cards with the web.
+r2:
+  bucket: ""
+  publicBase: ""
+
 paths:
   data: "./data"
   plugins: "./plugins"
-  # Vendored card HTML/fonts in phi-assets/; /phi admin downill clones jackets into original_ill
+  # Vendored card HTML/CSS/fonts/images in phi-assets/
   phiResources: "./phi-assets"
 
 render:

@@ -1,7 +1,8 @@
 import { join } from "node:path"
+import { attachDataHost } from "./data-host.ts"
+import { connectKv } from "./kv.ts"
 import { type LoadedCommand, loadPlugins } from "./loader.ts"
 import { logger } from "./logger.ts"
-import { connectKv } from "./kv.ts"
 import { RenderEngine } from "./render/engine.ts"
 import { loadFontsFromDir } from "./render/fonts.ts"
 import { compileArt } from "./render/html.ts"
@@ -11,9 +12,11 @@ import type {
   CollectOptions,
   Context,
   FontEntry,
+  Kv,
   ModalSpec,
   PluginDefinition,
   RenderedImage,
+  RenderOptions,
   TemplateDefinition,
 } from "./sdk/index.ts"
 
@@ -44,12 +47,39 @@ const missingModal = async (_spec: ModalSpec) => {
 }
 const missingCollect = async (_opts?: CollectOptions) => undefined
 
+/**
+ * The render stack is shared with the WebUI verbatim, and those modules read
+ * their locations / credentials from the environment. Bridge the bot config
+ * into it once, before any of them is imported by a plugin.
+ */
+function exportSharedEnv(root: string, config: AppConfig) {
+  const env = process.env
+  env.PHI_APP_ROOT ||= root
+  env.PHI_ASSETS ||= config.paths.phiResources
+  env.CLOUDFLARE_ACCOUNT_ID ||= config.kv.accountId
+  env.CLOUDFLARE_API_TOKEN ||= config.kv.apiToken
+  env.CLOUDFLARE_KV_NAMESPACE_ID ||= config.kv.namespaceId
+  // No bucket configured = R2 off: jackets/icons from disk, catalog from the bundle + KV, cards cached in memory.
+  env.CLOUDFLARE_R2_BUCKET ||= config.r2.bucket || "off"
+  if (config.r2.publicBase) env.CLOUDFLARE_R2_PUBLIC_BASE ||= config.r2.publicBase
+  // This host can reach TapTap / phib19 directly; the WebUI defaults to the ill-sync proxy.
+  env.TAP_PROXY_URL ||= "off"
+  env.PHI_CHART_TAG_API ||= "https://phib19.top:8080"
+}
+
 export async function createHost(root: string, config: AppConfig): Promise<Host> {
+  exportSharedEnv(root, config)
   const engine = new RenderEngine()
   await engine.init()
-  const db = await connectKv(config.kv)
+  const kv = await connectKv(config.kv)
+  attachDataHost(kv)
+  const db: Kv = {
+    ...kv.db,
+    setNx: async (key, value, ttlMs) =>
+      (await kv.store.set(key, value, { ttlMs, nx: true })) === "OK",
+  }
   const templates = new Map<string, TemplateDefinition>()
-  const services = new Map<string, unknown>()
+  const services = new Map<string, unknown>([["kv", kv.store]])
   const extraCommands: LoadedCommand[] = []
   const fonts: FontEntry[] = []
 
@@ -76,19 +106,17 @@ export async function createHost(root: string, config: AppConfig): Promise<Host>
   const compileId = async (id: string, data: Record<string, unknown> = {}): Promise<string> => {
     const def = templates.get(id)
     if (!def) throw new Error(`unknown template: ${id}`)
-    const html = def.html
-      ? await def.html(data, helpers)
-      : typeof def.render === "function"
-        ? await def.render(data, helpers)
-        : null
-    if (typeof html !== "string") throw new Error(`template ${id} has neither html() nor render()`)
-    return html
+    return def.html(data, helpers)
   }
 
-  const renderId = async (id: string, data: Record<string, unknown> = {}): Promise<RenderedImage> => {
+  const renderId = async (
+    id: string,
+    data: Record<string, unknown> = {},
+    opts: RenderOptions = {},
+  ): Promise<RenderedImage> => {
     const def = templates.get(id)
     if (!def) throw new Error(`unknown template: ${id}`)
-    return engine.renderTemplate(def, data, helpers)
+    return engine.renderTemplate(def, data, helpers, opts)
   }
 
   const app: App = {

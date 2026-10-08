@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+<head><meta charset="utf-8"><title>phi</title></head>
+<body>
+<div class="tbl tbl-{{bt.kind}}">
+	{{if background}}
+	<div class="tbl-glow"><img src="{{background}}" alt=""></div>
+	{{/if}}
+	<div class="tbl-shade"></div>
+	<div class="tbl-wrap">
+
+		<div class="tbl-top">
+			<div class="tbl-top-l">
+				<div class="tbl-mark"></div>
+				<div class="tbl-heading">
+					<div class="tbl-title-row">
+						<p class="tbl-title">{{bt.title}}</p>
+						{{each bt.chips chip}}
+						<p class="tbl-chip">{{chip}}</p>
+						{{/each}}
+					</div>
+					{{if bt.desc}}<p class="tbl-desc">{{bt.desc}}</p>{{/if}}
+				</div>
+			</div>
+			{{if bt.saved}}
+			<div class="tbl-top-r">
+				<p class="tbl-k">{{bt.copy.saved}}</p>
+				<p class="tbl-saved">{{bt.saved}}</p>
+			</div>
+			{{/if}}
+		</div>
+
+		<div class="tbl-id{{if !bt.stats.length}} no-stats{{/if}}">
+			<div class="tbl-avatar">
+				{{if bt.avatar}}<img src="{{_res_path}}html/avatar/{{bt.avatar}}.png" alt="">{{/if}}
+			</div>
+			<div class="tbl-who">
+				<div class="tbl-name{{if bt.nameClip}} is-clip{{/if}}" style="font-size:{{bt.namePx}}px;">
+					<p>{{@ bt.nameHtml}}</p>
+				</div>
+				<div class="tbl-rks">
+					<p class="tbl-rks-k">{{bt.copy.rks}}</p>
+					<p class="tbl-rks-v">{{bt.rks}}</p>
+					{{if bt.sd}}
+					<div class="tbl-rks-sd">
+						<p class="tbl-k">{{bt.sdLabel}}</p>
+						<p class="tbl-rks-sdv">{{bt.sd}}</p>
+					</div>
+					{{/if}}
+				</div>
+				{{if bt.challenge || bt.dataText}}
+				<div class="tbl-badges">
+					{{if bt.challenge}}
+					<div class="tbl-clg">
+						<img src="{{_imgPath}}{{bt.challenge.mode}}.png" alt="">
+						<p>{{bt.challenge.rank}}</p>
+					</div>
+					{{/if}}
+					{{if bt.dataText}}
+					<div class="tbl-data">
+						<img src="{{_imgPath}}data.png" alt="">
+						<p>{{bt.dataText}}</p>
+					</div>
+					{{/if}}
+				</div>
+				{{/if}}
+			</div>
+			{{if bt.stats.length}}
+			<div class="tbl-stats">
+				<div class="tbl-stats-row is-head">
+					<p class="tbl-stats-k"></p>
+					{{each bt.stats s}}
+					<div class="tbl-stats-lv"><p class="lv-{{s.lv}}">{{s.title}}</p></div>
+					{{/each}}
+				</div>
+				<div class="tbl-stats-row">
+					<p class="tbl-stats-k">{{bt.copy.statClear}}</p>
+					{{each bt.stats s}}<p class="tbl-stats-v">{{s.cleared}}</p>{{/each}}
+				</div>
+				<div class="tbl-stats-row">
+					<p class="tbl-stats-k">{{bt.copy.statFc}}</p>
+					{{each bt.stats s}}<p class="tbl-stats-v">{{s.fc}}</p>{{/each}}
+				</div>
+				<div class="tbl-stats-row is-phi">
+					<p class="tbl-stats-k">{{bt.copy.statPhi}}</p>
+					{{each bt.stats s}}<p class="tbl-stats-v">{{s.phi}}</p>{{/each}}
+				</div>
+			</div>
+			{{/if}}
+		</div>
+
+		<div class="tbl-table{{if bt.hasPush}} has-push{{/if}}">
+			<div class="tbl-cols">
+				<p class="c-rank">{{bt.copy.colRank}}</p>
+				<p class="c-ill"></p>
+				<p class="c-song">{{bt.copy.colSong}}</p>
+				<p class="c-lv">{{bt.copy.colLevel}}</p>
+				<p class="c-grade"></p>
+				<p class="c-score">{{bt.copy.colScore}}</p>
+				<div class="c-acc">
+					<p>{{bt.copy.colAcc}}</p>
+					{{if bt.hasAvg}}<p class="tbl-cols-sub">{{bt.avgLabel}}</p>{{/if}}
+				</div>
+				<p class="c-rks">{{bt.copy.colRks}}</p>
+				{{if bt.hasPush}}
+				<div class="c-push">
+					<p>{{bt.copy.colPush}}</p>
+					{{if bt.pushKey.length}}
+					<div class="tbl-push-key">
+						{{each bt.pushKey k}}{{if k.sep}}<p class="tbl-push-sep">·</p>{{/if}}<p class="is-{{k.tier}}">{{k.text}}</p>{{/each}}
+					</div>
+					{{/if}}
+				</div>
+				{{/if}}
+			</div>
+
+			{{each bt.items it}}
+			{{if it.type == 'band'}}
+			<div class="tbl-band {{it.cls}}">
+				<div class="tbl-band-tag"></div>
+				<p class="tbl-band-l">{{it.label}}</p>
+				<p class="tbl-band-d">{{it.desc}}</p>
+			</div>
+			{{else if it.type == 'divider'}}
+			<div class="tbl-over">
+				<div class="tbl-over-line"></div>
+				<div class="tbl-over-mid">
+					<p class="tbl-over-l">{{it.label}}</p>
+					<p class="tbl-over-d">{{it.desc}}</p>
+				</div>
+				<div class="tbl-over-line"></div>
+			</div>
+			{{else if it.type == 'note'}}
+			<div class="tbl-note"><p>{{it.text}}</p></div>
+			{{else}}
+			<div class="tbl-row {{it.cls}}">
+				<div class="c-rank"><p class="tbl-rk"><span class="tbl-rk-p">{{it.rankPre}}</span>{{it.rankNum}}</p></div>
+				<div class="c-ill">{{if it.ill}}<img src="{{it.ill}}" alt="">{{else}}<div class="tbl-ill-ph"></div>{{/if}}</div>
+				<div class="c-song{{if it.titleClip}} is-clip{{/if}}" style="font-size:{{it.titlePx}}px;">
+					{{each it.lines line}}<p>{{line}}</p>{{/each}}
+				</div>
+				<div class="c-lv">{{if it.level}}<div class="tbl-lv lv-{{it.lv}}"><p class="tbl-lv-n">{{it.level}}</p><p class="tbl-lv-c">{{it.constant}}</p></div>{{else}}<p class="tbl-dash">—</p>{{/if}}</div>
+				<div class="c-grade">{{if it.grade}}<img src="{{_imgPath}}{{it.grade}}.png" alt="">{{else}}<div></div>{{/if}}</div>
+				<div class="c-score">{{if it.score}}<p class="tbl-num"><span class="tbl-dz">{{it.scoreLead}}</span>{{it.score}}</p>{{else}}<p class="tbl-dash">—</p>{{/if}}</div>
+				<div class="c-acc">
+					{{if it.acc}}<p class="tbl-num{{if it.accAp}} is-ap{{/if}}">{{it.acc}}</p>{{else}}<p class="tbl-dash">—</p>{{/if}}
+					{{if it.peerRank}}
+					{{set pr = it.peerRank}}
+					<div class="tbl-rank{{if pr.ap}} is-ap{{/if}}" style="font-size:{{pr.px}}px;">
+						{{if pr.tag}}<p class="tbl-rank-tag">{{pr.tag}}</p>{{/if}}
+						{{if pr.pos}}<p class="tbl-rank-pos">{{pr.pos}}</p>{{/if}}
+						{{if pr.showOf}}<p class="tbl-rank-of">{{pr.of}}</p>{{/if}}
+						{{if pr.pct}}<p class="tbl-rank-pct{{if !pr.pos}} is-lead{{/if}}">{{pr.pct}}</p>{{/if}}
+					</div>
+					{{else if it.avg}}
+					<div class="tbl-avg is-{{it.avg.dir || 'flat'}}">
+						{{if it.avg.dir}}<div class="tbl-tri"></div>{{/if}}
+						<p class="{{it.avg.isNum ? 'tbl-num' : 'tbl-avg-t'}}" style="font-size:{{it.avg.px}}px;">{{it.avg.text}}</p>
+					</div>
+					{{/if}}
+				</div>
+				<div class="c-rks">{{if it.rks}}<p class="tbl-num">{{it.rks}}</p>{{else}}<p class="tbl-dash">—</p>{{/if}}</div>
+				{{if bt.hasPush}}
+				<div class="c-push">
+					{{if it.push}}<p class="tbl-num tbl-push-{{it.pushTier || 'mid'}}">{{it.push}}</p>{{else if it.pushText}}<p class="tbl-nopush">{{it.pushText}}</p>{{else}}<p class="tbl-dash">—</p>{{/if}}
+					{{if it.peerRankSide}}
+					{{set ps = it.peerRankSide}}
+					<div class="tbl-rank is-side{{if ps.ap}} is-ap{{/if}}" style="font-size:{{ps.px}}px;">
+						{{if ps.tag}}<p class="tbl-rank-tag">{{ps.tag}}</p>{{/if}}
+						{{if ps.pos}}<p class="tbl-rank-pos">{{ps.pos}}</p>{{/if}}
+						{{if ps.showOf}}<p class="tbl-rank-of">{{ps.of}}</p>{{/if}}
+						{{if ps.pct}}<p class="tbl-rank-pct{{if !ps.pos}} is-lead{{/if}}">{{ps.pct}}</p>{{/if}}
+					</div>
+					{{/if}}
+				</div>
+				{{/if}}
+			</div>
+			{{/if}}
+			{{/each}}
+		</div>
+
+		{{if bt.analysis}}
+		<div class="tbl-ana">
+			<div class="tbl-sec">
+				<div class="tbl-mark is-sm"></div>
+				<p class="tbl-sec-k">{{bt.analysis.title}}</p>
+				<p class="tbl-sec-t">{{bt.tagCopy.histTitle}}</p>
+			</div>
+			<div class="tbl-ana-body">
+				<div class="tbl-hist" style="width:{{bt.analysis.plotW + 56}}px;">
+					<div class="tbl-hist-head">
+						<div class="tbl-hist-stat">
+							<p class="tbl-k">{{bt.tagCopy.avgRks}}</p>
+							<p class="tbl-hist-avg">{{bt.analysis.average}}</p>
+						</div>
+						<div class="tbl-hist-stat">
+							<p class="tbl-k">{{bt.copy.stddev}}</p>
+							<p class="tbl-hist-sd">{{bt.analysis.stddev}}</p>
+						</div>
+						<div class="tbl-hist-legend">
+							{{each bt.analysis.legend lg}}
+							<div class="tbl-lg {{lg.cls}}"><div class="tbl-lg-dot"></div><p>{{lg.text}}</p></div>
+							{{/each}}
+							<p class="tbl-lg-n">{{bt.analysis.count}}</p>
+						</div>
+					</div>
+					<div class="tbl-plot">
+						<div class="tbl-yaxis">
+							{{each bt.analysis.ticks tk}}
+							<p style="bottom:{{tk.bottom - 7}}px;">{{tk.label}}</p>
+							{{/each}}
+						</div>
+						<div class="tbl-area" style="width:{{bt.analysis.plotW}}px;">
+							{{each bt.analysis.ticks tk}}
+							<div class="tbl-grid" style="bottom:{{tk.bottom}}px;"></div>
+							{{/each}}
+							<div class="tbl-bars">
+								{{each bt.analysis.bars b}}
+								<div class="tbl-slot {{b.cls}}" style="width:{{bt.analysis.slotW}}px;">
+									<div class="tbl-bar" style="width:{{bt.analysis.barW}}px;height:{{b.h}}px;"></div>
+								</div>
+								{{/each}}
+							</div>
+							<div class="tbl-avgline" style="bottom:{{bt.analysis.avgBottom}}px;"></div>
+							<p class="tbl-avgtag" style="bottom:{{bt.analysis.avgBottom + 4}}px;">{{bt.copy.avgTag}} {{bt.analysis.average}}</p>
+						</div>
+					</div>
+					<div class="tbl-xaxis" style="width:{{bt.analysis.plotW}}px;">
+						{{each bt.analysis.bars b}}
+						<p class="{{b.cls}}" style="width:{{bt.analysis.slotW}}px;">{{b.label}}</p>
+						{{/each}}
+					</div>
+				</div>
+				{{if bt.analysis.tags}}
+				<div class="tbl-tags">
+					<div class="tbl-tags-head">
+						<p class="tbl-tags-t">{{bt.tagCopy.title}}</p>
+						{{if bt.analysis.tags.meta}}<p class="tbl-tags-meta">{{bt.analysis.tags.meta}}</p>{{/if}}
+					</div>
+					{{if bt.analysis.tags.insufficient}}
+					<div class="tbl-tags-empty">
+						<div class="tbl-tags-empty-mark"></div>
+						<p class="tbl-tags-msg">{{bt.analysis.tags.message}}</p>
+					</div>
+					{{else}}
+					<div class="tbl-tags-cols">
+						<div class="tbl-tags-col is-strong">
+							<p class="tbl-tags-k">{{bt.tagCopy.strong}}</p>
+							{{each bt.analysis.tags.strong tag}}
+							<div class="tbl-tag"><p class="tbl-tag-i">{{tag.rank}}</p><p class="tbl-tag-n" style="font-size:{{bt.analysis.tags.px}}px;">{{tag.name}}</p><p class="tbl-tag-v">{{tag.rks}}</p></div>
+							{{/each}}
+						</div>
+						<div class="tbl-tags-col is-weak">
+							<p class="tbl-tags-k">{{bt.tagCopy.weak}}</p>
+							{{each bt.analysis.tags.weak tag}}
+							<div class="tbl-tag"><p class="tbl-tag-i">{{tag.rank}}</p><p class="tbl-tag-n" style="font-size:{{bt.analysis.tags.px}}px;">{{tag.name}}</p><p class="tbl-tag-v">{{tag.rks}}</p></div>
+							{{/each}}
+						</div>
+					</div>
+					<div class="tbl-tags-foot">
+						{{if bt.analysis.tags.note}}<p>{{bt.analysis.tags.note}}</p>{{/if}}
+						<p>{{bt.tagCopy.tip}}</p>
+					</div>
+					{{/if}}
+				</div>
+				{{/if}}
+			</div>
+		</div>
+		{{/if}}
+
+		<div class="tbl-foot">
+			<div class="tbl-tip">
+				{{if bt.tip.lines.length}}
+				<p class="tbl-tip-k">{{bt.copy.tip}}</p>
+				<div class="tbl-tip-t" style="font-size:{{bt.tip.px}}px;">{{each bt.tip.lines line}}<p>{{line}}</p>{{/each}}</div>
+				{{/if}}
+			</div>
+			<div class="tbl-brand">
+				<div class="tbl-brand-meta">
+					<p class="tbl-k">{{bt.copy.generated}}</p>
+					<p class="tbl-brand-date">{{bt.generated}}</p>
+				</div>
+				<div class="tbl-logo">
+					<div class="tbl-logo-bars"><div></div><div></div><div></div></div>
+					<p>PhiBot</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

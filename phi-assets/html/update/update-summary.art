@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+<head><meta charset="utf-8"><title>phi</title></head>
+<body>
+<div class="us-card us-l-{{us.lc}}">
+	{{if background}}<img class="us-bgimg" src="{{background}}" alt="">{{/if}}
+	<div class="us-bgshade"></div>
+	<div class="us-bgstripes"></div>
+
+	<div class="us-head">
+		<div class="us-id">
+			<div class="us-eyebrow"><div class="us-mark"></div><p>{{us.vt.eyebrow}}</p></div>
+			<div class="us-name"><p style="font-size:{{us.name.px}}px;">{{@ us.name.html}}</p></div>
+			<div class="us-meta">
+				{{if us.challenge}}
+				<div class="us-clg">
+					<img src="{{_imgPath}}{{us.challenge.mode}}.png" alt="">
+					<p>{{us.challenge.rank}}</p>
+				</div>
+				{{/if}}
+				<div class="us-saved">
+					<p class="us-k">{{us.vt.saved}}</p>
+					<p class="us-saved-v">{{us.saved}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="us-rks">
+			<p class="us-k">{{us.vt.rks}}</p>
+			<p class="us-rks-v">{{us.rks}}</p>
+			{{if us.delta}}
+			<div class="us-rks-d">
+				<p class="us-delta us-{{us.deltaCls}}">{{us.delta}}</p>
+				<p class="us-rks-dk">{{us.vt.sinceSync}}</p>
+			</div>
+			{{/if}}
+		</div>
+	</div>
+
+	{{if us.empty}}
+	<div class="us-empty{{if us.emptyMoved}} us-empty-slim{{/if}}">
+		<div class="us-empty-mark"><div></div><div></div><div></div></div>
+		<p class="us-empty-t">{{us.vt.emptyTitle}}</p>
+		<div class="us-empty-b">{{each us.emptyLines line}}<p>{{line}}</p>{{/each}}</div>
+	</div>
+	{{else}}
+	<div class="us-period">
+		<p class="us-k">{{us.vt.period}}</p>
+		<p class="us-period-v">{{us.period.range}}</p>
+		<div class="us-period-line"></div>
+		<p class="us-period-m">{{us.period.meta}}</p>
+	</div>
+	<div class="us-kpis">
+		<div class="us-kpi">
+			<p class="us-k">{{us.vt.kpiRks}}</p>
+			<p class="us-kpi-v us-{{us.kpi.rksCls}}">{{us.kpi.rks}}</p>
+			{{if us.kpi.spark}}<div class="us-spark">{{@ us.kpi.spark}}</div>{{/if}}
+			<p class="us-kpi-s us-kpi-num">{{us.kpi.rksSub}}</p>
+		</div>
+		<div class="us-kpi">
+			<p class="us-k">{{us.vt.kpiRecords}}</p>
+			<p class="us-kpi-v">{{us.kpi.records}}</p>
+			{{if us.kpi.bars}}<div class="us-spark">{{@ us.kpi.bars}}</div>{{/if}}
+			<p class="us-kpi-s">{{us.kpi.recordsSub}}</p>
+		</div>
+		<div class="us-kpi{{if us.kpi.phiOn}} us-kpi-phi{{/if}}">
+			<p class="us-k">{{us.vt.kpiPhi}}</p>
+			<div class="us-kpi-row">
+				<p class="us-kpi-v{{if us.kpi.phiOn}} us-gold{{/if}}">{{us.kpi.phi}}</p>
+				<img class="us-kpi-icon" src="{{_imgPath}}phi.png" alt="">
+			</div>
+			{{if us.kpi.phiList.length}}
+			<div class="us-kpi-list">
+				{{each us.kpi.phiList p}}
+				<div class="us-kpi-li"><div class="us-kpi-pip"></div><p style="font-size:{{p.title.px}}px;">{{p.title.lines[0]}}</p>{{if p.more}}<p class="us-kpi-more">{{p.more}}</p>{{/if}}</div>
+				{{/each}}
+			</div>
+			{{/if}}
+			<p class="us-kpi-s">{{us.kpi.phiSub}}</p>
+		</div>
+		<div class="us-kpi">
+			<p class="us-k">{{us.kpi.bestLabel}}</p>
+			<p class="us-kpi-v us-{{us.kpi.bestCls}}">{{us.kpi.best}}</p>
+			{{if us.kpi.bestTitle}}
+			<div class="us-kpi-song">
+				<p style="font-size:{{us.kpi.bestTitle.px}}px;">{{us.kpi.bestTitle.lines[0]}}</p>
+				<div class="us-chip us-chip-{{us.kpi.bestChip.cls}}"><p>{{us.kpi.bestChip.rank}}</p>{{if us.kpi.bestChip.level}}<p class="us-chip-lv">{{us.kpi.bestChip.level}}</p>{{/if}}</div>
+			</div>
+			{{else}}
+			<p class="us-kpi-s">{{us.vt.kpiBestNone}}</p>
+			{{/if}}
+		</div>
+	</div>
+	{{/if}}
+
+	{{if us.gains.length}}
+	<div class="us-sec">
+		<div class="us-sec-h"><div class="us-mark"></div><p class="us-sec-t">{{us.vt.gains}}</p><p class="us-sec-m">{{us.gainsMeta}}</p></div>
+		<div class="us-gains us-gains-{{us.gainsLayout}}">
+			{{each us.gains g}}
+			<div class="us-gain{{if g.phi}} us-gain-phi{{/if}}">
+				<div class="us-gain-art">
+					{{if g.ill}}<img class="us-jacket" src="{{g.ill}}" alt="">{{/if}}
+					<div class="us-gain-fade"></div>
+					<div class="us-gain-no"><p>#{{g.n}}</p></div>
+					{{if g.rating}}<div class="us-gain-grade"><img src="{{_imgPath}}{{g.rating}}.png" alt=""></div>{{/if}}
+					<div class="us-gain-chip"><div class="us-chip us-chip-{{g.chip.cls}}"><p>{{g.chip.rank}}</p>{{if g.chip.level}}<p class="us-chip-lv">{{g.chip.level}}</p>{{/if}}</div></div>
+				</div>
+				<div class="us-gain-body">
+					<div class="us-gain-title">
+						{{each g.title.lines line}}<p style="font-size:{{g.title.px}}px;">{{line}}</p>{{/each}}
+					</div>
+					<div class="us-gain-stats">
+						<div class="us-gain-big">
+							<p class="us-gain-v{{if g.first}} us-first{{/if}}">{{g.gain}}</p>
+							<p class="us-gain-k">{{g.gainLabel}}</p>
+						</div>
+						{{if g.first}}
+						<div class="us-cmp us-cmp-first">
+							<div class="us-cmp-r"><p class="us-cmp-k">{{us.vt.cmpRks}}</p><p class="us-cmp-n">{{g.rksNew}}</p></div>
+							<div class="us-cmp-r"><p class="us-cmp-k">{{us.vt.cmpAcc}}</p><p class="us-cmp-n">{{g.accNew}}</p></div>
+							<div class="us-cmp-r"><p class="us-cmp-k">{{us.vt.cmpScore}}</p><p class="us-cmp-n">{{g.scoreNew}}</p></div>
+						</div>
+						{{else}}
+						<div class="us-cmp">
+							<div class="us-cmp-r"><p class="us-cmp-k">{{us.vt.cmpRks}}</p><p class="us-cmp-o">{{g.rksOld}}</p><p class="us-cmp-a">→</p><p class="us-cmp-n">{{g.rksNew}}</p></div>
+							<div class="us-cmp-r"><p class="us-cmp-k">{{us.vt.cmpAcc}}</p><p class="us-cmp-o">{{g.accOld}}</p><p class="us-cmp-a">→</p><p class="us-cmp-n">{{g.accNew}}</p></div>
+							<div class="us-cmp-r"><p class="us-cmp-k">{{us.vt.cmpScore}}</p><p class="us-cmp-o">{{g.scoreOld}}</p><p class="us-cmp-a">→</p><p class="us-cmp-n">{{g.scoreNew}}</p></div>
+						</div>
+						{{/if}}
+					</div>
+				</div>
+			</div>
+			{{/each}}
+		</div>
+	</div>
+	{{/if}}
+
+	{{if us.showMovement}}
+	<div class="us-sec">
+		<div class="us-sec-h"><div class="us-mark"></div><p class="us-sec-t">{{us.vt.movement}}</p>{{if us.movement.meta}}<p class="us-sec-m">{{us.movement.meta}}</p>{{/if}}</div>
+		{{if us.movement.state == "changed"}}
+		<div class="us-moves us-moves-{{us.movement.layout}}">
+			{{each us.movement.sides side}}
+			<div class="us-move us-move-{{side.dir}}">
+				<div class="us-move-h">
+					<div class="us-move-ic"></div>
+					<p class="us-move-t">{{side.title}}</p>
+					<p class="us-move-n">{{side.count}}</p>
+					{{if side.aside}}<p class="us-move-aside">{{side.aside}}</p>{{/if}}
+				</div>
+				<div class="us-move-rows">
+					{{each side.rows m}}
+					<div class="us-move-r">
+						<div class="us-thumb">{{if m.ill}}<img src="{{m.ill}}" alt="">{{/if}}</div>
+						<div class="us-move-info">
+							<div class="us-move-title">{{each m.title.lines line}}<p style="font-size:{{m.title.px}}px;">{{line}}</p>{{/each}}</div>
+							<div class="us-chip us-chip-{{m.chip.cls}}"><p>{{m.chip.rank}}</p>{{if m.chip.level}}<p class="us-chip-lv">{{m.chip.level}}</p>{{/if}}</div>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+				{{if side.more}}<p class="us-move-more">{{side.more}}</p>{{/if}}
+			</div>
+			{{/each}}
+		</div>
+		{{else}}
+		<div class="us-note"><p>{{us.movement.note}}</p></div>
+		{{/if}}
+	</div>
+	{{/if}}
+
+	{{if us.tasks.length}}
+	<div class="us-sec">
+		<div class="us-sec-h"><div class="us-mark"></div><p class="us-sec-t">{{us.vt.tasks}}</p>{{if us.taskTime}}<p class="us-sec-m">{{us.taskTime}}</p>{{/if}}</div>
+		<div class="us-list">
+			{{each us.tasks task}}
+			<div class="us-row us-task">
+				<div class="us-thumb us-thumb-s">{{if task.ill}}<img src="{{task.ill}}" alt="">{{/if}}</div>
+				<div class="us-c-chip"><div class="us-chip us-chip-{{task.chip.cls}}"><p>{{task.chip.rank}}</p></div></div>
+				<div class="us-c-title">{{each task.title.lines line}}<p style="font-size:{{task.title.px}}px;">{{line}}</p>{{/each}}</div>
+				<p class="us-task-target">{{task.target}}</p>
+				<div class="us-task-st{{if task.done}} us-task-done{{/if}}"><p>{{task.status}}</p></div>
+			</div>
+			{{/each}}
+		</div>
+	</div>
+	{{/if}}
+
+	{{if us.groups.length}}
+	<div class="us-sec">
+		<div class="us-sec-h"><div class="us-mark"></div><p class="us-sec-t">{{us.listTitle}}</p><p class="us-sec-m">{{us.vt.updatesMeta}}</p></div>
+		{{if us.listCols}}
+		<div class="us-cols">
+			<p class="us-c-grade"></p>
+			<p class="us-c-chip">{{us.vt.colChart}}</p>
+			<p class="us-c-title"></p>
+			<p class="us-c-score">{{us.vt.colScore}}</p>
+			<p class="us-c-acc">{{us.vt.colAcc}}</p>
+			<p class="us-c-rks">{{us.vt.colRks}}</p>
+			<p class="us-c-delta">{{us.vt.colGain}}</p>
+		</div>
+		{{/if}}
+		{{each us.groups grp}}
+		<div class="us-grp">
+			<div class="us-grp-h"><div class="us-grp-dot"></div><p class="us-grp-d">{{grp.day}}</p><p class="us-grp-n">{{grp.count}}</p></div>
+			<div class="us-list">
+				{{each grp.rows r}}
+				<div class="us-row{{if r.phi}} us-row-phi{{/if}}">
+					<div class="us-c-grade">{{if r.rating}}<img src="{{_imgPath}}{{r.rating}}.png" alt="">{{/if}}</div>
+					<div class="us-c-chip"><div class="us-chip us-chip-{{r.chip.cls}}"><p>{{r.chip.rank}}</p>{{if r.chip.level}}<p class="us-chip-lv">{{r.chip.level}}</p>{{/if}}</div></div>
+					<div class="us-c-title">{{each r.title.lines line}}<p style="font-size:{{r.title.px}}px;">{{line}}</p>{{/each}}</div>
+					<p class="us-c-score">{{r.score}}</p>
+					<p class="us-c-acc">{{r.acc}}</p>
+					<p class="us-c-rks">{{r.rks}}</p>
+					{{if r.deltaCls == "new"}}<div class="us-c-delta us-c-tag"><p class="us-newtag">{{r.delta}}</p></div>{{else}}<p class="us-c-delta us-d-{{r.deltaCls}}">{{r.delta}}</p>{{/if}}
+				</div>
+				{{/each}}
+			</div>
+			{{if grp.more}}<p class="us-grp-more">{{grp.more}}</p>{{/if}}
+		</div>
+		{{/each}}
+	</div>
+	{{/if}}
+
+	<div class="us-foot">
+		<div class="us-foot-k"><p>{{us.vt.tip}}</p></div>
+		<p class="us-foot-t">{{tips}}</p>
+	</div>
+</div>
+</body>
+</html>

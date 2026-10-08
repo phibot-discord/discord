@@ -1,68 +1,44 @@
-import type { Kv } from "../../../src/sdk/index.ts"
-import { kvKey } from "./const.ts"
+import type { KvStore } from "../../../src/kv.ts";
+import { PHI_KV } from "./const.ts";
 
 function credentialKey(kind: string, value: string | number) {
-  return kvKey(kind, String(value))
+	return `${PHI_KV}:${kind}:${String(value)}`;
 }
 
 class CredentialStore {
-  constructor(private db: Kv) {}
+	constructor(private kv: KvStore) {}
 
-  getSessionToken(userId: string | number) {
-    return this.db.get(credentialKey("userToken", userId))
-  }
+	getSessionToken(userId: string | number) {
+		return this.kv.get(credentialKey("userToken", userId));
+	}
 
-  setSessionToken(userId: string | number, sessionToken: string) {
-    return this.db.set(credentialKey("userToken", userId), sessionToken)
-  }
+	setSessionToken(userId: string | number, sessionToken: string) {
+		return this.kv.set(credentialKey("userToken", userId), sessionToken);
+	}
 
-  deleteSessionToken(userId: string | number) {
-    return this.db.del(credentialKey("userToken", userId))
-  }
+	clearLocalCredentials(userId: string | number) {
+		return this.kv.del(
+			credentialKey("userToken", userId),
+			credentialKey("userApiId", userId),
+		);
+	}
 
-  getApiId(userId: string | number) {
-    return this.db.get(credentialKey("userApiId", userId))
-  }
+	/**
+	 * Deletes `phi:save:<token>`: its key is the TapTap session token and the
+	 * blob holds it again (`session`), so it must not outlive the binding
+	 */
+	clearSessionSave(sessionToken: string) {
+		return this.kv.del(credentialKey("save", sessionToken));
+	}
 
-  setApiId(userId: string | number, apiId: string | number) {
-    return this.db.set(credentialKey("userApiId", userId), String(apiId))
-  }
-
-  deleteApiId(userId: string | number) {
-    return this.db.del(credentialKey("userApiId", userId))
-  }
-
-  async clearLocalCredentials(userId: string | number) {
-    await this.db.del(credentialKey("userToken", userId))
-    await this.db.del(credentialKey("userApiId", userId))
-  }
-
-  async listSessionCredentials() {
-    const prefix = `${kvKey("userToken")}:`
-    const names = await this.db.keys(prefix)
-    const values = await Promise.all(names.map(key => this.db.get(key)))
-    const result = new Map<string, string>()
-    names.forEach((key, index) => {
-      const value = values[index]
-      if (value) result.set(key.slice(prefix.length), value)
-    })
-    return result
-  }
-
-  async banSessionToken(sessionToken: string) {
-    return this.db.set(credentialKey("banSessionToken", sessionToken), "1")
-  }
-
-  allowSessionToken(sessionToken: string) {
-    return this.db.del(credentialKey("banSessionToken", sessionToken))
-  }
-
-  async isSessionTokenBanned(sessionToken?: string | null) {
-    if (!sessionToken) return false
-    return Boolean(await this.db.get(credentialKey("banSessionToken", sessionToken)))
-  }
+	async isSessionTokenBanned(sessionToken?: string | null) {
+		if (!sessionToken) return false;
+		return Boolean(
+			await this.kv.get(credentialKey("banSessionToken", sessionToken)),
+		);
+	}
 }
 
-export function initCredentials(db: Kv) {
-  return new CredentialStore(db)
+export function initCredentials(kv: KvStore) {
+	return new CredentialStore(kv);
 }

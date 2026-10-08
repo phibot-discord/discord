@@ -1,8 +1,8 @@
 import type { Context } from "../../../src/sdk/index.ts"
 import { resolvePhiLocale } from "./card-i18n.ts"
-import { kvKey } from "./const.ts"
 import type { Catalog, Song } from "./catalog.ts"
-import { getNotes } from "./notes.ts"
+import { kvKey } from "./const.ts"
+import { getNotes, type UserNotes } from "./notes.ts"
 import type { PhiRuntime } from "./runtime.ts"
 import { updateSave } from "./saves.ts"
 
@@ -64,9 +64,16 @@ export function resolveSong(catalog: Catalog, name: string): { id: string; song:
   return { id, song, ids }
 }
 
-export async function replyCard(ctx: Context, template: string, data: Record<string, unknown>, filename: string, content?: string) {
-  const notes = await getNotes(ctx.db, ctx.userId)
-  const locale = resolvePhiLocale(notes.locale, ctx.locale)
+export async function replyCard(
+  ctx: Context,
+  template: string,
+  data: Record<string, unknown>,
+  filename: string,
+  content?: string,
+  notes?: UserNotes,
+) {
+  const n = notes ?? (await getNotes(ctx.db, ctx.userId))
+  const locale = resolvePhiLocale(n.locale, ctx.locale)
   const img = await ctx.render(template, { ...data, locale })
   await ctx.reply({
     content,
@@ -93,8 +100,8 @@ export function rankIndex(rank: string) {
 
 export async function isBanned(ctx: Context, feature: string) {
   const gid = ctx.guildId || "dm"
-  const hit = (await ctx.db.get(kvKey("ban", gid, feature))) || (await ctx.db.get(kvKey("ban", gid, "全部")))
-  if (hit) {
+  const [own, all] = await Promise.all([ctx.db.get(kvKey("ban", gid, feature)), ctx.db.get(kvKey("ban", gid, "全部"))])
+  if (own || all) {
     await ctx.reply({ content: "This feature is banned here.", ephemeral: true })
     return true
   }
