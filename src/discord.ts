@@ -1,4 +1,5 @@
 import { closeSync, existsSync, openSync, readFileSync, unlinkSync, writeSync } from "node:fs"
+import { createRequire } from "node:module"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
 import {
@@ -527,6 +528,26 @@ function clientShardOptions(shards: number | "auto") {
   return { shards: Array.from({ length: shards }, (_, i) => i), shardCount: shards }
 }
 
+type RestAgent = NonNullable<NonNullable<ConstructorParameters<typeof REST>[0]>["agent"]>
+
+/**
+ * An agent from discord.js's own undici (6.x, under @discordjs/rest). The shared render code
+ * loads undici 8, and the first undici loaded installs its agent as the global dispatcher; REST
+ * falls back to that global, and an undici 8 agent never sends discord.js's multipart uploads
+ * (every card reply hung until REST aborted it). With its own agent, load order does not matter
+ */
+export function discordAgent(): RestAgent | undefined {
+  try {
+    const fromDjs = createRequire(createRequire(import.meta.url).resolve("discord.js"))
+    const fromRest = createRequire(fromDjs.resolve("@discordjs/rest"))
+    const { Agent } = fromRest("undici") as { Agent: new () => RestAgent }
+    return new Agent()
+  } catch (err) {
+    logger.warn(`discord.js agent: using the global dispatcher (${err instanceof Error ? err.message : err})`)
+    return undefined
+  }
+}
+
 export async function startDiscord(host: Host) {
   const { token, clientId, guildId, shards } = host.app.config.discord
   if (!token || !clientId) {
@@ -544,9 +565,10 @@ export async function startDiscord(host: Host) {
   }
   process.on("exit", lock.release)
 
+  const agent = discordAgent()
   if (runsShardZero()) {
     const body = buildSlash(host.commands).map(b => b.toJSON())
-    const rest = new REST({ version: "10" }).setToken(token)
+    const rest = new REST({ version: "10", agent }).setToken(token)
     await routeSlashToGateway(rest)
     if (guildId) {
       await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body })
@@ -566,6 +588,7 @@ export async function startDiscord(host: Host) {
       GatewayIntentBits.MessageContent,
     ],
     partials: [Partials.Channel, Partials.Message],
+    rest: { agent },
   })
 
   let readyLogged = false
