@@ -124,6 +124,23 @@ export function cardCacheParts(
 	];
 }
 
+/** Where R2 files the card: what makes it stale (save, epoch, renderer) apart from what a user picks */
+export function cardSlot(input: CardImageCacheInput): {
+	userId: string;
+	kind: string;
+	version: string;
+	variant: string;
+} {
+	return {
+		userId: input.userId,
+		kind: input.kind,
+		version: [input.saveRevision, input.epoch || "0", input.renderVersion].join(
+			"|",
+		),
+		variant: cardCacheParts(input, "jpeg").join("|"),
+	};
+}
+
 export function parseCachedHeight(raw: unknown): number | undefined {
 	const n = typeof raw === "number" ? raw : Number(raw);
 	if (!Number.isFinite(n) || n <= 64) return;

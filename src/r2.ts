@@ -69,6 +69,17 @@ export function r2Config(): R2Config {
 	};
 }
 
+/** The private bucket for rendered cards: no public domain, so every read goes through the API */
+export function r2CacheConfig(): R2Config {
+	return {
+		...r2Config(),
+		bucket: r2BucketName(
+			process.env.CLOUDFLARE_R2_CACHE_BUCKET?.trim() || "phi-web-cache",
+		),
+		publicBase: "",
+	};
+}
+
 export function r2Ready(cfg = r2Config()): boolean {
 	if (cfg.publicBase) return true;
 	return r2WriteReady(cfg);
@@ -270,9 +281,11 @@ export async function putR2Object(
 		cache?: CacheMode;
 		/** Best-effort cache write: no backoff on 429/5xx */
 		background?: boolean;
+		/** Another bucket, such as r2CacheConfig()'s */
+		cfg?: R2Config;
 	} = {},
 ): Promise<void> {
-	const cfg = r2Config();
+	const cfg = extra.cfg ?? r2Config();
 	if (!r2WriteReady(cfg)) {
 		throw new Error("R2 write is not configured");
 	}
@@ -296,4 +309,62 @@ export async function putR2Object(
 	}
 	missing.delete(k);
 	if (extra.cache !== "no-store") remember(k, body);
+}
+
+/** Every key under `prefix`, through the API: the public domain cannot list */
+export async function listR2Keys(
+	prefix: string,
+	cfg = r2Config(),
+): Promise<string[]> {
+	if (!r2WriteReady(cfg)) throw new Error("R2 write is not configured");
+	const keys: string[] = [];
+	let cursor: string | undefined;
+	for (;;) {
+		const url = new URL(objectUrl(cfg, "").replace(/\/$/, ""));
+		url.searchParams.set("prefix", prefix);
+		url.searchParams.set("per_page", "1000");
+		if (cursor) url.searchParams.set("cursor", cursor);
+		const res = await cfFetch(url.toString(), {
+			headers: { Authorization: `Bearer ${cfg.apiToken}` },
+		});
+		if (!res.ok) throw new Error(`R2 list ${prefix} failed: ${res.status}`);
+		const body = (await res.json()) as {
+			result?: { key?: unknown }[];
+			result_info?: { cursor?: unknown; is_truncated?: unknown };
+		};
+		for (const row of body.result ?? []) {
+			if (typeof row.key === "string") keys.push(row.key);
+		}
+		const next = body.result_info?.cursor;
+		if (body.result_info?.is_truncated !== true || typeof next !== "string")
+			return keys;
+		cursor = next;
+	}
+}
+
+export async function deleteR2Object(
+	key: string,
+	cfg = r2Config(),
+): Promise<void> {
+	if (!r2WriteReady(cfg)) throw new Error("R2 write is not configured");
+	const res = await cfFetch(objectUrl(cfg, key), {
+		method: "DELETE",
+		headers: { Authorization: `Bearer ${cfg.apiToken}` },
+	});
+	if (!res.ok && res.status !== 404) {
+		throw new Error(`R2 DELETE ${key} failed: ${res.status}`);
+	}
+	const prev = mem.get(key);
+	if (prev) memBytes -= prev.byteLength;
+	mem.delete(key);
+	rememberMissing(key);
+}
+
+/** One object through the API, uncached: for a private bucket. Undefined when it is absent or the read fails */
+export async function readPrivateR2Object(
+	key: string,
+	cfg: R2Config,
+): Promise<Buffer | undefined> {
+	const got = await readApi(cfg, key);
+	return Buffer.isBuffer(got) ? got : undefined;
 }

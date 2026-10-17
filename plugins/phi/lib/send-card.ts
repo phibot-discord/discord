@@ -1,4 +1,5 @@
 import {
+  type CardSlot,
   cacheKey,
   cardEtag,
   readCachedHeight,
@@ -6,7 +7,7 @@ import {
   writeCachedHeight,
   writeCachedPng,
 } from "../../../src/cache.ts"
-import { cardCacheInput, cardCacheParts, getCardEpoch, RENDER_VERSION } from "../../../src/card-image-cache.ts"
+import { cardCacheInput, cardCacheParts, cardSlot, getCardEpoch, RENDER_VERSION } from "../../../src/card-image-cache.ts"
 import { type CardKind, cardCacheKind, clampCount, parseSongLevel, type SongLevel } from "../../../src/card-kinds.ts"
 import { prefetchIlls } from "../../../src/ill.ts"
 import type { KvStore } from "../../../src/kv.ts"
@@ -87,6 +88,7 @@ type Prep = {
   song?: { chart: string; level: SongLevel }
   key: string
   heightId: string
+  slot: CardSlot
   started: number
 }
 
@@ -174,6 +176,7 @@ export async function sendCard(ctx: Context, kind: CardKind, opts: SendCardOpts 
     song,
     key: cacheKey(cardCacheKind(kind), ctx.userId, cardEtag(cardCacheParts(input, "jpeg"))),
     heightId: cardEtag(cardCacheParts(input, "height")),
+    slot: cardSlot(input),
     started,
   }
   let out: Painted | string
@@ -202,7 +205,7 @@ const inflight = new Map<string, Promise<Painted | string>>()
 async function sharedCard(prep: Prep): Promise<Painted | string> {
   // Without R2 the bot keeps cards in memory only: big KV values are slow and count against KV quotas
   const durable = r2WriteReady()
-  const hit = await readCachedPng({ store: prep.ctx.service<KvStore>("kv") }, prep.key, { durable }).catch(err => {
+  const hit = await readCachedPng({ store: prep.ctx.service<KvStore>("kv") }, prep.key, { durable, slot: prep.slot }).catch(err => {
     logger.warn(`card cache lookup failed, rendering: ${err instanceof Error ? err.message : err}`)
     return undefined
   })
@@ -255,7 +258,7 @@ async function paintFreshCard(prep: Prep, durable: boolean): Promise<Painted | s
   }
   const partial = built.data.renderPartial === true
   if (!fellBack && !partial) {
-    await writeCachedPng({ store }, prep.key, img.bytes, { durable })
+    await writeCachedPng({ store }, prep.key, img.bytes, { durable, slot: prep.slot })
     if (!height && img.height > 64) await writeCachedHeight(store, prep.heightId, img.height)
   }
   logger.info(`card ${prep.kind} painted in ${Math.round(performance.now() - prep.started)}ms`)
