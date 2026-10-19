@@ -6,7 +6,7 @@ import {
 	outgoingFetch,
 	socketTimeouts,
 } from "../../../src/outgoing.ts";
-import { PHI_PROXY_KEY, PROXY_KEY_HEADER } from "./const.ts";
+import { PHI_PROXY_KEY, PHI_SYNC_ORIGIN, PROXY_KEY_HEADER } from "./const.ts";
 
 export const TAPAPI_TIMEOUT_MS = 30_000;
 export const TAPAPI_SAVE_TIMEOUT_MS = 45_000;
@@ -14,7 +14,7 @@ export const TAPAPI_QR_POLL_TIMEOUT_MS = 15_000;
 const TAPAPI_MAX_ATTEMPTS = 4;
 const TAP_RETRY_METHODS = new Set(["GET", "HEAD", "OPTIONS", "PUT", "DELETE"]);
 const TAP_CN_HOST = /(?:^|\.)tapapis\.cn$|(?:^|\.)tapfiles\.cn$/i;
-const DEFAULT_TAP_PROXY = "https://phi-ill-sync.ymyk.workers.dev/tap-proxy";
+const DEFAULT_TAP_PROXY = `${PHI_SYNC_ORIGIN}/tap-proxy`;
 
 function tapProxyBase(): string {
 	const raw = process.env.TAP_PROXY_URL;

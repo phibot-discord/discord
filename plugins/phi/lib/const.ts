@@ -16,8 +16,10 @@ export function kvKey(...parts: Array<string | number>) {
 	return `${PHI_KV}:${parts.map(String).join(":")}`;
 }
 
+export const PHI_SYNC_ORIGIN = "https://sync.phibot.dev";
+
 export const PHI_CHART_TAG_API = (
-	process.env.PHI_CHART_TAG_API || "https://phi-ill-sync.ymyk.workers.dev"
+	process.env.PHI_CHART_TAG_API || PHI_SYNC_ORIGIN
 ).replace(/\/+$/, "");
 
 export const PHI_PROXY_KEY = process.env.PHI_PROXY_KEY?.trim() || "";

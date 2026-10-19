@@ -148,22 +148,22 @@ test("AbortSignal.timeout rejects fractional leftover ms from performance.now", 
 });
 
 test("no-auth chart-tag routes keep GET vs POST", () => {
-	assert.equal(PHI_CHART_TAG_API, "https://phi-ill-sync.ymyk.workers.dev");
+	assert.equal(PHI_CHART_TAG_API, "https://sync.phibot.dev");
 	assert.equal(
 		chartTagUrl("/chartsTag/get/tagTree"),
-		"https://phi-ill-sync.ymyk.workers.dev/chartsTag/get/tagTree",
+		"https://sync.phibot.dev/chartsTag/get/tagTree",
 	);
 	assert.equal(
 		chartTagUrl("/chartsTag/get/b30Analysis"),
-		"https://phi-ill-sync.ymyk.workers.dev/chartsTag/get/b30Analysis",
+		"https://sync.phibot.dev/chartsTag/get/b30Analysis",
 	);
 	assert.equal(
 		chartTagUrl("/get/scoreList/allAccAvg"),
-		"https://phi-ill-sync.ymyk.workers.dev/get/scoreList/allAccAvg",
+		"https://sync.phibot.dev/get/scoreList/allAccAvg",
 	);
 	assert.equal(
 		new URL(chartTagUrl("/x")).host,
-		"phi-ill-sync.ymyk.workers.dev",
+		"sync.phibot.dev",
 	);
 	assert.notEqual(new URL(chartTagUrl("/x")).port, "8080");
 });

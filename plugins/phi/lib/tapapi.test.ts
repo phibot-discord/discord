@@ -90,15 +90,15 @@ test("isRetryableTapNet retries kernel SYN deaths, not HTTP errors", () => {
 test("CN TapTap is proxied; global TapTap is not", () => {
 	assert.equal(
 		tapCnProxyUrl("https://rak3ffdi.cloud.tds1.tapapis.cn/1.1/users/me"),
-		"https://phi-ill-sync.ymyk.workers.dev/tap-proxy",
+		"https://sync.phibot.dev/tap-proxy",
 	);
 	assert.equal(
 		tapCnProxyUrl("https://accounts.tapapis.cn/oauth2/v1/token"),
-		"https://phi-ill-sync.ymyk.workers.dev/tap-proxy",
+		"https://sync.phibot.dev/tap-proxy",
 	);
 	assert.equal(
 		tapCnProxyUrl("https://rak3ffdi.tds1.tapfiles.cn/gamesaves/abc/.save"),
-		"https://phi-ill-sync.ymyk.workers.dev/tap-proxy",
+		"https://sync.phibot.dev/tap-proxy",
 	);
 	assert.equal(
 		tapCnProxyUrl("https://kviehlel.cloud.ap-sg.tapapis.com/1.1/users/me"),
