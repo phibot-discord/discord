@@ -35,7 +35,7 @@ function checkIg(save: Save) {
 	const cap = getInfo.MAX_DIFFICULTY;
 	if (cap > 0 && rks > cap) return true;
 	if (rks == null || Number.isNaN(rks)) return true;
-	if (clg % 100 > 51) return true;
+	if (clg % 100 > 3 * Math.floor(cap || 17)) return true;
 	if (clg < 0) return true;
 	if (clg % 100 === 0 && clg !== 0) return true;
 	if (Math.floor(clg / 100) === 0 && clg !== 0) return true;
